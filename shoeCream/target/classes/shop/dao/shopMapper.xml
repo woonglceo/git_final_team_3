@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="shopSQL">
+	<!-- 전체 목록 -->
+	<select id="getShopList" parameterType="java.util.Map" resultType="shop">
+	<!-- 
+    	SELECT * FROM
+                (SELECT ROWNUM rn, s.* FROM
+                    (SELECT s.stockId, s.productId, s.productSize AS stockProductSize, s.exportDate,
+                            p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productSize, p.productCollection, p.regDate AS productRegDate
+                    FROM stock_table s,
+                         product_table p
+                    WHERE s.productId = p.productId AND s.productSize = p.productSize)s)
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+		 -->
+		 SELECT * FROM product_table
+	</select>
+	
+	<!-- 한개 가져오기 --> 
+	<select id="getShop" parameterType="int" resultType="shop">
+		SELECT p.*
+		    ,(SELECT COUNT(*) FROM style_board WHERE productId = #{productId}) AS styleCount
+		    ,(SELECT COUNT(*) FROM wish_list WHERE productId = #{productId}) AS wishListCount
+		    ,(SELECT price FROM price_table WHERE TO_CHAR(regDate, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') AND productId = #{productId}) AS todaysPrice
+		FROM product_table p
+		WHERE p.productId = #{productId}
+	</select>
+	
+	<!-- 총글수 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM product_table
+	</select> 
+	
+	<!-- 검색 --><!-- 
+	<select id="getShopSearchList" parameterType="java.util.Map" resultType="shop">
+		
+		SELECT * FROM
+		    (SELECT ROWNUM rn, d.* FROM
+		        (SELECT d.dealId, d.purchaseId, d.salesId, d.checkId, d.deliveryId, d.regDate AS dealRegDate,
+		                pur.userId AS purchaseUserId, pur.productId AS purchaseProductId, pur.status, pur.regDate AS purchaseRegDate, pur.regDate+30 AS purchaseDueDate,
+		                s.userId AS salesUserId, s.productId AS salesProductId, s.price AS salesPrice, s.status AS salesStatus, s.regDate AS salesRegDate, s.regDate+30 AS salesDueDate,
+		                p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productSize, p.productCollection, p.regDate AS productRegDate,
+		                c.productId AS checkProductId, c.userId AS checkUserId, c.checkState, c.checkResult,
+		                d2.deliveryStatus, d2.trackingNum, d2.regDate AS deliveryRegDate,
+		                u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum, u.reportCount, u.img,
+		                u2.email AS pEmail, u2.username AS pUsername, u2.pwd AS pPwd, u2.nickname AS pNickname, u2.auth AS pAuth, u2.phoneNum AS pPhoneNum, u2.reportCount AS pReportCount, u2.img AS pImg
+		        FROM deal_table d,
+		             purchase_table pur,
+		             sales_table s,
+		             product_table p,
+		             check_table c,
+		             delivery_table d2,
+		             user_table u,
+		             user_table u2
+		        WHERE d.purchaseId = pur.purchaseId
+		              and d.salesId = s.salesId
+		              and s.productId = p.productId
+		              and d.checkId = c.checkId
+		              and d.deliveryId = d2.deliveryId
+		              and s.userId = u.userId
+		              and pur.userId = u2.userId
+		        ORDER BY dealId desc)d
+		        
+		    <if test='searchOption == "username"'>    
+				WHERE username LIKE '%' || UPPER(#{keyword}) || '%'
+				  OR pUsername LIKE '%' || UPPER(#{keyword}) || '%')
+			</if>
+			<if test='searchOption == "productName"'>    
+				WHERE ${searchOption} LIKE '%' || UPPER(#{keyword}) || '%')
+			</if>
+			<if test='searchOption == "dealId"'>    
+				WHERE ${searchOption} =  #{keyword} )
+			</if>
+			
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+	</select> -->
+	
+</mapper>

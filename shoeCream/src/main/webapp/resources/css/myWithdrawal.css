@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.myWithdrawal {
+	overflow: hidden;
+    min-height: 380px;
+    max-width: 100%;
+}

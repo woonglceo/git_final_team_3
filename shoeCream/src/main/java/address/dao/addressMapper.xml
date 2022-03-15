@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD M apper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="addressSQL">
+	<select id="getAddressList" parameterType="java.util.Map" resultType="address">
+    	SELECT * 
+			FROM (SELECT rownum rn, totalData.* 
+				FROM (SELECT * FROM address_table WHERE userId=#{userId} ORDER BY DECODE(defaultAddr, 'Y', 1) asc, regDate desc) totalData) 
+		WHERE rn BETWEEN #{startNum} and #{endNum}
+	</select>
+</mapper>
+
+ 
+ 

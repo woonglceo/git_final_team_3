@@ -1,0 +1,72 @@
+.style-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 20px;
+  margin: 2%;
+}
+
+.style_wrap {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+.style_wrap-imgbox {
+  position: relative;
+  background-color: gray;
+  width: 12vw !important;
+  height: 16vw !important;
+  border-radius: 8px;
+
+  margin: 1%;
+}
+.slick-arrow.slick-hidden {
+  display: unset;
+}
+.style_wrap-imgbox p {
+  position: relative;
+  transform: translate(28%, 1050%);
+
+  color: rgb(209, 209, 209);
+}
+
+.style_wrap-img {
+  border: 3px solid white;
+  position: absolute;
+  position: relative;
+  transform: translate(10%, 10%);
+  background-color: rgb(194, 194, 194);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.item {
+  /* 슬라이드 되어야 할 아이템 */
+  width: calc(100% / 7);
+  height: 200px;
+  border: 1px solid #000;
+  background: #f00;
+}
+/* 
+.next,
+.prev {
+  커스텀 버튼. 위치를 잡기위해 absolute 를 준다
+  position: absolute;
+  top: 35%;
+}
+.next {
+  right: 5%;
+}
+.prev {
+  left: 5%;
+}
+ */
+/* the slides */
+.slick-slide {
+  margin: 0 10px;
+}
+/* the parent */
+.slick-list {
+  margin: 0 -10px;
+}

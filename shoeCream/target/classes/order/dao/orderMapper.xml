@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="orderSQL">
+	<!-- 전체 목록 -->
+	<select id="getOrderList" parameterType="java.util.Map" resultType="order">
+		SELECT * FROM
+		    (SELECT ROWNUM rn, o.* FROM
+		        (select o.orderId, o.userId, o.paymentId, o.deliveryId, o.addressId, o.stockId, o.orderDate, o.phoneNum AS orderPhoneNum,
+		                s.productId, s.exportDate,
+		                p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productCollection, p.regDate AS productRegDate,
+		                pay.paymentMethod, pay.bank, pay.accountNum, pay.accountHolder, pay.paymentDate,
+		                u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum AS userPhoneNum, u.introMsg, u.reportCount, u.img AS userImg, u.lastDate, u.regDate AS userRegDate,
+		                d.deliveryStatus, d.trackingNum, d.regDate AS deliveryRegDate,
+		                a.userId AS addressUserId, a.recipient, a.addr1, a.addr2, a.zipcode, a.regdate AS addressRegDate
+		        from order_table o,
+		             stock_table s,
+		             product_table p,
+		             payment_table pay,
+		             user_table u,
+		             delivery_table d,
+		             address_table a
+		        where o.userId = u.userId
+		              and o.paymentId = pay.paymentId
+		              and o.stockId = s.stockId
+		              and s.productId = p.productId
+		              and o.deliveryId = d.deliveryId
+		              and o.addressId = a.addressId
+		        ORDER BY orderId desc)o)
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+	</select>
+	
+	<!-- 한개 가져오기 -->
+	<select id="getOrder" parameterType="int" resultType="order">
+		SELECT * FROM order_table WHERE orderId = #{orderId}
+	</select>
+	
+	<!-- 총글수 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM order_table
+	</select>
+	
+	<!-- 검색 -->
+	<select id="getOrderSearchList" parameterType="java.util.Map" resultType="order">
+	<!-- 
+		SELECT * FROM
+		   (SELECT ROWNUM rn, o.* FROM
+			    (select o.orderId, o.userId, o.paymentId, o.deliveryId, o.addressId, o.orderDate, o.phoneNum AS orderPhoneNum,
+			           p.brandId, p.productName, p.modelId, p.releasePrice, p.productSize, p.img1, p.img2, p.img3, p.releaseDate, p.regDate AS productRegDate,
+			           pay.paymentMethod, pay.bank, pay.accountNum, pay.accountHolder, pay.paymentDate,
+			           u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum AS userPhoneNum, u.introMsg, u.reportCount, u.img AS userImg, u.lastDate, u.regDate AS userRegDate,
+			           d.deliveryStatus, d.trackingNum, d.regDate AS deliveryRegDate,
+			           a.userId AS addressUserId, a.recipient, a.addr1, a.addr2, a.zipcode, a.regdate AS addressRegDate
+			    from order_table o,
+			         product_table p,
+			         payment_table pay,
+			         user_table u,
+			         delivery_table d,
+			         address_table a
+			    where o.userId = u.userId
+			          and o.paymentId = pay.paymentId
+			          and o.productId = p.productId
+			          and o.deliveryId = d.deliveryId
+			          and o.addressId = a.addressId
+			    ORDER BY orderId desc)o
+			WHERE ${searchOption} LIKE '%' || #{keyword} || '%')
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+		 -->
+		SELECT * FROM
+		    (SELECT ROWNUM rn, o.* FROM
+		        (select o.orderId, o.userId, o.paymentId, o.deliveryId, o.addressId, o.stockId, o.orderDate, o.phoneNum AS orderPhoneNum,
+		                s.productId, s.exportDate,
+		                p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productSize, p.productCollection, p.regDate AS productRegDate,
+		                pay.paymentMethod, pay.bank, pay.accountNum, pay.accountHolder, pay.paymentDate,
+		                u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum AS userPhoneNum, u.introMsg, u.reportCount, u.img AS userImg, u.lastDate, u.regDate AS userRegDate,
+		                d.deliveryStatus, d.trackingNum, d.regDate AS deliveryRegDate,
+		                a.userId AS addressUserId, a.recipient, a.addr1, a.addr2, a.zipcode, a.regdate AS addressRegDate
+		        from order_table o,
+		             stock_table s,
+		             product_table p,
+		             payment_table pay,
+		             user_table u,
+		             delivery_table d,
+		             address_table a
+		        where o.userId = u.userId
+		              and o.paymentId = pay.paymentId
+		              and o.stockId = s.stockId
+		              and s.productId = p.productId
+		              and o.deliveryId = d.deliveryId
+		              and o.addressId = a.addressId
+		        ORDER BY orderId desc)o
+			WHERE ${searchOption} LIKE '%' || #{keyword} || '%')
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+	</select>
+	
+</mapper>

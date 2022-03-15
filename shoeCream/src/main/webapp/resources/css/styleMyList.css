@@ -1,0 +1,270 @@
+
+.want_margin{
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.style_mystyle {
+  margin: auto;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+}
+
+.style_mystyle-img {
+
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.mystyle-infobox {
+
+    color:rgb(36, 36, 36);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+
+}
+
+.mystyle-username{
+    margin : 4px 0px;
+}
+
+.mystyle-sub_text{
+    margin : 4px 0px;
+    
+}
+
+.mystyle-sub {
+    color:rgb(82, 82, 82);
+  font-size: 12px;
+  text-align: center;
+}
+
+.mystyle-button{
+    text-align: center;
+}
+.mystyle-button_real{
+   
+    box-sizing: border-box;
+    margin-top: 5px;
+    border: none;
+    padding : 5px 20px;
+    background-color:  #222;
+    color : white;
+  
+    font-size:10px;
+    text-align: center;
+    border-radius: 7px;
+
+    font-weight: 600;
+}
+
+/* 게시물 팔로워 팔로잉  */
+
+li{
+    list-style:none;
+    padding-left:0px;
+ 
+}
+
+.mystyle_tab-menu{
+    margin-right: 3px;
+}
+
+.mystyle-tablist_ul{
+    display: flex;
+    justify-content: center;
+   
+}
+
+.tab-item{
+    font-size : 14px;
+    padding : 20px 30px;
+}
+
+.mystyle_tab-count{
+    font-weight: 600;
+}
+.mystyle-tablist{
+    margin-right: 30px;
+}
+
+/* 마이스타일 적용 \tests *//* 마이스타일 적용 \tests *//* 마이스타일 적용 \tests *//* 마이스타일 적용 \tests */
+
+.want-margin {
+    margin: 5px 120px;
+  }
+  
+  /*스타일 탭 리스트*/
+  .style-tab-list {
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px 11px;
+  }
+  
+  .sylte-tab_item {
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    font-size: 18;
+    border-radius: 19px;
+    padding: 8px 14px;
+  }
+  
+  .sylte-tab_item_tab_on {
+    color: black;
+    text-decoration: none;
+    font-size: 18;
+    border-radius: 19px;
+    padding: 8px 14px;
+  }
+  
+  .trend-keyword_wrap {
+    /* padding : 30px 40px 0px; */
+    display: flex;
+    padding-bottom: 6px;
+    justify-content: center;
+    padding-bottom: 17px;
+  }
+  /*스타일 탭 리스트*/
+  
+  /*스타일 키워드*/
+  .trend-keyword {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid #ebebeb;
+    text-decoration: none;
+    background-color: white;
+    color: rgb(66, 66, 66);
+    font-size: 13px;
+  }
+  /*스타일 키워드*/
+  
+  .style-feed_box {
+    flex-wrap: wrap;
+  }
+  
+  /*스타일 대표이미지*/
+  
+  .style-feed_detail {
+    box-sizing: border-box;
+    padding: 8px 4px 0px;
+  }
+  
+  .style-img_real {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+  }
+  .style-img {
+    width: 280px;
+    height: 370px;
+    background-color: rgb(199, 199, 199);
+    border-radius: 10px;
+  }
+  /*스타일 대표이미지*/
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  /*스타일 유저+피드*/
+  .style_img-profile {
+    width: 100%;
+    height: 100%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: rgb(83, 83, 83);
+  }
+  .style_user-box {
+    display: flex;
+  }
+  .style_user-box p {
+    font-size: 13px;
+    height: 100%;
+    margin: 5px 5px;
+    text-align: center;
+    color: rgba(34, 34, 34, 0.8);
+  }
+  .style_text-box {
+    display: block;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  
+    max-width: 280px;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 4px;
+    max-height: 40px;
+  }
+  /*스타일 유저+피드*/
+  
+  /*스타일 좋아요 + 댓글*/
+  .style_smile-link,
+  .style_comment-link {
+    font-size: 13px;
+    text-decoration: none;
+    color: rgba(158, 158, 158, 0.5);
+  }
+  
+  .style_like-count {
+    margin-right: 11px;
+    margin-left: 2px;
+  }
+  
+  .style_btn-box{
+      margin-bottom: 6px;
+  }
+  
+  .style_comment-count {
+    margin-left: 2px;
+  }
+  /*스타일 좋아요 + 댓글*/
+  
+  /*스타일 프로덕트*/
+  
+  .product {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .product_name {
+  
+      font-size: 11px;
+    max-width: 220px;
+  
+  margin : 9px 0px 1px 6px ;
+  
+    display: block;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  
+  .style_product-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+  }
+  
+  .product-wrap {
+    display: flex;
+  }
+  /*스타일 프로덕트*/
+  
+  .price-box{
+      margin-top: 0px;
+      font-size : 11px;
+      margin-left :4px;
+  }

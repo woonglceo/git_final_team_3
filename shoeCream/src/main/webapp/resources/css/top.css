@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding-top: 120px;
+	font-family: -apple-system,BlinkMacSystemFont,Roboto,AppleSDGothicNeo-Regular,NanumBarunGothic,NanumGothic,나눔고딕,Segoe UI,Helveica,Arial,Malgun Gothic,Dotum,sans-serif;
+}
+
+.header	{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: white;
+	z-index: 1000;
+}
+
+.list_menu {
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 50px;
+	/* padding: 0 90px 0 0; 조금? */
+	margin: 3px 0;
+}
+
+.list_menu li {
+	padding: 8px 12px;
+	list-style: none;
+	font-size: 13px;
+	color: gray;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+hr {
+	height: 0.2px;
+	background-color: #e0e0e0;
+	border: 0px;
+	margin: 3px 0;
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center; /* 수직방향 center */
+	padding: 0px 50px;	
+	margin: 10px 0;
+}
+
+.navbar__menu {
+	display: flex;
+	padding-left: 0;
+	margin: 8px 0;
+}
+
+.navbar__menu li {
+	padding: 8px 20px;
+	list-style: none;
+	font-size: 17px;
+}
+
+.navbar__icon {
+	flex-basis: 2%;
+}
+
+.navbar__menu__open {
+		display: block;
+}
+
+.navbar__toggle-btn {
+	position: absolute;
+	display: none;
+	top: 60px;
+	right: 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+	.navbar {
+		flex-direction: column;
+	}
+}

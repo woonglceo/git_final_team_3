@@ -1,0 +1,339 @@
+/* selling css */
+
+div {
+    display: block;
+}
+.content_title{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 5px 0 6px;
+}
+.title{
+    font-size: 24px;
+    letter-spacing: -.36px;
+}
+
+.title>h3 {
+    line-height: 29px;
+    font-size: inherit;
+}
+.purchase_list_tab {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    background-color: #fafafa;
+    border-radius: 12px;
+}
+.purchase_list_tab.detail_tab {
+    background-color: #fff;
+    border-radius: 0;
+    margin-top: 20px;
+}
+.purchase_list_tab.detail_tab .tab_on .tab_link {
+    border-bottom: 2px solid #222;
+}
+
+.purchase_list_tab.detail_tab .tab_link {
+    padding-top: 12px;
+    height: 68px;
+    border-bottom: 1px solid #d3d3d3;
+}
+.purchase_list_tab.detail_tab .tab_on .title{
+    color: #222;
+    font-weight: 700;
+}
+.purchase_list_tab.detail_tab .tab_box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+.tab_link {
+    position: relative;
+    display: block;
+    padding-top: 18px;
+    height: 96px;
+}
+.tab_item{
+    display: table-cell;
+    text-align: center;
+}
+
+/* count */
+.tab_link .count {
+    margin-top: 2px;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -.09px;
+    font-weight: 700;
+}
+.purchase_list_tab.detail_tab .count {
+    margin-top: 0;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -.1px;
+}
+.purchase_list_tab.detail_tab .tab_on .count {
+    color: #f15746;
+}
+.tab_link .title {
+    font-size: 13px;
+    letter-spacing: -.07px;
+    color: rgba(34,34,34,.8);
+}
+
+dt {
+    display: block;
+}
+dl {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+dd {
+    display: block;
+    margin-inline-start: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+/* 기간 */
+.period_search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-color: #fafafa;
+    border-bottom: 1px solid #ebebeb;
+}
+.md .period_month {
+    display: none;
+}
+.period_month {
+    margin-right: 20px;
+}
+.month_item, .month_list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.search_info .info_item {
+    font-size: 12px;
+    letter-spacing: -.06px;
+    color: rgba(34,34,34,.5);
+}
+.month_link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 12px;
+    min-width: 62px;
+    height: 32px;
+    line-height: 30px;
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    font-size: 13px;
+    letter-spacing: -.07px;
+    color: rgba(34,34,34,.8);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.month_item.custom>.month_link {
+    background-color: #222;
+    border-color: #d3d3d3;
+    color: #fff;
+}
+.month_item.custom {
+    display: none;
+}
+.month_item+.month_item {
+    margin-left: 4px;
+}
+
+input, textarea {
+    padding: 0;
+    outline: 0;
+    border: 0;
+    resize: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    background-color: rgba(0,0,0,0);
+}
+.period_calendar_wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.period_calendar {
+    position: relative;
+    margin-top: 18px;
+}
+.period_calendar .calendar_wrap {
+    position: relative;
+    padding: 0 30px 0 12px;
+    display: inline-block;
+    width: 120px;
+    height: 32px;
+    line-height: 30px;
+    vertical-align: top;
+    border: 1px solid #ebebeb;
+    background-color: #fff;
+    cursor: pointer;
+}
+.period_calendar .cal_input {
+    width: 100%;
+    font-size: 13px;
+    letter-spacing: -.07px;
+    color: rgba(34,34,34,.8);
+    cursor: default;
+}
+.period_calendar .cal_btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    margin-top: -9px;
+    width: 18px;
+    height: 18px;
+    background-size: 18px 18px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA1NiA1NiI+PHBhdGggZmlsbD0iI0JCQiIgZD0iTTIxIDI1LjY2N2gtNC42Njd2NC42NjZIMjF2LTQuNjY2em05LjMzMyAwaC00LjY2NnY0LjY2Nmg0LjY2NnYtNC42NjZ6bTkuMzM0IDBIMzV2NC42NjZoNC42Njd2LTQuNjY2em00LjY2Ni0xNi4zMzRINDJWNC42NjdoLTQuNjY3djQuNjY2SDE4LjY2N1Y0LjY2N0gxNHY0LjY2NmgtMi4zMzNjLTIuNTkgMC00LjY0NCAyLjEtNC42NDQgNC42NjdMNyA0Ni42NjdhNC42NjYgNC42NjYgMCAwMDQuNjY3IDQuNjY2aDMyLjY2NkE0LjY4IDQuNjggMCAwMDQ5IDQ2LjY2N1YxNGE0LjY4IDQuNjggMCAwMC00LjY2Ny00LjY2N3ptMCAzNy4zMzRIMTEuNjY3VjIxaDMyLjY2NnYyNS42Njd6Ii8+PC9zdmc+);
+}
+.period_calendar .swung_dash {
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: -.21px;
+    line-height: 32px;
+    color: rgba(34,34,34,.8);
+}
+.period_calendar .vc-popover-content-wrapper {
+    -webkit-transform: translate(-1px,30px)!important;
+    -ms-transform: translate(-1px,30px)!important;
+    transform: translate(-1px,30px)!important;
+}
+.vc-popover-content-wrapper{;
+    --popover-vertical-content-offset: 10px;
+    --popover-slide-translation: 15px;
+    --popover-transition-time: 0.14s ease-in-out;
+    --popover-caret-horizontal-offset: 18px;
+    --popover-caret-vertical-offset: 8px;
+    position: absolute;
+    display: block;
+    outline: none;
+    z-index: 10;
+}
+.vc-popover-content-wrapper:not(.is-interactive) {
+    pointer-events: none;
+}
+.period_btn_box {
+    margin-left: 4px;
+}
+.btn_search {
+    padding: 0 16px;
+    height: 32px;
+    line-height: 30px;
+    font-size: 13px;
+    letter-spacing: -.07px;
+    color: rgba(34,34,34,.8);
+    border: 1px solid #ebebeb;
+    background-color: #fff;
+    cursor: pointer;
+    margin-top: 18px;
+}
+.btn_search.is_active {
+    background-color: #222;
+    border-color: #d3d3d3;
+    color: #fff;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.search_info{
+    padding: 12px 0;
+}
+.search_info li{
+	list-style: none;
+	text-align: -webkit-match-parent;
+}
+
+.search_info p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+/* 전체 / 희망가 */
+.purchase_head {
+    padding: 12px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+}
+.head_product, .head_status, .purchase_head{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.btn_filter {
+    position: relative;
+    padding: 5px 30px 5px 10px;
+    display: inline-block;
+    width: 120px;
+    line-height: 24px;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-radius: 12px;
+    font-size: 13px;
+    letter-spacing: -.07px;
+}
+.bidding .head_status .status_box.field_price {
+    display: block;
+}
+.head_status {
+    margin-left: auto;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: right;
+    display: flex;
+}
+.head_status .status_box {
+    margin-left: 10px;
+    width: 134px;
+}
+
+/* 전체 버튼 */
+.ico-arr-dir-down-circle {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+}
+[class*=ico-] {
+    width: 24px;
+    height: 24px;
+}
+
+/* empty area */
+.empty_area {
+    padding: 80px 0;
+}
+
+/* 실제 데이터 */

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypageSQL">
+	<!-- 특정 회원의 wish_list 불러오기 -->
+	<select id="getWishList" parameterType="java.util.Map" resultType="WishListDTO">
+		select * 
+			from (select rownum rn, totalData.* 
+				from (select * from wish_list where userId=#{userId} order by wishlistId desc) totalData) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 특정 테이블 전체 데이터 수 -->
+	<select id="getTotalDB" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from ${tableName} where userId=#{userId}
+	</select>
+	
+	<!-- wish 상품 삭제 -->
+	<delete id="deleteWish" parameterType="Integer">
+		delete from wish_list where wishListId=#{wishListId}
+	</delete>
+	
+	<!-- 리스트를 가져오기 전 마감기한 업데이트 -->
+	<update id="updateStaus" parameterType="java.util.Date">
+	<![CDATA[
+		update purchase_table set status=1 where regDate <= #{today}
+	]]>
+	</update>
+	
+	<!-- 특정 회원의 구매내역 불러오기 -->
+	<select id="getBuyList" parameterType="java.util.Map" resultType="PurchaseDTO">
+		select * 
+			from (select rownum rn, totalData.* 
+				from (select * from purchase_table where userId=#{userId} order by purchaseId desc) totalData) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	
+	
+	<!-- 구매가를 위한 판매테이블 불러오기 -->
+	<select id="getPrice" parameterType="Integer" resultType="SalesDTO">
+		select * from sales_table where productId=#{productId}
+	</select>
+	
+	<!-- 특정회원의 총 거래 개수 구하기 -->
+	<select id="getTotalBuying" parameterType="Integer" resultType="Integer">
+		select count(*) from purchase_table where userId=#{userId}
+	</select>
+
+	<!-- 특정 회원의 거래중인 내역 불러오기 -->
+	<select id="getIngBuyingList" parameterType="java.util.Map" resultType="PurchaseDTO">
+		select * from (select rownum rn, totalData.* 
+			from (select tt.productId, tt.status, tt.productSize, tt.regDate 
+				from (select * from purchase_table where userId = #{userId}) tt
+    					inner join deal_table d
+    					on d.purchaseId = tt.purchaseId  order by d.purchaseId desc) totalData)
+  		  where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 현재 거래중인 것의 개수 구하기 -->
+	<select id="getTotalIngBuying" resultType="Integer">
+		select count(*) from
+    		(select * from purchase_table where userId=#{userId} and status=0) tt
+    		inner join deal_table d
+   		     on d.purchaseId = tt.purchaseId
+	</select>
+	
+	<!-- 특정 회원의 종료된 거래 리스트-->
+	<select id="getEndBuyingList" parameterType="java.util.Map" resultType="PurchaseDTO">
+	SELECT * FROM
+          (SELECT ROWNUM rn, o.* FROM           
+              (select p.productname AS productName, p.img1 AS img1, d.regDate AS tradeDate, p1.status AS status, s.price AS productPrice, s.productsize AS productSize  
+                  from product_table p,                    
+                       purchase_table p1,
+                       deal_table d ,
+                       sales_table s
+                   
+                  where p1.purchaseId = d.purchaseId
+                    and p1.productId = p.productId
+                    and s.productId = p.productId
+                    and p1.userId = 13
+                                
+                 ORDER BY p1.purchaseId desc)o)
+             WHERE rn BETWEEN #{startNum} and #{endNum}
+     </select>
+	<!-- 특정회원의 종료된 거래 개수 구하기 -->
+	<select id="getEndBuying" parameterType="Integer" resultType="Integer">
+		SELECT count(*) FROM
+          (SELECT ROWNUM rn, o.* FROM           
+              (select p.productname AS productName, p.img1 AS img1, d.regDate AS tradeDate, p1.status AS status, s.price AS productPrice, s.productsize AS productSize  
+                  from product_table p,                    
+                       purchase_table p1,
+                       deal_table d ,
+                       sales_table s
+                   
+                  where p1.purchaseId = d.purchaseId
+                    and p1.productId = p.productId
+                    and s.productId = p.productId
+                    and p1.userId = 13
+                                
+                 ORDER BY p1.purchaseId desc)o)
+	</select>
+</mapper>
