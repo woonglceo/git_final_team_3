@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import account.bean.AccountDTO;
+import address.bean.AddressDTO;
 import mypage.service.MypageService;
 
 @Controller
@@ -239,6 +240,16 @@ public class MypageController {
 		mypageService.updateAccount(accountDTO);
 	}
 	
+	@RequestMapping(value="registerAddress")
+	@ResponseBody
+	public void registerAddress(@ModelAttribute AddressDTO addressDTO) {
+		mypageService.registerAddress(addressDTO);
+	}
 	
+	@RequestMapping(value="updateAddress")
+	@ResponseBody
+	public void updateAddress(@ModelAttribute AddressDTO addressDTO) {
+		mypageService.updateAddress(addressDTO);
+	}
 	
 }
