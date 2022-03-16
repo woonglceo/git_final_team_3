@@ -69,5 +69,9 @@ public interface MypageService {
 	public MypagePaging monthPaging3(Map<String, Object> map);
 
 
+	public void registerAddress(AddressDTO addressDTO);
+
+	public void updateAddress(AddressDTO addressDTO);
+
 
 }

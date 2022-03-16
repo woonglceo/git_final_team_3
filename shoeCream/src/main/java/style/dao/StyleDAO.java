@@ -51,4 +51,6 @@ public interface StyleDAO {
 
 	public StyleCardDTO getOneStyleCardDTO(int styleId);
 
+	public List<StyleReplyDTO> getLikeUserList(int styleId);
+
 }

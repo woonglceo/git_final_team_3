@@ -91,7 +91,10 @@ public class StyleDAOImpl implements StyleDAO {
 		return sqlSession.selectList("styleSQL.getReplyList", styleId);
 	}
 	
-
+	@Override
+	public List<StyleReplyDTO> getLikeUserList(int styleId) {
+		return sqlSession.selectList("styleSQL.getLikeUserList", styleId);
+	}
 	
 	
 	// 관리자

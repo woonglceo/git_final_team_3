@@ -13,6 +13,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
   <a href="#" class="sylte-tab_item">팔로잉</a>
 </div>
   <a href="#" class="sylte-tab_item" id="writeModalBtn">작성모달TEST</a>
+  <a href="#" class="sylte-tab_item" id="likeUserModalBtn">공감한 유저 목록 모달TEST</a>
 
 <!-- modal test -->
 <div id="writeModal" class="modal">
@@ -25,7 +26,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         	<div class="write-modal-content">
         		<form name="styleWriteForm" id="styleWriteForm">
 	            	<h4>사진 첨부하기</h4>
-	            	<div class="style-file"><input type="file" multiple></div>
+	            	<div class="style-file" id="style-file"><input type="file" multiple accept="image/jpeg, image/png"></div>
 	            	<div id='thumbnail_zone' data-placeholder='파일 선택 버튼을 클릭하거나 파일을 드래그앱드롭 하세요'></div>
 	            	<h4>내용 작성하기</h4>
 	            	<div class="styleContents">
@@ -50,6 +51,29 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     </div>
 </div>
 
+<!-- 공감 목록 modal test -->
+<div id="likeUserModal" class="modal">
+    <div class="modal-window modal-window-likeUser">
+        <div class="modal-title">
+            <h2 class="likeUser-modal-h2">공감 <span id="likeCount"></span></h2>
+        	<a href="#" class="close-area"><i class="fa-solid fa-xmark fa-lg"></i></a>
+        </div>
+   		<div class="modal-content">
+        	<div class="likeUser-modal-content">
+        		<a href=# class="userfeedLink">
+	        		<div class="style_user-box">
+	        			<img class="modal_img-profile" src="/shoeCream/resources/images/">
+	        			<div class="modal_txt-profile">
+		        			<span class="style_username"></span>
+		        			<span class="style_intromsg"></span>
+	        			</div>
+	        		</div>
+	        	</a>
+        	</div>
+      	</div>
+    </div>
+</div>
+
 <div class="style-want-center"></div>
 <!--style-want-center-->
 
@@ -69,9 +93,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 	        }
 		});
 		
-		// 모달 오픈
+		// 작성모달 오픈
 		$('#writeModalBtn').click(function(){
-			$('.modal').css('display', 'flex');
+			$('#writeModal').css('display', 'flex');
 			$('body').css('overflow', 'hidden');
 		});
 		 
@@ -87,6 +111,49 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 			
 			
 		} */
+		
+		
+		
+		
+		
+		// 공감모달 오픈
+		$('#likeUserModalBtn').click(function(){
+			$('#likeUserModal').css('display', 'flex');
+			$('body').css('overflow', 'hidden');
+			$('.likeUser-modal-content').empty();
+			$.ajax({
+				type: 'get',
+				data: {'styleId':3}, //클릭한 스타일의 아이디 넣어주면 됨
+		        url: '/shoeCream/style/getLikeUserList',
+		        success: function(data){
+		        	console.log(JSON.stringify(data));
+		        	$('#likeCount').text(data.likeCount);
+		        	
+		        	$.each(data.UserList, function(index, items){
+			        	let userbox = "<a href=# class='userfeedLink'>";
+			        		userbox += "<div class='style_user-box'>";
+			        		userbox += "<img class='modal_img-profile' src='/shoeCream/resources/images/'"+items.img+">";
+			        		userbox += "<div class='modal_txt-profile'>";
+			        		userbox += "<span class='style_username'>" + items.username + "</span>";
+			        		userbox += "<span class='style_intromsg'>" + items.intromsg + "</span>";
+			        		userbox += "</div></div></a>";
+		        		$('.likeUser-modal-content').append(userbox);
+		        	})//each
+		        	
+		        	
+		        	
+		        },
+		        error: function(err){
+		        	console.log(err);
+		        }
+			});
+		});
+		
+		// 공감모달 클로즈 (어두운 배경 클릭) 
+		$('#likeUserModal').click(function(){
+			$('#likeUserModal').css('display', 'none');
+			$('body').css('overflow', 'auto'); //모달 꺼지면 스크롤 가능
+		}); 
 		
 	})	
 </script>

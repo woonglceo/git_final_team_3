@@ -23,7 +23,7 @@
 						<input type="hidden" id="productId" value="${i.productId}">
 						<div class="shopDetail-top-product">
 						    <div class="shopDetail-top_img">
-						        <img class="shopDetail-top_Realimg" src='/shoeCream/resources/images/dunk.png'>
+						        <img class="shopDetail-top_Realimg" src='/shoeCream/resources/images/${i.img}'>
 						    </div>
 						    <div class="shopDetail-product_text">
 						        <p class="brand">${i.brand}</p>

@@ -117,12 +117,21 @@
 	
 	<!-- 게시물의 댓글 리스트 -->
 	<select id="getReplyList" parameterType="Integer" resultType="StyleReplyDTO">
-		select style_reply.stylereplyid, user_table.img, user_table.username, style_reply.contents, style_reply.regDate
+		select style_reply.stylereplyid, user_table.img, user_table.username,  user_table.intromsg , style_reply.contents, style_reply.regDate
 		from style_reply   
 			left join user_table
 			on style_reply.userId = user_table.userId
 		where style_reply.styleId = #{styleId}
 		order by style_reply.stylereplyid desc
+	</select>
+	
+	<!-- 게시물의 공감 회원 리스트 -->
+	<select id="getLikeUserList" parameterType="Integer" resultType="StyleReplyDTO">
+		select user_table.username, user_table.img, user_table.intromsg 
+		from style_like 
+			join user_table
+			on style_like."userId" = user_table.userId
+		where "styleId"=#{styleId}
 	</select>
 	
 	<!-- 관리자 페이지 스타일 게시글 리스트 -->

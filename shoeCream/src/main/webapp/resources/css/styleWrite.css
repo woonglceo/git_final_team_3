@@ -101,7 +101,92 @@
 }
 
 .modal-content {
-    height: 100%;
+    height: 90%;
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
+/* 드래그앤 드랍 */
+
+/* 미리보기 이미지+체크박스 div */
+.thumbnailDiv { 
+    display: inline-block;
+    position: relative;
+    width: 150px;
+    height: 120px;
+    margin: 5px;
+    border: 1px solid rgb(133, 133, 133);
+}
+
+/* 미리보기 이미지 */
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    z-index: none;
+}
+
+/* 이미지 안의 체크박스 */
+.chkBtn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    font-size: 24px;
+    z-index: 100;
+    background-color: rgba(255,255,255,0.1);
+    color: brown;
+}
+
+
+/* 공감 모달 css */
+.modal-window-likeUser {
+	width: 420px;
+    height: 472px;
+}
+
+.likeUser-modal-h2 {
+	font-size: 17px;
+	align-items: center;
+}
+
+.userfeedLink {
+	text-align: center;
+}
+
+.style_user-box {
+	max-width: 350px;
+	margin: 10px auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.modal_img-profile {
+	width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: rgb(83, 83, 83);
+}
+
+.modal_txt-profile {
+	margin-left: 10px;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+}
+
+.style_username {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.style_intromsg {
+	margin-top: 2px;
+	font-size: 12px;
+	color: rgba(34,34,34,.5);
+}
+
+

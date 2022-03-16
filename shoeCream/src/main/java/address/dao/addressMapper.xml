@@ -4,12 +4,33 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="addressSQL">
+	<!-- 주소록 불러오기 -->
 	<select id="getAddressList" parameterType="java.util.Map" resultType="address">
     	SELECT * 
 			FROM (SELECT rownum rn, totalData.* 
 				FROM (SELECT * FROM address_table WHERE userId=#{userId} ORDER BY DECODE(defaultAddr, 'Y', 1) asc, regDate desc) totalData) 
 		WHERE rn BETWEEN #{startNum} and #{endNum}
 	</select>
+	
+	<!-- 배송지 추가 -->
+	<insert id="registerAddress">
+		INSERT INTO address_table VALUES(seq_address_table.nextval, #{userId}, #{recipient}, #{addr1}, #{addr2}, #{zipcode}, sysdate, #{defaultAddr})
+	</insert>
+	
+	<!-- 기본 배송지 확인 -->
+	<select id="chkDefaultAddr" parameterType="int" resultType="address">
+		SELECT * FROM address_table WHERE defaultAddr='Y' AND userId=#{userId}
+	</select>
+	
+	<!-- 기본 배송지 N -->
+	<update id="setDefaultAddrN" parameterType="int">
+		UPDATE address_table SET defaultAddr='N' WHERE userId=#{userId}
+	</update>
+	
+	<!-- 배송지 수정 -->
+	<update id="updateAddress" parameterType="address">
+		UPDATE address_table SET recipient=#{recipient}, addr1=#{addr1}, addr2=#{addr2}, zipcode=#{zipcode}, defaultAddr=#{defaultAddr}, regDate=sysdate WHERE addressId=#{addressId} AND userId=#{userId}
+	</update>
 </mapper>
 
  
