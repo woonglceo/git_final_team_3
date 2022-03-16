@@ -54,7 +54,8 @@ public class StyleController {
 	
 	// 페이지) 선택 글 상세
 	@RequestMapping(value="/details")
-	public String details(Model model) {
+	public String details(@RequestParam int styleId, Model model) {
+		model.addAttribute("styleId", styleId);
 		model.addAttribute("display", "/WEB-INF/views/style/styleView.jsp");
 		return "/index";
 	}
@@ -65,7 +66,6 @@ public class StyleController {
 	public StyleCardDTO getDeatilsReplyList(@RequestParam int styleId) {
 		return styleService.getDeatilsReplyList(styleId);
 	}
-	
 	
 	// 페이지) 회원 피드
 	@RequestMapping(value="/user")
@@ -89,6 +89,13 @@ public class StyleController {
 	@RequestMapping(value="/switchLike")
 	public String switchLike(int StyleId) {
 		return styleService.switchLike(StyleId);
+	}
+	
+	//게시글에 공감한 회원 목록
+	@ResponseBody
+	@RequestMapping(value="/getLikeUserList")
+	public Map<String, Object> getLikeUserList(@RequestParam int styleId) {
+		return styleService.getLikeUserList(styleId);
 	}
 	
 }
