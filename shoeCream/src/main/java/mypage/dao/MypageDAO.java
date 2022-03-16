@@ -24,11 +24,25 @@ public interface MypageDAO {
 	public List<PurchaseDTO> getIngBuyingList(Map<String, Integer> map);
 
 	public int getTotalIngBuying(int userId);
+	
+	public List<PurchaseDTO> getMonthBuyingList(Map<String, Object> map);
+	
+	public List<PurchaseDTO> getMonthBuyingList2(Map<String, Object> map);
 
 	public  List<PurchaseDTO> getEndBuyingList(Map<String, Integer> map);
 
 	public int getEndBuying(int userId);
 
-	public int getIngBuying(int userId);
+	public int getTotalMonthBuying(int userId);
+	
+	public int getTotalMonthBuying2(Map<String, Object> map);
+
+	public List<PurchaseDTO> getMonthEndBuyingList(Map<String, Object> map);
+
+	public int getTotalEndMonth(Map<String, Object> map);
+
+	public List<PurchaseDTO> getMonthEndBuyingList3(Map<String, Object> map);
+
+	public int getTotalMonthBuying3(Map<String, Object> map);
 
 }

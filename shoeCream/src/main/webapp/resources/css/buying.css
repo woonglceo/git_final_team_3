@@ -123,6 +123,7 @@ dd {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    height: 32px;
 }
 .search_info .info_item {
     font-size: 12px;
@@ -135,7 +136,7 @@ dd {
     display: flex;
     padding: 0 12px;
     min-width: 62px;
-    height: 32px;
+    height: 33px;
     line-height: 30px;
     background-color: #fff;
     border: 1px solid #ebebeb;
@@ -146,91 +147,15 @@ dd {
     -ms-flex-pack: center;
     justify-content: center;
 }
-.month_item.custom>.month_link {
-    background-color: #222;
-    border-color: #d3d3d3;
-    color: #fff;
-}
-.month_item.custom {
-    display: none;
-}
+
+ .link1{
+ 	width: 80px;
+ }
+
 .month_item+.month_item {
     margin-left: 4px;
 }
 
-input, textarea {
-    padding: 0;
-    outline: 0;
-    border: 0;
-    resize: none;
-    border-radius: 0;
-    -webkit-appearance: none;
-    background-color: rgba(0,0,0,0);
-}
-.period_calendar_wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-}
-.period_calendar {
-    position: relative;
-    margin-top: 18px;
-}
-.period_calendar .calendar_wrap {
-    position: relative;
-    padding: 0 30px 0 12px;
-    display: inline-block;
-    width: 120px;
-    height: 32px;
-    line-height: 30px;
-    vertical-align: top;
-    border: 1px solid #ebebeb;
-    background-color: #fff;
-    cursor: pointer;
-}
-.period_calendar .cal_input {
-    width: 100%;
-    font-size: 13px;
-    letter-spacing: -.07px;
-    color: rgba(34,34,34,.8);
-    cursor: default;
-}
-.period_calendar .cal_btn {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    margin-top: -9px;
-    width: 18px;
-    height: 18px;
-    background-size: 18px 18px;
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA1NiA1NiI+PHBhdGggZmlsbD0iI0JCQiIgZD0iTTIxIDI1LjY2N2gtNC42Njd2NC42NjZIMjF2LTQuNjY2em05LjMzMyAwaC00LjY2NnY0LjY2Nmg0LjY2NnYtNC42NjZ6bTkuMzM0IDBIMzV2NC42NjZoNC42Njd2LTQuNjY2em00LjY2Ni0xNi4zMzRINDJWNC42NjdoLTQuNjY3djQuNjY2SDE4LjY2N1Y0LjY2N0gxNHY0LjY2NmgtMi4zMzNjLTIuNTkgMC00LjY0NCAyLjEtNC42NDQgNC42NjdMNyA0Ni42NjdhNC42NjYgNC42NjYgMCAwMDQuNjY3IDQuNjY2aDMyLjY2NkE0LjY4IDQuNjggMCAwMDQ5IDQ2LjY2N1YxNGE0LjY4IDQuNjggMCAwMC00LjY2Ny00LjY2N3ptMCAzNy4zMzRIMTEuNjY3VjIxaDMyLjY2NnYyNS42Njd6Ii8+PC9zdmc+);
-}
-.period_calendar .swung_dash {
-    display: inline-block;
-    font-size: 14px;
-    letter-spacing: -.21px;
-    line-height: 32px;
-    color: rgba(34,34,34,.8);
-}
-.period_calendar .vc-popover-content-wrapper {
-    -webkit-transform: translate(-1px,30px)!important;
-    -ms-transform: translate(-1px,30px)!important;
-    transform: translate(-1px,30px)!important;
-}
-.vc-popover-content-wrapper{;
-    --popover-vertical-content-offset: 10px;
-    --popover-slide-translation: 15px;
-    --popover-transition-time: 0.14s ease-in-out;
-    --popover-caret-horizontal-offset: 18px;
-    --popover-caret-vertical-offset: 8px;
-    position: absolute;
-    display: block;
-    outline: none;
-    z-index: 10;
-}
-.vc-popover-content-wrapper:not(.is-interactive) {
-    pointer-events: none;
-}
 .period_btn_box {
     margin-left: 4px;
 }
@@ -244,12 +169,15 @@ input, textarea {
     border: 1px solid #ebebeb;
     background-color: #fff;
     cursor: pointer;
-    margin-top: 18px;
 }
 .btn_search.is_active {
     background-color: #222;
     border-color: #d3d3d3;
     color: #fff;
+}
+
+.month_item li{
+	height: 30px;
 }
 ul {
     display: block;
@@ -260,6 +188,7 @@ ul {
     margin-inline-end: 0px;
     padding-inline-start: 40px;
 }
+
 .search_info{
     padding: 12px 0;
 }

@@ -62,57 +62,52 @@
 			 
 	<div class="period_search">
 		<div class="period_month">
-			<ul class="month_list">
-				<li class="month_item"><a href="#" class="month_link" id="Month2">최근 2개월</a></li>
-				<li class="month_item"><a href="#" class="month_link" id="Month4">4개월</a></li>
-				<li class="month_item"><a href="#" class="month_link" id="Month6">6개월</a></li>
-				<li class="month_item custom"><a href="#" class="month_link">기간조회</a></li>
+			<ul class="month_list">		
+				<li class="month_item"><input type="button" class="month_link" value="최근 2개월"></li>
+				<li class="month_item"><input type="button" class="month_link" value="4개월"></li>
+				<li class="month_item"><input type="button" class="month_link" value="6개월"></li>
+			
+				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1" id="date1"></li>
+				<li><span class="swung_dash">~</span></li>
+				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1" id="date2"></li>				
+				<li class="month_item"><div class="period_btn_box"><button class="btn_search is_active">조회</button></div></li>
 			</ul>
 		</div>
-		<div class="period_calendar_wrapper" today="Mon Mar 14 2022 10:47:08 GMT+0900 (한국 표준시)">
-			<div class="period_calendar">
-				<div class="calendar_wrap">
-					<span>
-						<div class="calendar">
-							<input disabled="disabled" class="cal_input">
-							<span class="cal_btn"></span>
-						</div>
-						<div class="vc-popover-content-wrapper"></div>
-					</span></div><span class="swung_dash">~</span>
-				<div class="calendar_wrap">
-					<span>
-						<div class="calendar">
-							<input class="cal_input">
-							<span class="cal_btn"></span>
-						</div>
-						<div class="vc-popover-content-wrapper"></div>
-					</span>
-				</div>
-			</div>
-			<div class="period_btn_box"><button class="btn_search is_active">조회</button></div>
-		</div>
+
 	</div>
 	
 	<ul class="search_info">
-		<li class="info_item"><p data-v-a54c4c26="">한 번에 조회 가능한 기간은 최대 6개월입니다.</p></li>
-		<li class="info_item"><p data-v-a54c4c26="">기간별 조회 결과는 입찰일 기준으로 노출됩니다.</p></li>
+		<li class="info_item"><p>한 번에 조회 가능한 기간은 최대 6개월입니다.</p></li>
+		<li class="info_item"><p>기간별 조회 결과는 입찰일 기준으로 노출됩니다.</p></li>
 	</ul>
 	
 	<div class="purchase_list bidding bid">
 		<jsp:include page="${display2}"></jsp:include>
 	</div>
-	
-	
-	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
- 	<script type="text/javascript">
- 	
- 	// 페이지 이동하기
- 	function paging(pageValue) {	
- 		console.log(pageValue);
- 		location.href = '/shoeCream/my/buying?pg='+pageValue;	
- 	}
- 	</script>
 
 </body>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 	<script type="text/javascript"> 
+ 	var $j351 = jQuery.noConflict();
+ 	$j351(function() {
+ 		
+ 		$j351("#date1 , #date2").datepicker({	 	 
+ 	 	     showOn:"button", 
+ 	 	     buttonImage: "/shoeCream/resources/storage/calendar.png",
+ 	 	     buttonImageOnly: true,
+ 	 	     changeMonth:true,
+ 	 	     dateFormat:"yy-mm-dd",
+ 	 	     dayNames : ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'],
+ 	 	     dayNamesMin : ['월','화','수','목','금','토','일'],
+ 	 	     monthNamesShort:  [ "1월", "2월", "3월", "4월", "5월", "6월","7월", "8월", "9월", "10월", "11월", "12월" ],
+ 	 	     minDate: "-6M", 
+             maxDate: "0D" // 6개월로 한계를 걸어놓음.
+ 	 	 });
+ 		
+ 		$j351('#date2').datepicker('setDate', 'today');  
+ 		$j351('#date1').datepicker('setDate', '-6M');
+	});	
+ 	</script>
 </html>

@@ -80,5 +80,134 @@
 			}		 
 		 });	
 	});
+ 	
+ 	// 2, 4, 6 개월 동안의 주문
+	$('.month_link').click(function() {
+		console.log( $(this).val())
+
+		$.ajax({
+			 type: 'post',
+			 url: '/shoeCream/my/getMonthEndBuyingList',
+			 data: {'pg' : $('#pg').val(),
+				 	'option' : $(this).val()
+				},
+			 dataType: 'JSON',
+			 success: function(data){
+				$('#one').empty();
+				$('#two').empty();
+
+				if(data.monthBuyList.length == 0){	
+					 var row = "";
+					    row += '<div class="empty-area">';
+		        		row	+= '<p>거래 내역이 없습니다.</p>';
+		        		row += '</div>';
+		        		
+		        	$('#one').append(row);
+				 }
+				 
+				
+				 $.each(data.monthBuyList, function(index, items){
+					 var row = '';
+					    row +='<div class="purchase_item bid">';			
+		        		row	+= 		'<div class="history_product">';
+		        		row	+= 			'<div class="product_box">';
+		        		row	+= 				'<div class="shopDetail-top_img">';
+		        		row	+= 					'<img class="shopDetail-top_Realimg" src="/shoeCream/resources/storage/"' + items.img + '>';
+		        		row += 				'</div>';
+		        		row += 			'</div>';
+		        		row	+= 			'<div class="product_detail">';			        
+		        		row	+= 				'<p class="name">' + items.productName +'</p>';
+		        		row	+= 				'<p class="size"><span class="size_text">' + items.productSize +'</span></p>';		
+		        		row += 			'</div>';
+		        		row += 		'</div>';
+		        		row	+= 		'<div class="history_status">';	
+		        		row	+=			 '<div class="status_box field_price">';			
+		        		row += 				'<span class="price">'+ items.productPrice +'원</span>';
+		        		row += 			 '</div>';
+		        		row	+=			 '<div class="status_box field_price">';			
+		        		row += 				'<span class="date">'+ items.tradeDate +'</span>';
+		        		row += 			 '</div>';
+		        		row += 		'</div>';
+		        		row += '</div>';
+						
+		        		$('#two').append(row);
+		        	});//each문
+		        	
+		      $('#pagingDiv').html(data.paging.pagingHTML);	
+		        	
+			 },
+			 error: function(err){
+					alert(err);
+			}		 
+		 });
+});
+
+	// 달력으로 선택한 날짜 사이의 주문
+	$('.period_btn_box').click(function() {
+
+		$.ajax({
+			 type: 'post',
+			 url: '/shoeCream/my/getMonthBuyingList3',
+			 data: {'pg' : $('#pg').val(),
+				 	'date1' : $('#date1').val(),
+				 	'date2' : $('#date2').val(),
+				},
+			 dataType: 'JSON',
+			 success: function(data){
+				$('#one').empty();
+				$('#two').empty();
+
+				if(data.monthBuyList.length == 0){	
+					 var row = "";
+					    row += '<div class="empty-area">';
+		        		row	+= '<p>거래 내역이 없습니다.</p>';
+		        		row += '</div>';
+		        		
+		        	$('#one').append(row);
+				 }
+				 
+				
+				 $.each(data.monthBuyList, function(index, items){
+					 var row = '';
+					    row +='<div class="purchase_item bid">';			
+		        		row	+= 		'<div class="history_product">';
+		        		row	+= 			'<div class="product_box">';
+		        		row	+= 				'<div class="shopDetail-top_img">';
+		        		row	+= 					'<img class="shopDetail-top_Realimg" src="/shoeCream/resources/storage/"' + items.img + '>';
+		        		row += 				'</div>';
+		        		row += 			'</div>';
+		        		row	+= 			'<div class="product_detail">';			        
+		        		row	+= 				'<p class="name">' + items.productName +'</p>';
+		        		row	+= 				'<p class="size"><span class="size_text">' + items.productSize +'</span></p>';		
+		        		row += 			'</div>';
+		        		row += 		'</div>';
+		        		row	+= 		'<div class="history_status">';	
+		        		row	+=			 '<div class="status_box field_price">';			
+		        		row += 				'<span class="price">'+ items.productPrice +'원</span>';
+		        		row += 			 '</div>';
+		        		row	+=			 '<div class="status_box field_price">';			
+		        		row += 				'<span class="date">'+ items.tradeDate +'</span>';
+		        		row += 			 '</div>';
+		        		row += 		'</div>';
+		        		row += '</div>';
+						
+		        		$('#two').append(row);
+		        	});//each문
+		        	
+		      $('#pagingDiv').html(data.paging.pagingHTML);	
+		        	
+			 },
+			 error: function(err){
+					alert(err);
+			}		 
+		 });
+	});
+
+
+    // 페이지 이동하기
+ 	function paging(pageValue) {	
+ 		console.log(pageValue);
+ 		location.href = '/shoeCream/my/endBuying?pg='+pageValue;	
+ 	}
  	</script>
 	

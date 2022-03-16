@@ -1,5 +1,6 @@
 package mypage.dao;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,9 @@ public class MypageDAOImpl implements MypageDAO {
 	
 	@Override
 	public List<PurchaseDTO> getBuyList(Map<String, Integer> map) {
-		Date today = new Date(); 
-		sqlSession.update("mypageSQL.updateStaus", today);
+		/*
+		 * Date today = new Date(); sqlSession.update("mypageSQL.updateStaus", today);
+		 */
 		return sqlSession.selectList("mypageSQL.getBuyList", map);
 	}
 	
@@ -47,6 +49,27 @@ public class MypageDAOImpl implements MypageDAO {
 	@Override
 	public int getTotalBuying(int userId) {
 		return sqlSession.selectOne("mypageSQL.getTotalBuying", userId);
+	}
+	
+	@Override
+	public List<PurchaseDTO> getMonthBuyingList(Map<String, Object> map) {
+		return sqlSession.selectList("mypageSQL.getMonthBuyingList", map);
+	}
+	
+	@Override
+	public List<PurchaseDTO> getMonthBuyingList2(Map<String, Object> map) {
+		System.out.println(map);
+		return sqlSession.selectList("mypageSQL.getMonthBuyingList2", map);
+	}
+	
+	@Override
+	public int getTotalMonthBuying(int userId) {
+		return sqlSession.selectOne("mypageSQL.getTotalMonthBuying", userId);
+	}
+	
+	@Override
+	public int getTotalMonthBuying2(Map<String, Object> map) {
+		return sqlSession.selectOne("mypageSQL.getTotalMonthBuying2", map);
 	}
 	
 	@Override
@@ -68,10 +91,24 @@ public class MypageDAOImpl implements MypageDAO {
 	public int getEndBuying(int userId) {
 		return sqlSession.selectOne("mypageSQL.getEndBuying", userId);
 	}
-
+	
 	@Override
-	public int getIngBuying(int userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<PurchaseDTO> getMonthEndBuyingList(Map<String, Object> map) {
+		return sqlSession.selectList("mypageSQL.getMonthEndBuyingList", map);
+	}
+	
+	@Override
+	public int getTotalEndMonth(Map<String, Object> map) {
+		return sqlSession.selectOne("mypageSQL.getTotalEndMonth", map);
+	}
+	
+	@Override
+	public List<PurchaseDTO> getMonthEndBuyingList3(Map<String, Object> map) {
+		return sqlSession.selectList("mypageSQL.getMonthEndBuyingList3", map);
+	}
+	
+	@Override
+	public int getTotalMonthBuying3(Map<String, Object> map) {
+		return sqlSession.selectOne("mypageSQL.getTotalMonthBuying3", map);
 	}
 }

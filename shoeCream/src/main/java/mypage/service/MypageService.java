@@ -22,13 +22,23 @@ public interface MypageService {
 
 	public List<Map<String, Object>> getEndBuyingList(String pg, int userId);
 	
+	public List<Map<String, Object>> getMonthBuyingList(Map<String, Object> map);
+	
 	public int getTotalBuying(int userId);
 
+	public MypagePaging monthPaging(Map<String, Object> map);
+
+	public MypagePaging monthPaging2(Map<String, Object> map);
+
+	public List<Map<String, Object>> getMonthBuyingList2(Map<String, Object> map);
+
 	public MypagePaging ingPaging(String pg, int userId);
-	
+
 	public int getTotalIngBuying(int userId);
 	
 	public MypagePaging endPaging(String pg, int userId);
+
+	public  List<Map<String, Object>> getMonthEndBuyingList(Map<String, Object> map);
 	
 	public int getEndBuying(int userId);
 	
@@ -52,7 +62,12 @@ public interface MypageService {
 
 	public List<AddressDTO> getAddressList(String pg, int userId);
 
-	public int getIngBuying(int userId);
+	public MypagePaging endMonthPaging(Map<String, Object> map);
+
+	public List<Map<String, Object>> getMonthBuyingList3(Map<String, Object> map);
+
+	public MypagePaging monthPaging3(Map<String, Object> map);
+
 
 	public void registerAddress(AddressDTO addressDTO);
 
