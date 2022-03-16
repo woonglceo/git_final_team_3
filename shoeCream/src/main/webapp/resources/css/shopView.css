@@ -449,6 +449,7 @@ span {
 
 .modal-title {
 	padding: 15px 20px;
+	border-bottom: 1px solid rgba(151, 151, 151, 0.3);
 }
 
 .modal-title h2 {
@@ -484,6 +485,7 @@ span {
 	bottom: 0;
 	width: 100%;
 	padding: 5px 0;
+	border-top: 1px solid rgba(151, 151, 151, 0.3);
 }
 
 .modal-footer input{
@@ -491,10 +493,16 @@ span {
 }
 
 .modal-content-price-div{
-	padding: 2vh 0;
+	padding: 1vh 0 2vh 0;
 	
 }
 
 .modal-content-input-div input, select{
 	height: 3vh;
+}
+
+#modal-content-warning-div{
+	font-size: 12px;
+	color: red;
+	margin-top: 0.5vh;
 }
