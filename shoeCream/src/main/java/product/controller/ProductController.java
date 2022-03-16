@@ -113,6 +113,7 @@ public class ProductController {
 		return list;
 	}
 	
+	
 	// 상품 검색
 	@PostMapping(value = "searchProduct")
 	@ResponseBody

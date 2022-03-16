@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<input type="text" id="pg" name="pg" value="${pg}">
 
 <div class="row">
   <div class="col-md-12">
@@ -44,6 +45,7 @@
               </th>
             </thead>
           </table>
+          <div id="userFormPagingDiv"></div>   
         </div>
       </div>
       
@@ -63,7 +65,8 @@ $(function(){
 			$.each(data, function(index, items){
 				$('<tr/>')			
 					.append($('<td/>', {    // 유저아이디
-						text: items.userId
+		\
+		text: items.userId
 					})).append($('<td/>', {
 						text: items.email
 						
@@ -76,6 +79,9 @@ $(function(){
 					).appendTo($('#userListTable'));	
 				
 			});//end each
+			
+			$('#userFormPagingDiv').html(data.announcePaging.pagingHTML);
+
 			
 		},
 		error: function(err){

@@ -18,7 +18,6 @@ public class UserDTO {
 	private String fullName;
 	private String email;
 	private String phoneNum;
-	private String nickname;
 	private int auth;
 	private String introMsg;
 	private String img;

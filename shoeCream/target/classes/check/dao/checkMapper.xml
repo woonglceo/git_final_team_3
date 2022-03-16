@@ -11,7 +11,7 @@
 	
  	<!--검색필터  -->
  	<select id="searchBtnForm" parameterType="java.util.Map" resultType="check">
- 		SELECT * FROM check_table ORDER BY userId DESC
+ 		SELECT * FROM check_table  WHERE checkState = #{searchOption1} AND checkResult = #{searchOption2} 
  	</select>
 
 </mapper>

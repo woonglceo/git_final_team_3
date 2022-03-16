@@ -1,7 +1,6 @@
 package user.controller;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import order.bean.OrderDTO;
 import user.bean.UserDTO;
 import user.bean.UserDTO2;
 import user.service.UserService;
@@ -61,7 +59,7 @@ public class AdminUserController {
 		return "/admin/adminIndex";
 	}
 	
-	
+	// 유저 리스트 및 페이징
 	@PostMapping(value="getUserForm")
 	@ResponseBody
 	public List<UserDTO> getUserForm(@RequestParam(required=false, defaultValue="1") String pg) {
@@ -89,7 +87,7 @@ public class AdminUserController {
 	}
 	
 
-	
+	// 회원 거래내역 조회
 	@PostMapping(value="getTradeForm")
 	@ResponseBody
 	public List<UserDTO2> getTradeForm(@RequestParam(required=false, defaultValue="1") String pg) {
@@ -108,15 +106,12 @@ public class AdminUserController {
 		return userService.ratingChange(userId,ratings);
 	}*/
 	
-	
+	// 회원 등급수정
 	@PostMapping(value="ratingChange")
 	@ResponseBody
 	public void ratingChange(@RequestParam Map<String, Object> map) {
-		
-
 		 userService.ratingChange(map);
-		
-	
+
 	}	
 	
 }

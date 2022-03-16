@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<input type="hidden" id="userIdHidden" value="${param.userId}">
+
 <div class="row">
   <div class="col-md-12">
     <div class="card">
@@ -135,20 +137,54 @@ $(function(){
 
 
 $('#searchBtn').click(function(){
+			
 	$.ajax({
 		type: 'POST',
 		url: '/shoeCream/adminViews/check/searchBtnForm',
-		//data: 'pg=' + $('#pg').val(),	
+		data: {	'searchOption1' : $('#searchBtn1').val(),
+				'searchOption2' : $('#searchBtn2').val(),
+				'userId': $('#userIdHidden').val()	
+
+		}	
+		,		
 		//dataType: 'JSON',
 		success: function(data){
-			console.log('data', data);
-			
-			'searchOption1' : $('#searchBtn1').val(),
-			'searchOption2' : $('#searchBtn2').val()
-			
-			console.log('searchOption1', searchOption1);
-			console.log('searchOption2', searchOption2);
+			 $('#checkListTable tr:gt(0)').remove(); 
 
+			console.log(data);
+			
+			alert('와아아 성공.');			
+			
+	$.each(data, function(index, items){
+				
+				var ds = '';
+				var vs = '';
+				if(items.checkState == 0) {
+					ds = '검수 전';
+				} else if(items.checkState == 1) {
+					ds = '검수 중';
+				} else if(items.checkState == 2) {
+					ds = '검수 완료';
+				} 
+			
+				if(items.checkResult == 0) {
+					vs = '불합격';
+				} else if(items.checkResult == 1) {
+					vs = '합격';
+				} 
+				
+				 $('<tr/>')			
+					.append($('<td/>', {    // 유저아이디
+						text: items.checkId
+					})).append($('<td/>', {
+						text: items.productId						
+					})).append($('<td/>', {
+						text: items.userId
+					})).append($('<td/>', {
+						text: ds
+					})).append($('<td/>', {
+						text: vs
+					})).appendTo($('#checkListTable'));
 			
 			});//end each
 			

@@ -24,17 +24,12 @@ public class CheckServiceImpl implements CheckService{
 		List<CheckDTO> list = checkDAO.getCheckForm(map);
 		System.out.println("checkService list: "+list);
 		return list;
-
 	}
 
 	@Override
-	public List<CheckDTO> searchBtnForm(String pg) {
-		Map<String, Integer> map = new HashMap<String, Integer>(); 
-		map.put("pg", Integer.parseInt(pg));
-		
-		List<CheckDTO> list = checkDAO.searchBtnForm(map);
-		System.out.println("checkService list: "+list);
-		return list;
+	public void searchBtnForm(Map<String, Object> map) {
+		 checkDAO.searchBtnForm(map);
+
 	}
 
 }

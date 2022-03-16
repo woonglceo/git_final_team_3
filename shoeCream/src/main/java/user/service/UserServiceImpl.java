@@ -304,7 +304,6 @@ public class UserServiceImpl implements UserService {
 			String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
-			userInfo.put("nickname", nickname);
 			userInfo.put("profile_image", profile_image);
 			userInfo.put("email", email);
 
@@ -339,20 +338,18 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		session.removeAttribute("ssUserId");
-		session.removeAttribute("ssEmail");
+		session.removeAttribute("ssUsername");
 		session.removeAttribute("ssAccessToken");
 	}
 
 	@Override
 	public void joinSocialOk(UserDTO userDTO) {
-		userDAO.joinSocialOk(userDTO);
-
 		// 세션에 사용자 정보 저장
-		userDTO = userDAO.chkEmail(userDTO.getEmail());
 		session.setAttribute("ssUserId", userDTO.getUserId());
-		session.setAttribute("ssUsername", userDTO.getUsername());
+		session.setAttribute("ssUsername", userDTO.getEmail());
 		session.setAttribute("ssAccessToken", userDTO.getAccessToken());
 		
+		userDAO.joinSocialOk(userDTO);
 	}
 
 	@Override
@@ -360,7 +357,7 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDTO = userDAO.chkEmail(email);
 		// 세션에 사용자 정보 저장
 		session.setAttribute("ssUserId", userDTO.getUserId());
-		session.setAttribute("ssUsername", userDTO.getUsername());
+		session.setAttribute("ssUsername", email);
 		session.setAttribute("ssAccessToken", access_Token);
 		
 		userDAO.kakaoLoginOk(email);
