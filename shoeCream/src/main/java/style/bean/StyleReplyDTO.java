@@ -14,6 +14,7 @@ public class StyleReplyDTO { //조인 테이블
 	private int styleReplyId;
 	private String img;
 	private String username;
+	private String intromsg;
 	private String contents;
 	@JsonFormat(pattern = "M월d일H시", timezone = "Asia/Seoul")
 	private Date regDate;

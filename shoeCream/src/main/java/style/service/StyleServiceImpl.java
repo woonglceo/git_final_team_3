@@ -70,6 +70,11 @@ public class StyleServiceImpl implements StyleService {
 		return map;
 	}
 	
+	@Override
+	public StyleCardDTO getDeatilsReplyList(int styleId) {
+		StyleCardDTO styleCardDTO = styleDAO.getOneStyleCardDTO(styleId);
+		return styleCardDTO;
+	}
 	
 	// 정렬 기준(인기, 최신)에 맞춰 가져온 StyleBoardDTOList에 일부 데이터를 추가해 Style페이지 리스트 카드 목록 형태로 가공
 	private List<StyleCardDTO> makeStyleCardDTOList(List<StyleCardDTO> styleCardDTOList){
@@ -103,13 +108,6 @@ public class StyleServiceImpl implements StyleService {
 	}
 	
 	@Override
-	public StyleCardDTO getDeatilsReplyList(int styleId) {
-		StyleCardDTO styleCardDTO = styleDAO.getOneStyleCardDTO(styleId);
-		
-		return null;
-	}
-	
-	@Override
 	public String switchLike(int styleId) {
 		//로그인 여부 확인 
 		if(session.getAttribute("ssUserId") == null) {
@@ -130,6 +128,21 @@ public class StyleServiceImpl implements StyleService {
 				return "off";
 			}
 		}
+	}
+	
+	@Override
+	public Map<String, Object> getLikeUserList(int styleId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		StyleCardDTO styleCardDTO = styleDAO.getOneStyleCardDTO(styleId);
+		int likeCount = styleCardDTO.getLikeCount();
+		map.put("likeCount", likeCount);
+		if(likeCount != 0) {
+			List<StyleReplyDTO> UserList = styleDAO.getLikeUserList(styleId);
+			map.put("UserList", UserList);
+		}
+		
+		return map;
 	}
 	
 	@Override

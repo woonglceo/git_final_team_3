@@ -30,4 +30,6 @@ public interface StyleService {
 	public String switchLike(int styleId);
 
 	public StyleCardDTO getDeatilsReplyList(int styleId);
+
+	public Map<String, Object> getLikeUserList(int styleId);
 }
