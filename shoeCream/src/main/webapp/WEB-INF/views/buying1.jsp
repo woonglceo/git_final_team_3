@@ -6,7 +6,7 @@
 
 
 		<div class="purchase_head">
-			<div class="head_product"><a href="#" class="btn_filter"> 전체 <img src="/shoeCream/resources/storage/xxx.png" style="width: 10px; height: 12px; margin-left: 65px"></a></div>
+			<div class="head_product"><a href="#" class="btn_filter"> 전체 </a></div>
 			
 			
 			<div class="head_status">
@@ -42,6 +42,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
  	<script type="text/javascript">
  	$(function() {
+ 		
  		$('#ingBuying').click(function() {
  			$('.tab_item1').removeClass('tab_on');
  			$('.tab_item2').addClass('tab_on');	
@@ -53,8 +54,8 @@
 			 data: {'pg' : $('#pg').val()},
 			 dataType: 'JSON',
 			 success: function(data){
-
-				 if(data.buyList.length == null){					 
+				 
+				 if(data.buyList.length == 0){					 
 					 var row = '<div class="empty-area">';
 		        		row	+= '<p>구매 입찰 내역이 없습니다.</p>';
 		        		row	+= '<a href="/shoeCream/shop" class="gray_btn mypage_btn">SHOP 바로가기</a>';
@@ -65,6 +66,7 @@
 				 
 				
 				 $.each(data.buyList, function(index, items){
+					 
 					 var row = '';
 					    row +='<div class="purchase_item bid">';			
 		        		row	+= 		'<div class="history_product">';
@@ -97,33 +99,138 @@
 			 error: function(err){
 					alert(err);
 			}		 
-		 });	
+		 });
 					
 	
 	});
- 	
- 	$('.status_item1').click(function() {			
-			$('.status_item1').addClass('tab_on');	
-			$('.status_item3').removeClass('tab_on');
-			$('.status_item2').removeClass('tab_on');
-			$('.layer').hide();
-	});
+ 
 		
-		$('.status_item2').click(function() {			
-			$('.status_item2').addClass('tab_on');
-			$('.status_item1').removeClass('tab_on');
-			$('.status_item3').removeClass('tab_on');
-			$('.layer').hide();
-	});
+		// 2, 4, 6 개월 동안의 주문
+ 		$('.month_link').click(function() {
+ 			console.log( $(this).val())
+
+ 			$.ajax({
+ 				 type: 'post',
+ 				 url: '/shoeCream/my/getMonthBuyingList',
+ 				 data: {'pg' : $('#pg').val(),
+ 					 	'option' : $(this).val()
+ 					},
+ 				 dataType: 'JSON',
+ 				 success: function(data){
+ 					$('#one').empty();
+ 					$('#two').empty();
+
+ 					 if(data.monthBuyList.length == null){					 
+ 						 var row = '<div class="empty-area">';
+ 			        		row	+= '<p>구매 입찰 내역이 없습니다.</p>';
+ 			        		row	+= '<a href="/shoeCream/shop" class="gray_btn mypage_btn">SHOP 바로가기</a>';
+ 			        		row += '</div>';
+ 			        		
+ 			        	$('#one').append(row);
+ 					 }
+ 					 
+ 					
+ 					 $.each(data.monthBuyList, function(index, items){
+ 						 var row = '';
+ 						    row +='<div class="purchase_item bid">';			
+ 			        		row	+= 		'<div class="history_product">';
+ 			        		row	+= 			'<div class="product_box">';
+ 			        		row	+= 				'<div class="shopDetail-top_img">';
+ 			        		row	+= 					'<img class="shopDetail-top_Realimg" src="/shoeCream/resources/storage/"' + items.img1 + '>';
+ 			        		row += 				'</div>';
+ 			        		row += 			'</div>';
+ 			        		row	+= 			'<div class="product_detail">';			        
+ 			        		row	+= 				'<p class="name">' + items.productName +'</p>';
+ 			        		row	+= 				'<p class="size"><span class="size_text">' + items.productSize +'</span></p>';		
+ 			        		row += 			'</div>';
+ 			        		row += 		'</div>';
+ 			        		row	+= 		'<div class="history_status">';			
+ 			        		row	+=			 '<div class="status_box field_price">';			
+ 			        		row += 				'<span class="price">'+ items.productPrice +'원</span>';
+ 			        		row += 			 '</div>';
+ 			        		row	+= 		     '<div class="status_box field_date_purchased">'			
+ 			        		row += 				'<span class="dueDate">'+ items.dueDate +'</span>';
+ 			        		row += 			 '</div>';
+ 			        		row += 		'</div>';
+ 			        		row += '</div>';
+ 							
+ 			        		$('#two').append(row);
+ 			        	});//each문
+ 			        	
+ 			      $('#pagingDiv').html(data.paging.pagingHTML);	
+ 			        	
+ 				 },
+ 				 error: function(err){
+ 						alert(err);
+ 				}		 
+ 			 });
+		});
 		
-		$('.status_item3').click(function() {
-			$('.status_item2').removeClass('tab_on');
-			$('.status_item1').removeClass('tab_on');
-			$('.status_item3').addClass('tab_on');
-			$('.layer').hide();
-			
-	});
+		// 달력으로 선택한 날짜 사이의 주문
+ 		$('.period_btn_box').click(function() {
+
+ 			$.ajax({
+ 				 type: 'post',
+ 				 url: '/shoeCream/my/getMonthBuyingList2',
+ 				 data: {'pg' : $('#pg').val(),
+ 					 	'date1' : $('#date1').val(),
+ 					 	'date2' : $('#date2').val(),
+ 					},
+ 				 dataType: 'JSON',
+ 				 success: function(data){
+ 					$('#one').empty();
+ 					$('#two').empty();
+
+ 					 if(data.monthBuyList.length == 0){					 
+ 						 var row = '<div class="empty-area">';
+ 			        		row	+= '<p>구매 입찰 내역이 없습니다.</p>';
+ 			        		row	+= '<a href="/shoeCream/shop" class="gray_btn mypage_btn">SHOP 바로가기</a>';
+ 			        		row += '</div>';
+ 			        		
+ 			        	$('#one').append(row);
+ 					 }
+ 					 
+ 					
+ 					 $.each(data.monthBuyList, function(index, items){
+ 						 var row = '';
+ 						    row +='<div class="purchase_item bid">';			
+ 			        		row	+= 		'<div class="history_product">';
+ 			        		row	+= 			'<div class="product_box">';
+ 			        		row	+= 				'<div class="shopDetail-top_img">';
+ 			        		row	+= 					'<img class="shopDetail-top_Realimg" src="/shoeCream/resources/storage/"' + items.img1 + '>';
+ 			        		row += 				'</div>';
+ 			        		row += 			'</div>';
+ 			        		row	+= 			'<div class="product_detail">';			        
+ 			        		row	+= 				'<p class="name">' + items.productName +'</p>';
+ 			        		row	+= 				'<p class="size"><span class="size_text">' + items.productSize +'</span></p>';		
+ 			        		row += 			'</div>';
+ 			        		row += 		'</div>';
+ 			        		row	+= 		'<div class="history_status">';			
+ 			        		row	+=			 '<div class="status_box field_price">';			
+ 			        		row += 				'<span class="price">'+ items.productPrice +'원</span>';
+ 			        		row += 			 '</div>';
+ 			        		row	+= 		     '<div class="status_box field_date_purchased">'			
+ 			        		row += 				'<span class="dueDate">'+ items.dueDate +'</span>';
+ 			        		row += 			 '</div>';
+ 			        		row += 		'</div>';
+ 			        		row += '</div>';
+ 							
+ 			        		$('#two').append(row);
+ 			        	});//each문
+ 			        	
+ 			      $('#pagingDiv').html(data.paging.pagingHTML);	
+ 			        	
+ 				 },
+ 				 error: function(err){
+ 						alert(err);
+ 				}		 
+ 			 });
+		});
 		
- 	
+ 	// 페이지 이동하기
+ 	 	function paging(pageValue) {	
+ 	 		console.log(pageValue);
+ 	 		location.href = '/shoeCream/my/buying?pg='+pageValue;	
+ 	 	}
  	</script>
 	

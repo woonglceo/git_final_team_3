@@ -48,7 +48,7 @@ public class MypageController {
 		mypageService.deleteWish(wishListId);
 	}
 	
-	// 총 구매내역 폼
+		// 총 구매내역 폼
 		@GetMapping(value="/buying")
 		public String buying(@RequestParam(required=false, defaultValue = "1") String pg, Model model) {
 			int userId = (int) session.getAttribute("ssUserId");
@@ -72,6 +72,34 @@ public class MypageController {
 			map.put("buyList", mypageService.getBuyList(pg, userId)); 
 			map.put("paging", mypageService.paging(pg, "purchase_table", userId)); 
 			return map;
+		}
+
+		// 총 거래내역의 기간 내 거래내역
+		@PostMapping(value = "getMonthBuyingList")
+		@ResponseBody
+		public Map<String, Object> getMonthBuyingList(@RequestParam(required=false, defaultValue = "1") String pg, @RequestParam Map<String, Object> map){
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			int userId = (int) session.getAttribute("ssUserId");
+			map.put("userId", userId);
+			map.put("pg", pg);
+			
+			map2.put("monthBuyList", mypageService.getMonthBuyingList(map)); 
+			map2.put("paging", mypageService.monthPaging(map)); 
+			return map2;
+		}
+		
+		// 달력으로 선택한 날짜 사이의 거래내역
+		@PostMapping(value = "getMonthBuyingList2")
+		@ResponseBody
+		public Map<String, Object> getMonthBuyingList2(@RequestParam(required=false, defaultValue = "1") String pg, @RequestParam Map<String, Object> map){
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			int userId = (int) session.getAttribute("ssUserId");
+			map.put("userId", userId);
+			map.put("pg", pg);
+			
+			map2.put("monthBuyList", mypageService.getMonthBuyingList2(map)); 
+			map2.put("paging", mypageService.monthPaging2(map)); 
+			return map2;
 		}
 		
 		// 거래중 폼
@@ -124,18 +152,75 @@ public class MypageController {
 			int userId = (int) session.getAttribute("ssUserId");
 			
 			map.put("buyList", mypageService.getEndBuyingList(pg, userId));
+			System.out.println(map.get("buyList"));
 			map.put("paging", mypageService.endPaging(pg, userId)); 
+			System.out.println(map.get("paging"));
 			return map; 
 		}
 		
-		// 판매
-		@GetMapping(value="/selling")
-		public String selling(@RequestParam(required=false, defaultValue = "1") String pg, Model model) {
+		// 거래완료시 2 / 4 / 6
+		@PostMapping(value = "getMonthEndBuyingList")
+		@ResponseBody
+		public Map<String, Object> getMonthEndBuyingList(@RequestParam(required=false, defaultValue = "1") String pg, @RequestParam Map<String, Object> map){
+			Map<String, Object> map2 = new HashMap<String, Object>();
 			int userId = (int) session.getAttribute("ssUserId");
-
-			model.addAttribute("display", "/WEB-INF/views/selling.jsp");
-			return "/WEB-INF/views/mypage"; 		
+			map.put("userId", userId);
+			map.put("pg", pg);
+			
+			map2.put("monthBuyList", mypageService.getMonthEndBuyingList(map)); 
+			map2.put("paging", mypageService.endMonthPaging(map)); 
+			return map2;
 		}
+		
+		@PostMapping(value = "getMonthBuyingList3")
+		@ResponseBody
+		public Map<String, Object> getMonthBuyingList3(@RequestParam(required=false, defaultValue = "1") String pg, @RequestParam Map<String, Object> map){
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			int userId = (int) session.getAttribute("ssUserId");
+			map.put("userId", userId);
+			map.put("pg", pg);
+			
+			map2.put("monthBuyList", mypageService.getMonthBuyingList3(map)); 
+			map2.put("paging", mypageService.monthPaging3(map)); 
+			return map2;
+		}
+		
+		
+	// 총 판매 내역
+	@GetMapping(value="/selling")
+	public String selling(@RequestParam(required=false, defaultValue = "1") String pg, Model model) {
+		int userId = (int) session.getAttribute("ssUserId");
+		
+		model.addAttribute("pg", pg);
+		model.addAttribute("display2", "/WEB-INF/views/selling1.jsp");
+		model.addAttribute("display", "/WEB-INF/views/selling.jsp");
+		return "/WEB-INF/views/mypage";  		
+	}
+	
+	// 판매 거래중
+	@GetMapping(value="/ingSelling")
+	public String ingSelling(@RequestParam(required=false, defaultValue = "1") String pg, Model model) {
+		int userId = (int) session.getAttribute("ssUserId");
+	
+		model.addAttribute("pg", pg);		
+		
+		model.addAttribute("display2", "/WEB-INF/views/selling2.jsp");
+		model.addAttribute("display", "/WEB-INF/views/selling.jsp");		
+		return "/WEB-INF/views/mypage"; 
+	}
+	
+	// 판매완료
+	@GetMapping(value="/endSelling")
+	public String endSelling(@RequestParam(required=false, defaultValue = "1") String pg, Model model) {
+		int userId = (int) session.getAttribute("ssUserId");
+	
+		model.addAttribute("pg", pg);		
+		
+		model.addAttribute("display2", "/WEB-INF/views/selling3.jsp");
+		model.addAttribute("display", "/WEB-INF/views/selling.jsp");		
+		return "/WEB-INF/views/mypage"; 
+	}
+	
 	
 	/* 마이페이지 내정보 */
 	@RequestMapping(value="myProfile")
@@ -238,7 +323,5 @@ public class MypageController {
 	public void updateAccount(@ModelAttribute AccountDTO accountDTO) {
 		mypageService.updateAccount(accountDTO);
 	}
-	
-	
-	
+
 }

@@ -48,5 +48,4 @@ public interface UserDAO {
 
 	public UserDTO getAdminUserId(String userId);
 
-	
 }

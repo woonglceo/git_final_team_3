@@ -110,7 +110,11 @@
 		 });	
 	});
  	
- 	
+    // 페이지 이동하기
+ 	function paging(pageValue) {	
+ 		console.log(pageValue);
+ 		location.href = '/shoeCream/my/ingBuying?pg='+pageValue;	
+ 	}
  	
  	</script>
 	
