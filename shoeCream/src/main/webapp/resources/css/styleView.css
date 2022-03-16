@@ -1,12 +1,14 @@
 .want-margin {
   width: 100vh;
-  margin-left: 50vh;
-  margin-right: 50vh;
+
+  padding: 30px;
+  margin-bottom: 2vw;
+  margin: auto;
 }
 
 .user-img {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
 }
 
 .user-statebox {
@@ -31,7 +33,7 @@
 }
 
 .user-state_info p {
-  font-size: 13px;
+  font-size: 16px;
   margin: 0px;
 }
 .user-state_info {
@@ -45,6 +47,7 @@
   color: rgb(133, 133, 133);
   font-weight: 300;
   letter-spacing: -0.33px;
+  font-size: 14px;
 }
 .follow_button {
   margin-top: 10px;
@@ -69,7 +72,7 @@
 
 .procut_tag {
   padding: 8px 0px;
-  font-size: 13px;
+  font-size: 15px;
   margin: 0px;
 }
 
@@ -80,12 +83,12 @@
 /*test*/
 
 .product {
-  width: 100px;
-  height: 100px;
+  width: 7vw;
+  height: 7vw;
 }
 
 .product_name {
-  font-size: 11px;
+  font-size: 13px;
   max-width: 110px;
 
   margin: 6px 0px;
@@ -136,24 +139,24 @@
 
 .social-count {
   padding: 1px 0px;
-  font-size: 12px;
+  font-size: 15px;
   margin: 0px;
 }
 
 .comment-area {
   padding: 5px 0px;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .social-text {
-  font-size: 13px;
+  font-size: 16px;
   margin-bottom: 12px;
 }
 
 .view-more {
   cursor: pointer;
   margin-left: 4px;
-  font-size: 12px;
+  font-size: 14px;
   color: rgb(179, 179, 179);
 }
 
@@ -167,8 +170,8 @@
 .comment-userimg {
   box-sizing: border-box;
 
-  width: 30px;
-  height: 30px;
+  width: 3.5vw;
+  height: 3.5vw;
 }
 
 .comment-userimg-real {
@@ -215,8 +218,9 @@
 }
 
 .show-comment {
-  padding: 0px 25px 20px 39px;
+  padding: 0px 25px 20px 60px;
+
   cursor: pointer;
-  font-size: 12px;
+  font-size: 15px;
   color: rgb(155, 155, 155);
 }

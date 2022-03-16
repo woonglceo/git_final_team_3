@@ -39,7 +39,7 @@ function makeStyleList(objArr) {
 
     const styleFeed = document.createElement("div");
     styleFeed.setAttribute("class", "style-feed");
-    styleFeed.setAttribute("href", stylePerLink); //추가
+    styleFeed.setAttribute("href", `${stylePerLink}=?${styleDatas.styleId}`); //추가
 
     const styleImg = document.createElement("div");
     styleImg.setAttribute("class", "style-img");
@@ -61,7 +61,7 @@ function makeStyleList(objArr) {
 
     const styleFeedHref = document.createElement("a");
 
-    styleFeedHref.setAttribute("href", stylePerLink);
+    styleFeedHref.setAttribute("href", `${stylePerLink}=?${styleDatas.styleId}`);
     const styleFeedPtag = document.createElement("p");
     const styleUserBox = document.createElement("div");
     styleUserBox.setAttribute("class", "style_user-box");
@@ -69,20 +69,16 @@ function makeStyleList(objArr) {
     styleImgProfile.setAttribute("class", "style_img-profile");
 
     styleImgProfile.addEventListener("click", () =>
-      urlFunction("/shoeCream/style/styleView?userId=", styleDatas.userId)
+      urlFunction(`${stylePerLink}?styleId=`, styleDatas.styleId)
     );
 
     styleImgReal.addEventListener("click", () =>
-      urlFunction("/shoeCream/style/styleView?userId=", styleDatas.userId)
+      urlFunction(`${stylePerLink}?styleId=`, styleDatas.styleId)
     );
 
     styleUserBox.addEventListener("click", () =>
-      urlFunction("/shoeCream/style/styleView?userId=", styleDatas.userId)
+      urlFunction(`${stylePerLink}?styleId=`, styleDatas.styleId)
     );
-    // styleImgProfile.setAttribute(
-    //   "onclick",
-    //   urlFunction("/shoeCream/style/styleView?userId=", styleDatas.userId)
-    // );
 
     const styleTextBox = document.createElement("p");
     styleTextBox.setAttribute("class", "style_text-box");
@@ -198,7 +194,8 @@ function makeStyleList(objArr) {
     amount.innerText = styleDatas.price.toLocaleString("en");
     won.innerText = "원";
     styleLikeCount.innerText = styleDatas.like;
-    styleCommentCount.innerText = styleDatas.commentCount;
+    styleCommentCount.innerText = styleDatas.replyCount;
+    styleLikeCount.innerText = styleDatas.likeCount;
 
     //데이터 삽입부
 
@@ -214,6 +211,6 @@ function makeStyleList(objArr) {
   });
 }
 
-function urlFunction(url, userId) {
-  location.href = url + userId;
+function urlFunction(url, styleId) {
+  location.href = url + styleId;
 }
