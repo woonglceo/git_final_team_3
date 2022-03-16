@@ -24,8 +24,8 @@ public class CheckDAOMybatis implements CheckDAO {
 	}
 
 	@Override
-	public List<CheckDTO> searchBtnForm(Map<String, Integer> map) {
-		return sqlSession.selectList("checkSQL.searchBtnForm", map);
+	public void searchBtnForm( Map<String, Object> map) {
+		sqlSession.selectList("checkSQL.searchBtnForm", map);
 
 	}
 

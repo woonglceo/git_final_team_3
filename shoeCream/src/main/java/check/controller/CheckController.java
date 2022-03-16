@@ -2,6 +2,7 @@ package check.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,10 +43,7 @@ public class CheckController {
 	
 	@PostMapping(value="searchBtnForm")
 	@ResponseBody
-	public List<CheckDTO> searchBtnForm(@RequestParam(required=false, defaultValue="1") String pg) {
-		System.out.println("pg: "+pg);
-		List<CheckDTO> list = checkService.searchBtnForm(pg);
-		System.out.println("list: "+list);
-		return list;
+	public void searchBtnForm(@RequestParam Map<String, Object> map) {
+		 checkService.searchBtnForm(map);
 	}
 }

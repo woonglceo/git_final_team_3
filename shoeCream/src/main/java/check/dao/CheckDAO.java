@@ -14,6 +14,6 @@ public interface CheckDAO {
 
 	public List<CheckDTO> getCheckForm(Map<String, Integer> map);
 
-	public List<CheckDTO> searchBtnForm(Map<String, Integer> map);
+	public void searchBtnForm(Map<String, Object> map);
 
 }

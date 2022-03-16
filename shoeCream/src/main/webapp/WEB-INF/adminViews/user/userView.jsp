@@ -3,29 +3,32 @@
 
 <input type="hidden" id="userIdHidden" value="${param.userId}">
 
-      <div class="content">
-        <div class="row">
+      <div class="content" >
+        <div class="row" >
           <div class="col-md-4">
-            <div class="card card-user">
-              <div class="image">
+            <div class="card card-user" >
+            
+            
+              <div class="image" id="imageArea">
+              		<img src="/shoeCream/resources/storage/${imageboardDTO.img}" width="auto"
+					height="auto" >
+              
               </div>
             
-              <div class="card-body">
-                <div class="author">
-                  <a href="#">
-                    <h5 class="title"></h5>
-                  </a>
-                  <p class="description">
-                    
-                  </p>
-                </div>
-                <p class="description text-center">
-                </p>
-              
-              
-              </div>
-              <div class="card-footer">
-                <hr>
+          
+              <div class="card-footer" >
+                
+                
+                
+                
+                 <div class="col-md-3 pl-1"  >
+                      <div class="form-group" >
+                        <label for="exampleInputEmail1">소개</label>
+                        <input type="text" class="form-control" id="introMsg" style="width: 300px"; readonly>
+                      </div>
+                    </div>
+               
+               
                
               </div>
             </div>
@@ -206,6 +209,7 @@ $(function(){
 	
 			console.log('data', data);
 			let input=$('#userTable input');
+			
 			input[0].setAttribute('value',data.userId);
 			input[1].setAttribute('value',data.email);
 			input[2].setAttribute('value',data.username);
@@ -216,7 +220,10 @@ $(function(){
 			input[7].setAttribute('value',data.reportCount);
 			input[8].setAttribute('value',data.regDate);
 			input[9].setAttribute('value',data.lastDate);
-
+			
+			
+			$('#introMsg').attr('value', data.introMsg);
+			$('#imageArea').attr('src', '/shoeCream/resources/storage/' + data.img); 
 						 
 				/* $('<tr/>')			
 					.append($('<td/>', {    // 유저아이디
@@ -241,7 +248,8 @@ $(function(){
 					// 회원번호 , 아이디, 회원이름, 회원등급, 누적신고수
 					// 구매내역, 판매내역, ㄴ인스타, 문의, 사진
 						
-					// 구매내역, 판매내역, 인스타, 문의, 사진 필요								
+					// 구매내역, 판매내역, 인스타, 문의, 사진 필요	
+					
 			
 		},
 		error: function(err){
@@ -268,7 +276,7 @@ $('#replaceBtn').click(function(){
 				alert('회원등급이 수정되었습니다.');
 		 },
 		 error: function(err){
-				alert(err);
+				alert('등급 선택 후 수정버튼을 눌러주세요.');
 		}	
 	
 });
