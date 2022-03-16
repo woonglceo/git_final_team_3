@@ -61,6 +61,18 @@ public class ShopServiceImpl implements ShopService {
 		
 		return shopDAO.getShopSearchList(map);
 	}
+
+	@Override
+	public Map<String, Object> getShopSalesView(Map<String, String> map) {	
+		//productId, userInputPrice, userProductSize
+		ShopDTO s = shopDAO.getShop(map.get("productId"));
+		
+		Map<String, Object> tempMap = new HashMap<>();
+		tempMap.put("shopDTO", s);
+		
+		
+		return tempMap;
+	}
 	
 	
 }

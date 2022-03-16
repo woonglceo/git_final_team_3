@@ -16,4 +16,6 @@ public interface ShopService {
 
 	public List<ShopDTO> getShopSearchList(Map<String, String> map);
 
+	public Map<String, Object> getShopSalesView(Map<String, String> map);
+
 }

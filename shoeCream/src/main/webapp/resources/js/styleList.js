@@ -1,7 +1,7 @@
 console.log("7");
 
 const styleEntireBox = document.querySelector(".style-want-center");
-const stylePerLink = "/shoeCream/style/styleView";
+const stylePerLink = "/shoeCream/style/details";
 
 const dataArr = [];
 
