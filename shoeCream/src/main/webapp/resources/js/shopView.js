@@ -1,8 +1,9 @@
+  //location.search 는 url에 '?' 뒤로 다 짤라온다.
+  var pId = new URLSearchParams(location.search).get("productId");
+  
 $(function () {
   let IMG_SRC = "/shoeCream/resources/images/productImg/";
 
-  //location.search 는 url에 '?' 뒤로 다 짤라온다.
-  var pId = new URLSearchParams(location.search).get("productId");
 
   $.ajax({
     type: "POST",
@@ -30,7 +31,7 @@ $(function () {
     error: function (err) {
       alert("샵뷰 페이지 에러났습니다");
       console.log(err);
-    },
+    }
   }); //end ajax
 }); //end onload
 
@@ -109,51 +110,60 @@ $('.shopDetail-cell-link').click(function(){
 	$('body').css('overflow', 'hidden'); //모달창 켜졌을때 스크롤 금지
 	
 	$('.modal-title-text').text('판매하기');
-	$('.modal-content').append($('<div/>', {text:'오늘의 시세는: '+$('.produxt-price-detail').text()+' 원', class:'modal-content-price-div'}));
-	//$('.modal-content').append($('<div/>', {text:'판매가를 입력하세요:'}));
+	
+	$('.modal-content').append($('<input>', {type:'hidden', name:'productId', value:pId}));
 	$('.modal-content').append(
-		$('<div/>', {class:'modal-content-input-div'}).append(
-			$('<input>', {type:'text', placeholder:'판매가 입력', class:'modal-content-input-price'})
-		  , $('<select>', {class:'modal-content-input-select'}).append(
-				$('<option/>', {value:'-1', text:'사이즈 선택'})
-			  , $('<option/>', {value:'225', text:'225'})	
-			  , $('<option/>', {value:'230', text:'230'})	
-			  , $('<option/>', {value:'235', text:'235'})	
-			  , $('<option/>', {value:'240', text:'240'})	
-			  , $('<option/>', {value:'245', text:'245'})	
-			  , $('<option/>', {value:'250', text:'250'})	
-			  , $('<option/>', {value:'255', text:'255'})	
-			  , $('<option/>', {value:'260', text:'260'})	
-			  , $('<option/>', {value:'265', text:'265'})	
-			  , $('<option/>', {value:'270', text:'270'})
-			  , $('<option/>', {value:'275', text:'275'})	
-			  , $('<option/>', {value:'280', text:'280'})	
-			  , $('<option/>', {value:'285', text:'285'})	
-			  , $('<option/>', {value:'290', text:'290'})
+			$('<div/>', {text:'오늘의 시세는: '+$('.produxt-price-detail').text()+' 원', class:'modal-content-price-div'})
+		  , $('<div/>', {class:'modal-content-input-div'}).append(
+				$('<input>', {type:'text', placeholder:'판매가 입력', class:'modal-content-input-price', name:'userInputPrice'})
+			  , $('<select>', {class:'modal-content-input-select', name:'userProductSize'}).append(
+					$('<option/>', {value:'-1', text:'사이즈 선택'})
+				  , $('<option/>', {value:'225', text:'225'})	
+				  , $('<option/>', {value:'230', text:'230'})	
+				  , $('<option/>', {value:'235', text:'235'})	
+				  , $('<option/>', {value:'240', text:'240'})	
+				  , $('<option/>', {value:'245', text:'245'})	
+				  , $('<option/>', {value:'250', text:'250'})	
+				  , $('<option/>', {value:'255', text:'255'})	
+				  , $('<option/>', {value:'260', text:'260'})	
+				  , $('<option/>', {value:'265', text:'265'})	
+				  , $('<option/>', {value:'270', text:'270'})
+				  , $('<option/>', {value:'275', text:'275'})	
+				  , $('<option/>', {value:'280', text:'280'})	
+				  , $('<option/>', {value:'285', text:'285'})	
+				  , $('<option/>', {value:'290', text:'290'})
 	)));
-	$('.modal-content').append($('<div/>', {id:'modal-content-warning-div', text:'잘못된 값 입니다.'}));
+	$('.modal-content').append($('<div/>', {id:'modal-content-warning-div'}));
 	$('.modal-footer').append($('<input>', {type:'button', value:'상품 판매', class:'modal-content-btn sell', id:'sellBtn'}));
 });//end click
 
 // 모달 클로즈 (x버튼 클릭)
-$(".close-area").click(function () {
+$(".close-area").click(function() {
   $(".modal").css("display", "none");
   $("body").css("overflow", "auto");
 });
 
 $(document).on("click", "#purchaseBtn", function(){
-	//alert('구매 버튼 클릭 ' + $('.modal-content-input-select').val());
 	alert( $('.modal-content-input-select').val());
-	if($('.modal-content-input-select').val() == -1){
+	
+	if($('.modal-content-input-select').val() == -1) {
 		$('#modal-content-warning-div').text('잘못된 값 입니다.');
+	} else {
+		alert('다음페이지로 넘어갑니다.');
+		$('.modal-content-form').submit();
 	}
 });
 
 $(document).on("click", "#sellBtn", function(){
-	//alert('판매 버튼 클릭 ' + $('.modal-content-input-price').val() + $('.modal-content-input-select').val());
-	alert( $('.modal-content-input-select').val());
-	if($('.modal-content-input-select').val() == -1){
+	alert($('.modal-content-input-price').val() +', '+ $('.modal-content-input-select').val());
+	
+	if($('.modal-content-input-select').val() == -1 || $('.modal-content-input-price').val() == '') {
 		$('#modal-content-warning-div').text('잘못된 값 입니다.');
+	} else if(isNaN($('.modal-content-input-price').val())) {
+		$('#modal-content-warning-div').text('숫자만 입력 해주세요.');
+	} else {
+		confirm('다음페이지로 넘어갑니다.');
+		$('.modal-content-form').submit();	
 	}
 });
 /*	

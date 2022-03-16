@@ -81,8 +81,8 @@
 			<!--product-main-title-box-->
 
 			<div class="product-size-box">
-				<span class="product-size-txt">재고</span><span
-					class="produxt-size-detail">사이즈 재고 보기<i
+				<span class="product-size-txt">사이즈</span><span
+					class="produxt-size-detail">모든 사이즈<i
 					class="fa-solid fa-angle-down"></i></span>
 			</div>
 			<div class="product-price-box">
@@ -124,7 +124,7 @@
 						</div>
 						<div class="price">
 							<span class="amount"><em class="num">-
-							</em><span class="won">원</span></span><span class="desc">평균판매가</span>
+							</em><span class="won">원</span></span><span class="desc">즉시구매가</span>
 						</div>
 					</a>
 				</div>
@@ -281,20 +281,18 @@
 <!--shopDetail-box-->
  
 <div id="modal-sell" class="modal">
-    <form action="/shoeCream/shop/shopSalesView/" class="modal-content-form" method="GET">
-	    <div class="modal-window">
-		        <div class="modal-title">
-		            <h2 class="modal-title-text">모달제목</h2>
-		        	<a href="#" class="close-area"><i class="fa-solid fa-xmark fa-lg"></i></a>
-		        </div>
-		        <div class="modal-content">
-		            <p>모달 안에 넣을 내용</p>
-		        </div>
-		        <div class="modal-footer">
-		            <p>모달 풋터</p>
-		        </div>
-	    </div>
-    </form>
+    <div class="modal-window">
+        <div class="modal-title">
+            <h2 class="modal-title-text">모달제목</h2>
+        	<a href="#" class="close-area"><i class="fa-solid fa-xmark fa-lg"></i></a>
+        </div>
+        <div class="modal-content">
+            <p>모달 안에 넣을 내용</p>
+        </div>
+        <div class="modal-footer">
+            <p>모달 풋터</p>
+        </div>
+    </div>
 </div><!-- modal-sell -->
  
 

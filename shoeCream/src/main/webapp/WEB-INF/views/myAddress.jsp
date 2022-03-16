@@ -30,6 +30,8 @@
 						<span class="zipcode">${item.zipcode}</span>
 						<span class="address">${item.addr1} ${item.addr2}</span>
 					</div>
+					<input type="hidden" id="addressId" value="${item.addressId}">
+					<input type="hidden" id="defaultAddr" value="${item.defaultAddr}">
 				</div>
 				<div class="btn_bind">
 					<button type="button" class="btn modify_btn"> 수정 </button>
@@ -50,6 +52,8 @@
 						<span class="zipcode">${item.zipcode}</span>
 						<span class="address">${item.addr1} ${item.addr2}</span>
 					</div>
+					<input type="hidden" id="addressId" value="${item.addressId}">
+					<input type="hidden" id="defaultAddr" value="${item.defaultAddr}">
 				</div>
 				<div class="btn_bind">
 					<button type="button" class="btn default_btn"> 기본 배송지 </button>
@@ -78,6 +82,7 @@
 					<div class="input_box">
 						<h5 class="input_title">수령인</h5>
 						<input type="text" class="input_txt" id="input_recipient" autocomplete="off" placeholder="수령인의 이름">
+						<p class="input_err">올바른 이름을 입력해주세요. (2-4자)</p>
 					</div>
 					<div class="input_box">
 						<h5 class="input_title">우편번호</h5>
@@ -117,18 +122,11 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function(){
-	const addressList = $('#addressList').val();
-	
 	$('.add_btn').click(function(){
 		$('.layer_delivery .title').text('새 주소 추가');
 		$('.layer').css('display', 'flex');
 		$('body').css('overflow', 'auto');
 	});	
-	
-	$('.cancel_btn, .layer_close_btn').click(function(){
-		$('.layer').css('display', 'none');
-		$('body').css('overflow', 'auto');
-	});
 	
 	$('.modify_btn').click(function(){
 		$('.layer_delivery .title').text('배송지 수정');
@@ -136,13 +134,103 @@ $(function(){
 		$('body').css('overflow', 'hidden');
 	});
 	
+	$('.save_btn').click(function(){
+		if($(this).hasClass('save_btn_able')){
+			<!-- 기본 배송지로 설정 확인 -->
+			let defaultAddr = ''
+			const checked = $('#check1').is(':checked');
+			
+			if(!checked){
+				defaultAddr = 'N'
+			}else{
+				defaultAddr = 'Y'
+			}
+			
+			if($('.title').text()=='새 주소 추가'){
+				$.ajax({
+					type:'get',
+					url:'/shoeCream/my/registerAddress',
+					data:{
+						'recipient':$('#input_recipient').val(),
+						'zipcode':$('#input_zipcode').val(),
+						'addr1':$('#input_addr1').val(),
+						'addr2':$('#input_addr2').val(),
+						'defaultAddr':defaultAddr
+					},
+					success:function(){
+						location.href="/shoeCream/my/myAddress";
+					},
+					error:function(){
+						alert('Error: 새 주소 추가')
+					}
+				}); // end ajax
+				
+			}else if($('.title').text()=='배송지 수정'){
+				$.ajax({
+					type:'get',
+					url:'/shoeCream/my/updateAddress',
+					data:{
+						'recipient':$('#input_recipient').val(),
+						'zipcode':$('#input_zipcode').val(),
+						'addr1':$('#input_addr1').val(),
+						'addr2':$('#input_addr2').val(),
+						'defaultAddr':defaultAddr,
+						'addressId':$('#addressId').val()
+					},
+					success:function(){
+						location.href="/shoeCream/my/myAddress";
+					},
+					error:function(){
+						alert('Error: 배송지 수정')
+					}
+				}); // end ajax
+			}
+		}
+	});
+	
+	// 다른 주소를 기본배송지로 변경 후, 삭제할 수 있습니다.
+	$('.delete_btn').click(function(){});	
+
 	$('.zipcode_btn').click(function(){
 		checkPost();
 	});
 	
-	<!-- 유효성 검사 -->
-	$('.input_txt').on('input', function(){
+	$('.cancel_btn, .layer_close_btn').click(function(){
+		$('.layer').css('display', 'none');
+		$('body').css('overflow', 'auto');
 		
+		$('.input_txt').val('');
+		$('#check1').prop('checked', false);
+		$('.input_err').hide();
+	});
+	
+	$('#input_recipient').on('input', function(){
+		isRecipient();
+		setBtn();
+	});
+	
+	<!-- readonly input box -->
+	$('#input_zipcode, #input_addr1').on('input', function(){
+		console.log("Input text changed!" + $(this).val());
+		isAddress();
+	});
+	
+	(function ($) {
+		var originalVal = $.fn.val;
+	    $.fn.val = function (value) {
+	        var res = originalVal.apply(this, arguments);
+	 
+	        if (this.is('input:text') && arguments.length >= 1) {
+	            this.trigger("input");
+	        }
+	        
+	        return res;
+	    };
+	})(jQuery);
+	
+	$('#input_addr2').on('input', function(){
+		isAddress();
+		setBtn();
 	});
 })
 
@@ -151,11 +239,62 @@ $(function(){
 		location.href = '/shoeCream/my/myAddress?pg='+pg;
 	}
 	
-	function setValidation(result, id){
-		if(!result){
-			$(id).attr('validation', 'false');
+	<!-- 유효성 검사 -->
+	function isRecipient(){
+		const recipient = $('#input_recipient').val();
+		const reg = RegExp(/^[가-힣]{2,4}$/);
+		
+		if(recipient==''){
+			$('#input_recipient').attr('validation', 'false');
+			$('.input_err').show();
+			return;
+		}
+		
+		if(!reg.test(recipient)){
+			$('#input_recipient').attr('validation', 'false');
+			$('.input_err').show();
 		}else{
-			$(id).attr('validation', 'true');
+			$('#input_recipient').attr('validation', 'true');
+			$('.input_err').hide();
+		}
+	}
+	
+	function isAddress(){
+		const zipcode = $('#input_zipcode').val();
+		const addr1 = $('#input_addr1').val();
+		const addr2 = $('#input_addr2').val();
+		
+		if(zipcode==''){
+			$('#input_zipcode').attr('validation', 'false');
+		}else{
+			$('#input_zipcode').attr('validation', 'true');
+		}
+		
+		if(addr1==''){
+			$('#input_addr1').attr('validation', 'false');
+		}else{
+			$('#input_addr1').attr('validation', 'true');
+		}
+		
+		if(addr2==''){
+			$('#input_addr2').attr('validation', 'false');
+		}else{
+			$('#input_addr2').attr('validation', 'true');
+		}
+		
+	}
+	
+	<!-- 버튼 활성화 -->
+	function setBtn(){
+		const recipient = $('#input_recipient').attr('validation');
+		const zipcode = $('#input_zipcode').attr('validation');
+		const addr1 = $('#input_addr1').attr('validation');
+		const addr2 = $('#input_addr2').attr('validation');
+		
+		if(recipient=='true'&&zipcode=='true'&&addr1=='true'&&addr2=='true'){
+			$('.save_btn').addClass('save_btn_able');
+		}else{
+			$('.save_btn').removeClass('save_btn_able');
 		}
 	}
 		
@@ -171,9 +310,10 @@ $(function(){
 				} else {
 					addr = data.jibunAddress;
 				}
-	
+				
 				$('#input_zipcode').val(data.zonecode);
 				$('#input_addr1').val(addr);
+				$('#input_addr2').val('');
 				$('#input_addr2').focus();
 			}
 		}).open();

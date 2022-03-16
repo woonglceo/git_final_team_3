@@ -54,5 +54,9 @@ public interface MypageService {
 
 	public int getIngBuying(int userId);
 
+	public void registerAddress(AddressDTO addressDTO);
+
+	public void updateAddress(AddressDTO addressDTO);
+
 
 }

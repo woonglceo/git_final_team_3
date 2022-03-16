@@ -55,6 +55,23 @@ public class ShopController {
 		return shopService.getShop(productId);
 	}
 	
+	@GetMapping(value="shopPurchaseView")
+	public String shopPurchaseView(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/shop/shopPurchaseView.jsp");
+		return "/index";
+	}
+	
+	@GetMapping(value="shopSalesView")
+	public String shopSalesView(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/shop/shopSalesView.jsp");
+		return "/index";
+	}
+	
+	@PostMapping(value="getShopSalesView")
+	public Map<String, Object> getShopSalesView(@RequestParam Map<String, String> map) {
+		return shopService.getShopSalesView(map);
+	}
+	
 	@PostMapping(value="getShopSearchList")
 	@ResponseBody
 	public Map<String, Object> getShopSearchList(@RequestParam Map<String, String> map, Model model) { //searchOption, keyword, pg(id=searchPg)

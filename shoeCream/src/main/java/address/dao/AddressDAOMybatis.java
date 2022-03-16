@@ -21,4 +21,24 @@ public class AddressDAOMybatis implements AddressDAO {
 		return sqlSession.selectList("addressSQL.getAddressList", map);
 	}
 
+	@Override
+	public void registerAddress(AddressDTO addressDTO) {
+		sqlSession.insert("addressSQL.registerAddress", addressDTO);
+	}
+
+	@Override
+	public AddressDTO chkDefaultAddr(int userId) {
+		return sqlSession.selectOne("addressSQL.chkDefaultAddr", userId);
+	}
+
+	@Override
+	public void setDefaultAddrN(int userId) {
+		sqlSession.update("addressSQL.setDefaultAddrN", userId);
+	}
+
+	@Override
+	public void updateAddress(AddressDTO addressDTO) {
+		sqlSession.update("addressSQL.updateAddress", addressDTO);
+	}
+
 }

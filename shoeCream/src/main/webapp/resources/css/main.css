@@ -74,7 +74,7 @@ allHeader {
 
 }
 body {
-  padding-top: 150px;
+  padding-top: 150px; /* padding-top: 115px; */
 
   /* 생략 */
 }

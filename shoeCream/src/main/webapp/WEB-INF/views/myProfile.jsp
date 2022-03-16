@@ -150,6 +150,7 @@ $(function(){
 		<!-- 초기화 -->
 		$('.input_txt').val('');
 		$('.input_err').hide();
+		$('.input_msg').hide();
 		$('.input_box').css('color', 'black');
 		$('#authEmail').val('');
 		$('#authPhoneNum').val('');
@@ -193,8 +194,6 @@ $(function(){
 	$('#save_username').click(function(){
 		isUsername();
 		chkUsername();
-		console.log($('#input_username').attr('validation'));
-		console.log($('#chkUsername').attr('validation'))
 		
 		if($('#input_username').attr('validation')=='true'&&$('#chkUsername').attr('validation')=='true'){
 			$.ajax({
@@ -484,11 +483,13 @@ $(function(){
 		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
 		
 		if(pwd==''){
+			$('.input_err').text('영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)');
 			setErr(false, '#'+id);
 			return;
 		}
 		
 		if(!reg.test(pwd)){
+			$('.input_err').text('영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)');
 			setErr(false, '#'+id);
 	    }else{
 	    	setErr(true, '#'+id);
@@ -501,6 +502,7 @@ $(function(){
 		const reg = RegExp(/^[가-힣]{2,4}$/);
 		
 		if(!reg.test(fullName)){
+			$('.input_err').text('올바른 이름을 입력해주세요. (2-50자)');
 			setErr(false, '#input_fullName');
 		}else{
 			setErr(true, '#input_fullName');
@@ -519,6 +521,7 @@ $(function(){
 		}
 		
 		if (!reg.test(phoneNum)){
+			$('.input_err').text('휴대폰 번호를 정확히 입력해주세요.');
 			setErr(false, '#input_phoneNum');
 		}else{
 			setErr(true, '#input_phoneNum');

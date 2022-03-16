@@ -201,6 +201,14 @@ input, textarea {
 	color: transparent;
 }
 
+.input_err {
+	display: none;
+    position: absolute;
+    line-height: 16px;
+    font-size: 11px;
+    color: #f15746;
+    margin: 3px;
+}
 
 .checkbox_item {
 	align-items: center;
@@ -247,7 +255,6 @@ label {
 
 .layer_btn {
 	text-align: center;
-	cursor: pointer;
     letter-spacing: -.06px;
     line-height: 32px;
     padding: 24px 32px 32px;
@@ -273,6 +280,11 @@ label {
     color: #fff;
     cursor: default;
 	
+}
+
+.save_btn_able {
+	background-color: #222222;
+    cursor: pointer;
 }
 
 .layer_close_btn {

@@ -35,4 +35,5 @@ public class ShopDAOMybatis implements ShopDAO {
 	public List<ShopDTO> getShopSearchList(Map<String, String> map) {
 		return sqlSession.selectList("shopSQL.getShopSearchList", map);
 	}
+	
 }
