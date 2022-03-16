@@ -1,8 +1,9 @@
-console.log("10");
+console.log("1");
 
 const productWrap = document.querySelector(".product_wrap");
 const addBtn = document.querySelector(".add_btn");
-	
+const wrap = document.querySelector(".product_wrap");
+
 /*
 	//getProductList
 	$.ajax({
@@ -26,6 +27,7 @@ const addBtn = document.querySelector(".add_btn");
 //스타일
 
 window.onload = function () {
+  let count = 1;
   $.ajax({
     type: "POST",
     url: "/shoeCream/get/event/getEventList",
@@ -49,8 +51,6 @@ window.onload = function () {
     data: "pg=" + 1,
     //dataType: 'JSON',
     success: function (styleData) {
-      console.log(styleData);
-      // console.log(styleData[0].price);
       makeStyleList(styleData);
     },
     error: function (err) {
@@ -59,21 +59,21 @@ window.onload = function () {
     },
   }); //end ajax
 
-  fetch("/shoeCream/get/product/getproductList", {
+  fetch(`/shoeCream/get/product/getProductListForIndex?pg=${count}`, {
     method: "POST",
   })
     .then((response) => response.json())
     .then((productData) => {
-      // console.log(productData);
+      console.log(productData);
 
       makeProduct(productData);
+      count++;
+      addBtn.addEventListener("click", () => makeProduct(productData,event));
     }); //패치는 서림이 코드
 };
 
 function makeProduct(data) {
-  data.list.forEach((datas) => {
-    // console.log(typeof datas);
-
+  data.forEach((datas) => {
     productWrap.innerHTML += `<div class="product_list">
     <div class="product_list-img"></div>
     <div class="product_list-infobox">
@@ -87,24 +87,20 @@ function makeProduct(data) {
 
     const brandName = document.querySelector(".brand-text");
     brandName.innerText = datas.modelId;
+
+    if (wrap.childElementCount == 16) {
+      console.log("인제끝..");
+      addBtn.style.display = "none";
+    }
   });
 }
 
 const styleWrap = document.querySelectorAll(".style_wrap-imgbox");
 const styleUserImg = document.querySelectorAll(".style-uesr-img");
 const styleUserId = document.querySelectorAll(".style-user-id");
-console.log(styleWrap);
-console.log(typeof (styleUserId));
 
 function makeStyleList(data) {
-  userArr = [];
-
-  data.forEach((datas) => {
-    userArr.push(datas.username);
+  styleUserId.forEach((datas, idx) => {
+    datas.innerText = `@${data[idx].username}`;
   });
-
-  for (let i = 0; i < userArr.length; i++) {
-    styleUserId[i].innerText = userArr[i];
-    // styleUserId[i].innerText = userArr[i].toString;
-  }
 }

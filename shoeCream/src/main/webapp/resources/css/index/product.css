@@ -1,6 +1,5 @@
-
-
 .product_wrap {
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-around;
   padding: 20px;
@@ -16,10 +15,9 @@
   border-radius: 4px;
 }
 
-.product_list{
-    padding: 12px;
+.product_list {
+  padding: 12px;
 }
-
 
 .barnd-text {
   font-size: 14px;

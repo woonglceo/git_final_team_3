@@ -54,9 +54,10 @@ public class StyleController {
 	
 	// 페이지) 선택 글 상세
 	@RequestMapping(value="/details")
-	public String details(Model model) {
-		model.addAttribute("display", "/WEB-INF/views/style/styleView.jsp");
-		return "/index";
+    public String details(@RequestParam int styleId, Model model) {
+      model.addAttribute("styleId", styleId);
+      model.addAttribute("display", "/WEB-INF/views/style/styleView.jsp");
+      return "/index";
 	}
 
 	// Data) 선택 글, 댓글 리스트
