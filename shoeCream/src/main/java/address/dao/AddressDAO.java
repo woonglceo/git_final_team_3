@@ -9,4 +9,12 @@ public interface AddressDAO {
 
 	public List<AddressDTO> getAddressList(Map<String, Integer> map);
 
+	public void registerAddress(AddressDTO addressDTO);
+
+	public AddressDTO chkDefaultAddr(int userId);
+
+	public void setDefaultAddrN(int userId);
+
+	public void updateAddress(AddressDTO addressDTO);
+
 }

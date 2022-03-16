@@ -122,7 +122,6 @@ public class MypageServiceImpl implements MypageService {
 		return map;
 	}
 
-
 	// 구매내역 불러오기
 	@Override
 	public List<Map<String, Object>> getBuyList(String pg, int userId) {
@@ -171,89 +170,91 @@ public class MypageServiceImpl implements MypageService {
 	public int getEndBuying(int userId) {
 		return mypageDAO.getEndBuying(userId);
 	}
-  
-  @Override
-  public List<Map<String, Object>> getIngBuyingList(String pg, int userId) {
-      // 사진, 상품명, 사이즈, 상태
-      Map<String, Integer> map = this.getPageRange(pg);
-      map.put("userId", userId);
-      List<PurchaseDTO> list = mypageDAO.getIngBuyingList(map);
 
-      if(list == null) return null;
-      else {
-          //페이지에 뿌릴 데이터 담기
-          List<Map<String, Object>> buyList = new ArrayList<Map<String,Object>>();
-          Map<String, Object> buyProduct;
-              for(PurchaseDTO purchase : list) {
-                      if(purchase.getStatus() == 0) {
-                          buyProduct = new HashMap<String, Object>();
-                          int productId = purchase.getProductId();
-                          productDTO = productDAO.getProductById(productId);
-                          // 상품정보
-                          buyProduct.put("img", productDTO.getImg1());
-                          buyProduct.put("productName", productDTO.getProductName());
-                          buyProduct.put("productSize", purchase.getProductSize());
-                          // 구매가
-                          salesDTO = mypageDAO.getPrice(productId);
-                          buyProduct.put("productPrice", salesDTO.getPrice());
+	@Override
+	public List<Map<String, Object>> getIngBuyingList(String pg, int userId) {
+		// 사진, 상품명, 사이즈, 상태
+		Map<String, Integer> map = this.getPageRange(pg);
+		map.put("userId", userId);
+		List<PurchaseDTO> list = mypageDAO.getIngBuyingList(map);
 
-                          buyList.add(buyProduct);
-                          }
-                  }			
-          return buyList;
-      }
-  }
-  
-    // 구매내역 페이징
-  @Override
-  public MypagePaging ingPaging(String pg, int userId) {
+		if (list == null)
+			return null;
+		else {
+			// 페이지에 뿌릴 데이터 담기
+			List<Map<String, Object>> buyList = new ArrayList<Map<String, Object>>();
+			Map<String, Object> buyProduct;
+			for (PurchaseDTO purchase : list) {
+				if (purchase.getStatus() == 0) {
+					buyProduct = new HashMap<String, Object>();
+					int productId = purchase.getProductId();
+					productDTO = productDAO.getProductById(productId);
+					// 상품정보
+					buyProduct.put("img", productDTO.getImg1());
+					buyProduct.put("productName", productDTO.getProductName());
+					buyProduct.put("productSize", purchase.getProductSize());
+					// 구매가
+					salesDTO = mypageDAO.getPrice(productId);
+					buyProduct.put("productPrice", salesDTO.getPrice());
 
-      int totalA = this.getTotalIngBuying(userId);
-      mypagePaging.setCurrentPage(Integer.parseInt(pg)); //현재 페이지
-      mypagePaging.setPageBlock(5);
-      mypagePaging.setPageSize(5);
-      mypagePaging.setTotalA(totalA);
-      mypagePaging.makePagingHTML();
+					buyList.add(buyProduct);
+				}
+			}
+			return buyList;
+		}
+	}
 
-      return mypagePaging;
-  }
-  
-  @Override
-    public List<Map<String, Object>>  getEndBuyingList(String pg, int userId) {
-        Map<String, Integer> map = this.getPageRange(pg);
-        map.put("userId", userId);
-        
-        List<PurchaseDTO> list = mypageDAO.getEndBuyingList(map);
+	// 구매내역 페이징
+	@Override
+	public MypagePaging ingPaging(String pg, int userId) {
 
-        List<Map<String, Object>> buyList = new ArrayList<Map<String,Object>>();
-        Map<String, Object> buyProduct;
-            for(PurchaseDTO purchase : list) {
-                    if(purchase.getStatus() == 1) {
-                        buyProduct = new HashMap<String, Object>();
-                        // 상품정보
-                        buyProduct.put("img", purchase.getImg1());
-                        buyProduct.put("productName", purchase.getProductName());
-                        buyProduct.put("productSize", purchase.getProductSize());						
-                        buyProduct.put("productPrice", purchase.getProductPrice());
-                        buyProduct.put("tradeDate", purchase.getTradeDate());
-                        
-                        buyList.add(buyProduct);
-                    }
-                }			
-        return buyList;
-    }
-   @Override
-    public MypagePaging endPaging(String pg, int userId) {
-        int totalA = this.getEndBuying(userId);
-        
-        mypagePaging.setCurrentPage(Integer.parseInt(pg)); //현재 페이지
-        mypagePaging.setPageBlock(5);
-        mypagePaging.setPageSize(5);
-        mypagePaging.setTotalA(totalA);
-        mypagePaging.makePagingHTML();
-                
-        return mypagePaging;
-    }
+		int totalA = this.getTotalIngBuying(userId);
+		mypagePaging.setCurrentPage(Integer.parseInt(pg)); // 현재 페이지
+		mypagePaging.setPageBlock(5);
+		mypagePaging.setPageSize(5);
+		mypagePaging.setTotalA(totalA);
+		mypagePaging.makePagingHTML();
+
+		return mypagePaging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getEndBuyingList(String pg, int userId) {
+		Map<String, Integer> map = this.getPageRange(pg);
+		map.put("userId", userId);
+
+		List<PurchaseDTO> list = mypageDAO.getEndBuyingList(map);
+
+		List<Map<String, Object>> buyList = new ArrayList<Map<String, Object>>();
+		Map<String, Object> buyProduct;
+		for (PurchaseDTO purchase : list) {
+			if (purchase.getStatus() == 1) {
+				buyProduct = new HashMap<String, Object>();
+				// 상품정보
+				buyProduct.put("img", purchase.getImg1());
+				buyProduct.put("productName", purchase.getProductName());
+				buyProduct.put("productSize", purchase.getProductSize());
+				buyProduct.put("productPrice", purchase.getProductPrice());
+				buyProduct.put("tradeDate", purchase.getTradeDate());
+
+				buyList.add(buyProduct);
+			}
+		}
+		return buyList;
+	}
+
+	@Override
+	public MypagePaging endPaging(String pg, int userId) {
+		int totalA = this.getEndBuying(userId);
+
+		mypagePaging.setCurrentPage(Integer.parseInt(pg)); // 현재 페이지
+		mypagePaging.setPageBlock(5);
+		mypagePaging.setPageSize(5);
+		mypagePaging.setTotalA(totalA);
+		mypagePaging.makePagingHTML();
+
+		return mypagePaging;
+	}
 
 	/* 마이페이지 내 정보 */
 	// 회원 정보 불러오기
@@ -330,5 +331,38 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int getTotalIngBuying(int userId) {
 		return mypageDAO.getTotalIngBuying(userId);
+	}
+
+	@Override
+	public void registerAddress(AddressDTO addressDTO) {
+		int userId = (int) session.getAttribute("ssUserId");
+		addressDTO.setUserId(userId);
+
+		if (addressDTO.getDefaultAddr().equals("Y")) {
+			// 등록된 기본 배송지가 있는지 확인
+			AddressDTO addr = addressDAO.chkDefaultAddr(userId);
+
+			if (addr != null) {
+				addressDAO.setDefaultAddrN(userId);
+			}
+		}
+		addressDAO.registerAddress(addressDTO);
+	}
+
+	@Override
+	public void updateAddress(AddressDTO addressDTO) {
+		int userId = (int) session.getAttribute("ssUserId");
+		addressDTO.setUserId(userId);
+		System.out.println(addressDTO.getDefaultAddr());
+		
+		if (addressDTO.getDefaultAddr().equals("Y")) {
+			// 등록된 기본 배송지가 있는지 확인
+			AddressDTO addr = addressDAO.chkDefaultAddr(userId);
+
+			if (addr != null) {
+				addressDAO.setDefaultAddrN(userId);
+			}
+		}
+		addressDAO.updateAddress(addressDTO);
 	}
 }

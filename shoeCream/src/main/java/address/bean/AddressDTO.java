@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Component
@@ -15,6 +17,6 @@ public class AddressDTO {
 	private String addr1;
 	private String addr2;
 	private String zipcode;
-	private Date regDate;
 	private String defaultAddr;
+	private Date regDate;
 }
