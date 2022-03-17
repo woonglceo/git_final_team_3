@@ -2,6 +2,7 @@ console.log("7");
 
 const styleEntireBox = document.querySelector(".style-want-center");
 const stylePerLink = "/shoeCream/style/details";
+const STYLE_IMG_SRC = '/shoeCream/resources/images/style_board/';
 
 const dataArr = [];
 
@@ -46,7 +47,7 @@ function makeStyleList(objArr) {
 
     const styleImgReal = document.createElement("img");
     styleImgReal.setAttribute("class", "style-img_real");
-    styleImgReal.setAttribute("src", "img/1.png");
+    styleImgReal.setAttribute("src", STYLE_IMG_SRC+ styleDatas.img1);
 
     styleImg.appendChild(styleImgReal);
     styleFeed.appendChild(styleImg);
@@ -123,7 +124,7 @@ function makeStyleList(objArr) {
 
     const ProductImg = document.createElement("img");
     ProductImg.setAttribute("class", 'style_product-img"');
-    ProductImg.setAttribute("src", "img/4.png");
+    //ProductImg.setAttribute("src", "img/4.png");
 
     const productDesc = document.createElement("div");
     productDesc.setAttribute("class", "product_desc");
@@ -196,7 +197,8 @@ function makeStyleList(objArr) {
     styleLikeCount.innerText = styleDatas.like;
     styleCommentCount.innerText = styleDatas.replyCount;
     styleLikeCount.innerText = styleDatas.likeCount;
-
+	
+	
     //데이터 삽입부
 
     function changeHeart() {

@@ -9,7 +9,7 @@ import shop.bean.ShopPaging;
 public interface ShopService {
 	public List<ShopDTO> getShopList(String pg);
 
-	public ShopDTO getShop(String productId);
+	public Map<String, Object> getShop(String productId);
 
 	public ShopPaging shopPaging(String pg);
 	public ShopPaging shopPaging(Map<String, String> map);

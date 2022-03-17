@@ -51,7 +51,7 @@ public class ShopController {
 	
 	@PostMapping(value="getShop")
 	@ResponseBody
-	public ShopDTO getShop(@RequestParam String productId) {
+	public Map<String, Object> getShop(@RequestParam String productId) {
 		return shopService.getShop(productId);
 	}
 	
@@ -68,6 +68,7 @@ public class ShopController {
 	}
 	
 	@PostMapping(value="getShopSalesView")
+	@ResponseBody
 	public Map<String, Object> getShopSalesView(@RequestParam Map<String, String> map) {
 		return shopService.getShopSalesView(map);
 	}
