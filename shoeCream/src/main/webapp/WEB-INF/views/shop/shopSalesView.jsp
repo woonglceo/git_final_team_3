@@ -11,13 +11,12 @@
 <div class="shopDetail-top" id="shop-detail-top">
 	<div class="shopDetail-top-product">
 		<div class="shopDetail-top_img">
-			<img class="shopDetail-top_Realimg" src="/shoeCream/resources/images/productImg/Adidas Yeezy Boost 350 V2 Dazzling Blue.png">
+			<img class="shopDetail-top_Realimg" src="">
 		</div>
 		<div class="shopDetail-product_text">
-			<p class="product_name">Nike x Diamond Supply Co. SB Dunk Low
-				Canary Diamond (Friends &amp; Family)</p>
-			<p class="product_name_translate">나이키 x 다이아몬드 서플라이 SB 덩크 로우 카나리
-				다이아몬드 (프렌즈 앤 패밀리)</p>
+			<p class="product_modelId"></p>
+			<p class="product_name"></p>
+			<p class="product_name_translate"></p>
 		</div>
 	</div>
 	<!--shopDetail-top-product-->
