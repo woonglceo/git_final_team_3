@@ -92,6 +92,30 @@ public class MypageServiceImpl implements MypageService {
 	public void deleteWish(int wishListId) {
 		mypageDAO.deleteWish(wishListId);
 	}
+	
+	@Override
+	public String switchWish(int productId) {
+		//로그인 여부 확인 
+		if(session.getAttribute("ssUserId") == null) {
+			return "non-login";
+		} else {
+			//로그인 된 상태일 경우
+			int userId = (int) session.getAttribute("ssUserId");
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("productId", productId);
+			map.put("userId", userId);
+			
+			if(mypageDAO.getWishOnOff(map) == null) { //위시리스트에 dto 없을 경우 위시 추가
+				mypageDAO.addWish(map); //wish_list 테이블 데이터 insert
+				return "on";
+				
+			} else { //공감 내역 있을 경우 공감 취소
+				int wishListId = mypageDAO.getWishOnOff(map).getWishListId();
+				mypageDAO.deleteWish(wishListId); //wish_list 테이블 데이터 delete
+				return "off";
+			}
+		}
+	}
 
 	// 페이징 객체 생성
 	@Override

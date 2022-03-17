@@ -14,6 +14,8 @@ public interface MypageDAO {
 	public int getTotalDB(Map<String, Object> map);
 
 	public void deleteWish(int wishListId);
+
+	public void addWish(Map<String, Integer> map);
 	
 	public List<PurchaseDTO> getBuyList(Map<String, Integer> map);
 
@@ -44,5 +46,8 @@ public interface MypageDAO {
 	public List<PurchaseDTO> getMonthEndBuyingList3(Map<String, Object> map);
 
 	public int getTotalMonthBuying3(Map<String, Object> map);
+
+	public WishListDTO getWishOnOff(Map<String, Integer> map);
+
 
 }

@@ -14,7 +14,9 @@ public interface MypageService {
 
 	public List<Map<String, Object>> getWishList(String pg, int userId);
 
-	public void deleteWish(int wishListId);
+	public void deleteWish(int wishListId);	
+
+	public String switchWish(int productId);
 
 	public List<Map<String, Object>> getBuyList(String pg, int userId);
 
@@ -72,6 +74,7 @@ public interface MypageService {
 	public void registerAddress(AddressDTO addressDTO);
 
 	public void updateAddress(AddressDTO addressDTO);
+
 
 
 }

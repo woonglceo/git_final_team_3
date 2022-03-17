@@ -34,6 +34,16 @@ public class MypageDAOImpl implements MypageDAO {
 	}
 	
 	@Override
+	public void addWish(Map<String, Integer> map) {
+		sqlSession.insert("mypageSQL.addWish", map);
+	}
+	
+	@Override
+	public WishListDTO getWishOnOff(Map<String, Integer> map) {
+		return sqlSession.selectOne("mypageSQL.getWishOnOff", map); //userId, productId
+	}
+	
+	@Override
 	public List<PurchaseDTO> getBuyList(Map<String, Integer> map) {
 		/*
 		 * Date today = new Date(); sqlSession.update("mypageSQL.updateStaus", today);

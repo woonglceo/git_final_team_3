@@ -42,11 +42,18 @@ public class MypageController {
 		}
 	}
 	
-	//관심상품 페이지
+	//관심상품 삭제
 	@RequestMapping(value="/deleteWish")
 	@ResponseBody
 	public void deleteWish(int wishListId) {
 		mypageService.deleteWish(wishListId);
+	}
+	
+	//관심상품 등록/취소 (샵 페이지 아이콘)
+	@ResponseBody
+	@RequestMapping(value="/addWish")
+	public String switchWish(int productId) {
+		return mypageService.switchWish(productId);
 	}
 	
 		// 총 구매내역 폼

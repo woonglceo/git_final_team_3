@@ -21,6 +21,16 @@
 		delete from wish_list where wishListId=#{wishListId}
 	</delete>
 	
+	<!-- wish 상품 추가 -->
+	<insert id="addWish" parameterType="java.util.Map">
+		insert into wish_list values(SEQ_WISH_LIST.nextval, #{userId}, #{productId})
+	</insert>
+	
+	<!-- 특정 상품 wish 여부 -->
+	<select id="getWishOnOff" parameterType="java.util.Map" resultType="WishListDTO">
+		select * from wish_list where userId=#{userId} and productId=#{productId}
+	</select>
+	
 	<!-- 리스트를 가져오기 전 마감기한 업데이트 -->
 	<update id="updateStaus" parameterType="java.util.Date">
 	<![CDATA[

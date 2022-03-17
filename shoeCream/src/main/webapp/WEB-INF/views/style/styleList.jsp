@@ -76,7 +76,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="style-want-center"></div>
 <!--style-want-center-->
-
+<input type="hidden" id="sessionId" value='${ssUserId}'>
 <script src="/shoeCream/resources/js/styleList.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
