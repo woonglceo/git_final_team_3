@@ -13,7 +13,7 @@
 		<c:if test="${empty wishList}">
 			<div class="empty-area">
 				<p>추가하신 관심 상품이 없습니다.</p>
-				<a href="/shoeCream/shop" class="gray_btn mypage_btn">SHOP 바로가기</a>
+				<a href="/shoeCream/shop/shopList" class="gray_btn mypage_btn">SHOP 바로가기</a>
 			</div>
 		</c:if>
 		<ul>			
@@ -23,7 +23,7 @@
 						<input type="hidden" id="productId" value="${i.productId}">
 						<div class="shopDetail-top-product">
 						    <div class="shopDetail-top_img">
-						        <img class="shopDetail-top_Realimg" src='/shoeCream/resources/images/${i.img}'>
+						        <img class="shopDetail-top_Realimg" src='/shoeCream/resources/images/productImg/${i.img}'>
 						    </div>
 						    <div class="shopDetail-product_text">
 						        <p class="brand">${i.brand}</p>
@@ -84,7 +84,7 @@
  			$('.productLink').click(function(){
  				var productId = $(this).children().val();
  				//alert(productId);
- 				location.href = '/shoeCream/products?productId='+productId;
+ 				location.href = '/shoeCream/shop/shopView?productId='+productId;
  			});
 	 	})
  	</script>

@@ -61,17 +61,17 @@
 	
 	<!-- 특정 게시물 공감 갯수 -->
 	<select id="totalLike" parameterType="Integer" resultType="Integer">
-		select count(*) from style_like where "styleId"=#{styleId}
+		select count(*) from style_like where styleId=#{styleId}
 	</select>
 	
 	<!-- 특정 게시물 공감 여부 -->
 	<select id="getLikeOnOff" parameterType="java.util.Map" resultType="StyleLikeDTO">
-		select * from style_like where "styleId"=#{styleId} and "userId"=#{userId}
+		select * from style_like where styleId=#{styleId} and userId=#{userId}
 	</select>
 	
 	<!-- 특정 게시물 공감 추가 -->
 	<insert id="plusLike1" parameterType="java.util.Map">
-		insert into style_like("likeId", "userId", "styleId") values(SEQ_STYLE_LIKE.nextval, #{userId}, #{styleId})
+		insert into style_like(likeId, userId, styleId) values(SEQ_STYLE_LIKE.nextval, #{userId}, #{styleId})
 	</insert>
 	<update id="plusLike2" parameterType="Integer">
 		update style_board set likecount = likecount+1 where styleId=#{styleId}
@@ -130,8 +130,8 @@
 		select user_table.username, user_table.img, user_table.intromsg 
 		from style_like 
 			join user_table
-			on style_like."userId" = user_table.userId
-		where "styleId"=#{styleId}
+			on style_like.userId = user_table.userId
+		where styleId=#{styleId}
 	</select>
 	
 	<!-- 관리자 페이지 스타일 게시글 리스트 -->
