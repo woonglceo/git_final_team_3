@@ -5,14 +5,11 @@
 <link rel='stylesheet' type='text/css' media='screen'
 	href='/shoeCream/resources/css/shopView.css'>
 
-<script src="https://kit.fontawesome.com/7f651fee1e.js"
-	crossorigin="anonymous"></script>
 
 <!--  모달 css - 프로젝트에 따라 경로만 수정  -->
 <link rel="stylesheet" href="/shoeCream/resources/css/modal.css">
  
 <!--  닫힘버튼(x) 아이콘 이미지 cdn  -->
-<script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
 
 <div class="shopDetail-box">
 	<!--전체를 감싸는 박스-->

@@ -11,25 +11,12 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
-<script>
-	$(function() {
-		$.noConflict();
-		$('.banner_item-slide').slick({
-			/* prevArrow : ".prev", // 이전 화살표 모양 설정
-			nextArrow : ".next", */
-			slidesToShow: 1,
-			autoplay: true,
-			autoplaySpeed: 6000,
-			arrows: true,
-			dots: true
-		});
-
-	})
-</script>
+<script src='/shoeCream/resources/js/slickBanner.js'></script>
 
 	<div class="banner_item-slide" >
+		<!-- 
 		<div class="banner_item-content">
-			<img src="/shoeCream/resources/images/logo/Untitled-1.jpg" class="responsive" style="text-align:center">
+			<img src="/shoeCream/resources/images/logo/Untitled-1.jpg" class="responsive">
 		</div>
 		<div class="banner_item-content">
 			<img src="/shoeCream/resources/images/logo/Untitled-2.jpg" class="responsive">
@@ -40,6 +27,7 @@
 		<div class="banner_item-content">
 			<img src="/shoeCream/resources/images/logo/Untitled-4.jpg" class="responsive">
 		</div>
+		-->
 	</div>
 <!-- 
 	<div class="button">

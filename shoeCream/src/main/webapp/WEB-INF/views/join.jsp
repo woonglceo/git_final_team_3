@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>join</title>
 <link rel="stylesheet" href="/shoeCream/resources/css/join.css">
-<script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <jsp:include page="top.jsp"></jsp:include>

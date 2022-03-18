@@ -5,7 +5,6 @@
 <head>
   <link href="/shoeCream/admin/assets/css/question/question.css" rel="stylesheet" />
   <!-- 답글 화살표 -->
-  <script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
 </head>
   
  <div class="card">     
