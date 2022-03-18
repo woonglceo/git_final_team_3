@@ -5,11 +5,9 @@
 <link rel='stylesheet' type='text/css' media='screen'
 	href='/shoeCream/resources/css/shopView.css'>
 
-
 <!--  모달 css - 프로젝트에 따라 경로만 수정  -->
 <link rel="stylesheet" href="/shoeCream/resources/css/modal.css">
- 
-<!--  닫힘버튼(x) 아이콘 이미지 cdn  -->
+
 
 <div class="shopDetail-box">
 	<!--전체를 감싸는 박스-->

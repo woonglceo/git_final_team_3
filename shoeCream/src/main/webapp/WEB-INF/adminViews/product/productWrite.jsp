@@ -3,6 +3,7 @@
 
 <head>
 	<link href="/shoeCream/admin/assets/css/product/productWrite.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/shoeCream/resources/css/date.css">
 </head>
 
 <input type="hidden" id="pg" name="pg" value="${pg}">

@@ -1,5 +1,8 @@
-/* buying css */
-
+/* 이미지 */
+img{
+	width: 20px; 
+	height: 20px; 
+}
 div {
     display: block;
 }
@@ -150,6 +153,9 @@ dd {
 
  .link1{
  	width: 80px;
+ }
+ .link2{
+ 	margin-left: 40px;
  }
 
 .month_item+.month_item {
