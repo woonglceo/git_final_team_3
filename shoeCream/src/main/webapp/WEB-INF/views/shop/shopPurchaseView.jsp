@@ -8,6 +8,7 @@
 <!--  모달 css - 프로젝트에 따라 경로만 수정  -->
 <link rel="stylesheet" href="/shoeCream/resources/css/modal.css">
 
+
 <div class="shopDetail-box">
 	<!--전체를 감싸는 박스-->
 

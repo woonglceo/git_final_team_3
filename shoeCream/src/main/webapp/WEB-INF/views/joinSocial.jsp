@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>join</title>
 <link rel="stylesheet" href="/shoeCream/resources/css/joinSocial.css">
+
 </head>
 <body>
 <jsp:include page="top.jsp"></jsp:include>
