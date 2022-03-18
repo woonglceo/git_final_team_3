@@ -30,8 +30,11 @@ button {
 
 .myAccount {
 	overflow: hidden;
-    min-height: 380px;
-    max-width: 480px; 
+    min-height: 380px; 
+}
+
+.content_area {
+	max-width: 480px;
 }
 
 .registered_account_box {

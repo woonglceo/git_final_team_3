@@ -45,35 +45,18 @@
 	color: transparent;
 }
 
-#input_email {
-	position: relative;
-}
-
-#input_authNum {
-	position: relative;
-}
-
 .input_txt_readonly {
 	border-bottom: 1px solid grey;
 	color: #bcbcbc;
 }
 
-.input_err {
+.input_err, .input_msg {
 	display: block;
     position: absolute;
     line-height: 16px;
     font-size: 11px;
     color: #f15746;
     margin: 3px;
-}
-
-.input_msg {
-	display: block;
-    position: absolute;
-    line-height: 16px;
-    font-size: 11px;
-    margin: 3px;
-    color: #f15746;
 }
 
 .checkbox_item {
@@ -200,6 +183,12 @@ label {
 	background-color: #222222;
 }
 
+#check_btn_phone {
+	top: 20px;
+	left: auto;
+	background-color: #222222;
+}
+
 /* 모달 */
 .layer {
 	display: none;
@@ -210,6 +199,10 @@ label {
     bottom: 0;
     background-color: rgba(34,34,34,.5);
     z-index: 1010;
+}
+
+.layer_auth .layer_container {
+	width: 400px;
 }
 
 .layer_container {
@@ -230,8 +223,7 @@ label {
 
 .layer_header .title {
 	line-height: 22px;
-    padding: 18px 50px 20px;
-    min-height: 60px;
+    padding-top: 20px;
     font-size: 18px;
     letter-spacing: -.27px;
     font-weight: 700;

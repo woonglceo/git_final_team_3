@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>join</title>
 <link rel="stylesheet" href="/shoeCream/resources/css/join.css">
-<script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <jsp:include page="top.jsp"></jsp:include>
@@ -127,6 +126,7 @@
 	<input type="hidden" id="chkUsername">
 	<input type="hidden" id="chkEmail">
 	<input type="hidden" id="authEmail">
+	<input type="hidden" id="authPhone">
 </div>
 
 <!-- 모달 -->
@@ -171,6 +171,26 @@
 				<p>3. "회원"은 "아이디"및 "비밀번호"가 도용되거나 제3자가 사용하고 있음을 인지한 경우에는 이를 즉시 "회사"에 통지하고 "회사"의 안내에 따라야 합니다.</p>
 				<p>4. 제3항의 경우에 해당 "회원"이 "회사"에 그 사실을 통지하지 않거나, 통지한 경우에도 "회사"의 안내에 따르지 않아 발생한 불이익에 대하여 "회사"는 책임지지 않습니다.</p>
 			</div>				
+		</div>
+		<div>
+			<a href=javascript:; class="layer_close_btn"><i class="fa-solid fa-xmark"></i></a>
+		</div>
+	</div>
+</div>
+
+<!-- 모달 -->
+<div class="layer_auth layer">
+	<div class="layer_container">
+		<div class="layer_header">
+			<h2 class="title">인증번호를 입력해주세요.</h2>
+		</div>
+		<div class="layer_content">
+			<div class="input_box">
+				<h3 class="input_title"></h3>
+				<input type="text" class="input_txt" id="input_authPhone" placeholder="인증번호 입력" autocomplete="off">
+				<input type="button" class="check_btn" id="check_btn_phone" value="확인">
+				<p class="input_msg" id="input_msg"></p>
+			</div>
 		</div>
 		<div>
 			<a href=javascript:; class="layer_close_btn"><i class="fa-solid fa-xmark"></i></a>
@@ -343,42 +363,12 @@ $(function(){
 	            },
 	            success:function(data){
 	            	if(data.result=='success'){
-	            		(async () => {
-	            			const { value: number } = await Swal.fire({
-	            			title: '인증번호를 입력해 주세요.',
-	            			inputPlaceholder: '인증번호 입력',
-	            			input: 'number'
-	            			})
-	            		
-    					if(number==data.randomNumber){
-    						$.ajax({
-    				        	type:'post',
-    				            url:'/shoeCream/user/joinOk',
-    				            data:{
-    				            	'username':$('#input_username').val(),
-    				                'pwd':$('#input_pwd').val(),
-    				                'fullName':$('#input_fullName').val(),
-    				                'email':$('#input_email').val(),
-    				                'phoneNum':$('#input_phoneNum').val()
-    							},
-    				            success:function(){
-    				            	Swal.fire({
-    				                	title:'회원가입이 완료되었습니다.',
-    				                	text:'로그인 후 이용해주세요.',
-    				                	icon:'success'
-    				              	}).then((result) => {
-    				                	location.href='/shoeCream/index.jsp';
-    				            	});
-    				            },
-    				            error:function(){
-    				            	alert('Error: 회원가입');
-    				        	}
-    				    	}); // end ajax(회원가입)	    					
-    					}else{
-    						alert('인증번호가 일치하지 않습니다.');
-    					}
-	            		})() // end async	
-	            	}              
+		            	$('.layer_auth').css('display', 'flex');
+		        		$('body').css('overflow', 'hidden');
+		            	
+		            	$('#authPhone').val(data.randomNumber);
+		            	$('#input_authPhone').focus();
+	            	}
 	            },
 	            error:function(){
 	            	alert('Error: 휴대폰 본인인증');
@@ -387,15 +377,51 @@ $(function(){
 		}
 	});
 	
+	<!-- 휴대폰 인증번호 확인 -->
+	$('#check_btn_phone').click(function(){
+		if($('#input_authPhone').val()==''){
+			$(this).next('p').text('인증번호를 정확히 입력해주세요.');
+		}else{
+			if($('#input_authPhone').val()==$('#authPhone').val()){
+				$.ajax({
+		        	type:'post',
+		            url:'/shoeCream/user/joinOk',
+		            data:{
+		            	'username':$('#input_username').val(),
+		                'pwd':$('#input_pwd').val(),
+		                'fullName':$('#input_fullName').val(),
+		                'email':$('#input_email').val(),
+		                'phoneNum':$('#input_phoneNum').val()
+					},
+		            success:function(){
+		            	Swal.fire({
+		                	title:'회원가입이 완료되었습니다.',
+		                	text:'로그인 후 이용해주세요.',
+		                	icon:'success'
+		              	}).then((result) => {
+		                	location.href='/shoeCream/user/login';
+		            	});
+		            },
+		            error:function(){
+		            	alert('Error: 회원가입');
+		        	}
+		    	}); // end ajax(회원가입)	 
+			}else{
+				$(this).next('p').text('인증번호를 정확히 입력해주세요.');
+			}			
+		}			
+	});
+	
 	<!-- 약관 보기 -->
 	$('.view_btn').click(function(){
-		$('.layer').css('display', 'flex');
+		$('.layer_agreement').css('display', 'flex');
 		$('body').css('overflow', 'hidden');
 	});
 	
 	$('.layer_close_btn').click(function(){
 		$('.layer').css('display', 'none');
 		$('body').css('overflow', 'auto');
+		$('#authPhone').val('');
 	});
 	
 	<!-- 아이디 유효성 검사 -->
@@ -451,7 +477,7 @@ $(function(){
 	<!-- 비밀번호 유효성 검사 -->
 	function isPwd(){
 		const pwd = $('#input_pwd').val();
-		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
+		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])(?=.*[0-9]).{8,25}$/);
 		
 		if($('#input_pwd').val()==''){
 			$('#input_err_pwd').text('필수 정보입니다.');

@@ -141,6 +141,7 @@ public class UserController {
 		// 위에서 만든 코드 아래에 코드 추가
 		HashMap<String, Object> userInfo = userService.getUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
+		System.out.println("###nickname#### : " + userInfo.get("nickname"));
 		System.out.println("###profile_image#### : " + userInfo.get("profile_image"));
 		System.out.println("###email#### : " + userInfo.get("email"));
 
@@ -155,14 +156,14 @@ public class UserController {
 
 		// 사용자 정보가 있으면 로그인
 		} else {
-			userService.kakaoLoginOk(email, access_Token);
+			userService.kakaoLoginOk((String) userInfo.get("email"), access_Token);
 			return "/index";
 		}
 	}
 
 	@PostMapping(value = "/joinSocialOk")
 	@ResponseBody
-	public void joinSocialOk(@ModelAttribute UserDTO userDTO, HttpSession session) {
+	public void joinSocialOk(@ModelAttribute UserDTO userDTO) {
 		userService.joinSocialOk(userDTO);
 	}
 

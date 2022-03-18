@@ -105,7 +105,6 @@ public class UserDAOMybatis implements UserDAO {
 	@Override
 	public UserDTO getUserId(int userId) {
 		return sqlSession.selectOne("userSQL.getUserId", userId);
-
 	}
 
 	@Override
@@ -123,4 +122,15 @@ public class UserDAOMybatis implements UserDAO {
 	public UserDTO getAdminUserId(String userId) {
 		return sqlSession.selectOne("userSQL.getAdminUserId",userId);
 	}
+
+	@Override
+	public void updateImg(Map<String, String> map) {
+		sqlSession.update("userSQL.updateImg", map);
+	}
+
+	@Override
+	public void withdrawal(int userId) {
+		sqlSession.delete("userSQL.withdrawal", userId);
+	}
+
 }

@@ -41,4 +41,14 @@ public class AddressDAOMybatis implements AddressDAO {
 		sqlSession.update("addressSQL.updateAddress", addressDTO);
 	}
 
+	@Override
+	public void deleteAddress(int addressId) {
+		sqlSession.delete("addressSQL.deleteAddress", addressId);
+	}
+
+	@Override
+	public void setDefaultAddrY(int addressId) {
+		sqlSession.update("addressSQL.setDefaultAddrY", addressId);
+	}
+
 }
