@@ -79,7 +79,7 @@ $(function(){
 	<!-- 비밀번호 유효성 검사 -->
 	function isPwd(){
 		const pwd = $('#input_pwd').val();
-		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
+		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])(?=.*[0-9]).{8,25}$/);
 		
 		if(!reg.test(pwd)){
 		    $('#input_err_pwd').text('영문, 숫자, 특수문자를 조합하여 입력해주세요. (8-16자)');
@@ -129,6 +129,12 @@ $(function(){
 				}
 			}); // end ajax
 		}
+	});
+	
+	$('.input_txt').keydown(function(key){
+	    if (key.keyCode==13) {
+	        $('.login_btn').trigger('click');
+	    }
 	});
 	 
 	<!-- 버튼 활성화 -->

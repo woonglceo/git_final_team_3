@@ -48,4 +48,8 @@ public interface UserDAO {
 
 	public UserDTO getAdminUserId(String userId);
 
+	public void updateImg(Map<String, String> map);
+
+	public void withdrawal(int userId);
+
 }

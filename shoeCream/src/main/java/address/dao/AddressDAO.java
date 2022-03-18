@@ -17,4 +17,8 @@ public interface AddressDAO {
 
 	public void updateAddress(AddressDTO addressDTO);
 
+	public void deleteAddress(int addressId);
+
+	public void setDefaultAddrY(int addressId);
+
 }
