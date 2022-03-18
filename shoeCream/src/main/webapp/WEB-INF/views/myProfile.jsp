@@ -5,138 +5,211 @@
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myProfile.css">
 <body>
-<div class="myProfile">
-	<div class="content_title">
-		<h3 id="title_name">프로필 정보</h3>
-	</div>
-	<div class="myProfile_info">
-		<div class="myProfile_group">
-			<h4 class="group_title">로그인 정보</h4>
-			
-			<div class="unit">
-				<h5 class="title">아이디</h5>
-				<p class="desc username">${userDTO.username}</p>
-				<button type="button" class="btn modify_btn"> 변경 </button>
-			</div>
-			<div class="modify">
-				<h5 class="input_title">아이디 변경</h5>
-				<div class="input_box">
-					<h5 class="input_title">새로운 아이디</h5>
-					<input type="text" class="input_txt" id="input_username" autocomplete="off" placeholder="예) 영문, 숫자 5~15자">
-					<p class="input_err">영문 소문자와 숫자를 입력해주세요. (4~16자)</p>
-				</div>
-			</div>
-			<div class="modify_btn_box">
-				<button type="button" class="btn cancel_btn"> 취소 </button>
-				<button type="button" class="btn save_btn" id="save_username"> 저장 </button>
-			</div>
-			
-			<div class="unit">
-				<h5 class="title">이메일 주소</h5>
-				<p class="desc email">${userDTO.email}</p>
-				<button type="button" class="btn modify_btn"> 변경 </button>
-			</div>
-			<div class="modify">
-				<h5 class="input_title">이메일 주소 변경</h5>
-				<div class="input_box">
-					<h5 class="input_title">새 이메일 주소</h5>
-					<input type="email" class="input_txt" id="input_email" autocomplete="off" placeholder="">
-					<p class="input_err">이메일 주소를 정확히 입력해주세요.</p>				
-					<button type="button" class="btn auth_btn" id="auth_email_btn"> 인증 메일 발송 </button>
-				</div>
-				<div class="input_box">
-					<h5 class="input_title">인증번호 입력</h5>
-					<input type="text" class="input_txt" id="input_authEmail" autocomplete="off" placeholder="인증번호 입력">
-					<p class="input_msg">인증번호를 정확히 입력해주세요.</p>				
-				</div>
-			</div>
-			<div class="modify_btn_box">
-				<button type="button" class="btn cancel_btn"> 취소 </button>
-				<button type="button" class="btn save_btn" id="save_email"> 저장 </button>
-			</div>
-			
-			<div class="unit">
-				<h5 class="title">비밀번호</h5>
-				<p class="desc pwd">●●●●●●●●●</p>
-				<button type="button" class="btn modify_btn"> 변경 </button>
-			</div>
-			<div class="modify">
-				<h5 class="input_title">비밀번호 변경</h5>
-				<div class="input_box">
-					<h5 class="input_title">이전 비밀번호</h5>
-					<input type="password" class="input_txt input_pwd" id="input_oldPwd" autocomplete="off" placeholder="영문, 숫자, 특수문자 조합 8-16자">
-					<p class="input_err">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</p>
-				</div>
-				<div class="input_box">
-					<h5 class="input_title">새 비밀번호</h5>
-					<input type="password" class="input_txt input_pwd" id="input_newPwd" autocomplete="off" placeholder="영문, 숫자, 특수문자 조합 8-16자">
-					<p class="input_err">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</p>
-				</div>
-			</div>
-			<div class="modify_btn_box">
-				<button type="button" class="btn cancel_btn"> 취소 </button>
-				<button type="button" class="btn save_btn" id="save_pwd"> 저장 </button>
-			</div>
+<form id="myProfileForm">
+	<div class="myProfile">
+		<div class="content_title">
+			<h3 id="title_name">프로필 정보</h3>
 		</div>
-		
-		<div class="myProfile_group">
-			<h4 class="group_title">개인 정보</h4>
-			<div class="unit">
-				<h5 class="title">이름</h5>
-				<p class="desc fullName">${userDTO.fullName}</p>
-				<button type="button" class="btn modify_btn"> 변경 </button>
-			</div>
-			<div class="modify">
-				<h5 class="input_title">이름 변경</h5>
-				<div class="input_box">
-					<h5 class="input_title">새로운 이름</h5>
-					<input type="text" class="input_txt" id="input_fullName" autocomplete="off" placeholder="고객님의 이름">
-					<p class="input_err">올바른 이름을 입력해주세요. (2-50자)</p>
+		<div class="myProfile_info">
+			<div class="user_profile">
+				<div class="profile_thumb">
+					<img class="thumb_img" alt="사용자 이미지">
 				</div>
-			</div>
-			<div class="modify_btn_box">
-				<button type="button" class="btn cancel_btn"> 취소 </button>
-				<button type="button" class="btn save_btn" id="save_fullName"> 저장 </button>
+				<div class="profile_detail">
+					<strong class="name">${userDTO.username}</strong>				
+					<div class="profile_btn_box">
+						<a class="btn" id="modify_img_btn">
+							<label for="image"> 이미지 변경 </label>
+							<input type="file" id="image" name="image">
+						</a>
+						<a class="btn" id="delete_img_btn"> 삭제 </a>
+					</div>
+				</div>
 			</div>
 			
-			<div class="unit">
-				<h5 class="title">휴대폰 번호</h5>
-				<p class="desc phoneNum">${userDTO.phoneNum}</p>
-				<button type="button" class="btn modify_btn"> 변경 </button>
-			</div>
-			<div class="modify">
-				<h5 class="input_title">휴대폰 번호 변경</h5>
-				<div class="input_box">
-					<h5 class="input_title">새로운 휴대폰 번호</h5>
-					<input type="text" class="input_txt" id="input_phoneNum" autocomplete="off">
-					<p class="input_err">휴대폰 번호를 정확히 입력해주세요.</p>
-					<button type="button" class="btn auth_btn" id="auth_phoneNum_btn"> 인증 문자 발송 </button>
+			<div class="myProfile_group">
+				<h4 class="group_title">로그인 정보</h4>
+				
+				<div class="unit">
+					<h5 class="title">아이디</h5>
+					<p class="desc username">${userDTO.username}</p>
+					<button type="button" class="btn modify_btn"> 변경 </button>
 				</div>
-				<div class="input_box">
-					<h5 class="input_title">인증번호 입력</h5>
-					<input type="text" class="input_txt" id="input_authPhoneNum" autocomplete="off" placeholder="인증번호 입력">
-					<p class="input_msg">인증번호를 정확히 입력해주세요.</p>				
+				<div class="modify">
+					<h5 class="input_title">아이디 변경</h5>
+					<div class="input_box">
+						<h5 class="input_title">새로운 아이디</h5>
+						<input type="text" class="input_txt" id="input_username" autocomplete="off" placeholder="예) 영문, 숫자 5~15자">
+						<p class="input_err">영문 소문자와 숫자를 입력해주세요. (4~16자)</p>
+					</div>
 				</div>
-			</div>
-			<div class="modify_btn_box">
-				<button type="button" class="btn cancel_btn"> 취소 </button>
-				<button type="button" class="btn save_btn" id="save_phoneNum"> 저장 </button>
+				<div class="modify_btn_box">
+					<button type="button" class="btn cancel_btn"> 취소 </button>
+					<button type="button" class="btn save_btn" id="save_username"> 저장 </button>
+				</div>
+				
+				<div class="unit">
+					<h5 class="title">이메일 주소</h5>
+					<p class="desc email">${userDTO.email}</p>
+					<button type="button" class="btn modify_btn"> 변경 </button>
+				</div>
+				<div class="modify">
+					<h5 class="input_title">이메일 주소 변경</h5>
+					<div class="input_box">
+						<h5 class="input_title">새 이메일 주소</h5>
+						<input type="email" class="input_txt" id="input_email" autocomplete="off" placeholder="">
+						<p class="input_err">이메일 주소를 정확히 입력해주세요.</p>				
+						<button type="button" class="btn auth_btn" id="auth_email_btn"> 인증 메일 발송 </button>
+					</div>
+					<div class="input_box">
+						<h5 class="input_title">인증번호 입력</h5>
+						<input type="text" class="input_txt" id="input_authEmail" autocomplete="off" placeholder="인증번호 입력">
+						<p class="input_msg">인증번호를 정확히 입력해주세요.</p>				
+					</div>
+				</div>
+				<div class="modify_btn_box">
+					<button type="button" class="btn cancel_btn"> 취소 </button>
+					<button type="button" class="btn save_btn" id="save_email"> 저장 </button>
+				</div>
+				<c:if test="${empty ssAccessToken}">
+				<div class="unit">
+					<h5 class="title">비밀번호</h5>
+					<p class="desc pwd">●●●●●●●●●</p>
+					<button type="button" class="btn modify_btn"> 변경 </button>
+				</div>
+				<div class="modify">
+					<h5 class="input_title">비밀번호 변경</h5>
+					<div class="input_box">
+						<h5 class="input_title">이전 비밀번호</h5>
+						<input type="password" class="input_txt input_pwd" id="input_oldPwd" autocomplete="off" placeholder="영문, 숫자, 특수문자 조합 8-16자">
+						<p class="input_err">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</p>
+					</div>
+					<div class="input_box">
+						<h5 class="input_title">새 비밀번호</h5>
+						<input type="password" class="input_txt input_pwd" id="input_newPwd" autocomplete="off" placeholder="영문, 숫자, 특수문자 조합 8-16자">
+						<p class="input_err">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</p>
+					</div>
+				</div>
+				<div class="modify_btn_box">
+					<button type="button" class="btn cancel_btn"> 취소 </button>
+					<button type="button" class="btn save_btn" id="save_pwd"> 저장 </button>
+				</div>
+				</c:if>
 			</div>
 			
+			<div class="myProfile_group">
+				<h4 class="group_title">개인 정보</h4>
+				<div class="unit">
+					<h5 class="title">이름</h5>
+					<p class="desc fullName">${userDTO.fullName}</p>
+					<button type="button" class="btn modify_btn"> 변경 </button>
+				</div>
+				<div class="modify">
+					<h5 class="input_title">이름 변경</h5>
+					<div class="input_box">
+						<h5 class="input_title">새로운 이름</h5>
+						<input type="text" class="input_txt" id="input_fullName" autocomplete="off" placeholder="고객님의 이름">
+						<p class="input_err">올바른 이름을 입력해주세요. (2-50자)</p>
+					</div>
+				</div>
+				<div class="modify_btn_box">
+					<button type="button" class="btn cancel_btn"> 취소 </button>
+					<button type="button" class="btn save_btn" id="save_fullName"> 저장 </button>
+				</div>
+				
+				<div class="unit">
+					<h5 class="title">휴대폰 번호</h5>
+					<p class="desc phoneNum">${userDTO.phoneNum}</p>
+					<button type="button" class="btn modify_btn"> 변경 </button>
+				</div>
+				<div class="modify">
+					<h5 class="input_title">휴대폰 번호 변경</h5>
+					<div class="input_box">
+						<h5 class="input_title">새로운 휴대폰 번호</h5>
+						<input type="text" class="input_txt" id="input_phoneNum" autocomplete="off">
+						<p class="input_err">휴대폰 번호를 정확히 입력해주세요.</p>
+						<button type="button" class="btn auth_btn" id="auth_phoneNum_btn"> 인증 문자 발송 </button>
+					</div>
+					<div class="input_box">
+						<h5 class="input_title">인증번호 입력</h5>
+						<input type="text" class="input_txt" id="input_authPhoneNum" autocomplete="off" placeholder="인증번호 입력">
+						<p class="input_msg">인증번호를 정확히 입력해주세요.</p>				
+					</div>
+				</div>
+				<div class="modify_btn_box">
+					<button type="button" class="btn cancel_btn"> 취소 </button>
+					<button type="button" class="btn save_btn" id="save_phoneNum"> 저장 </button>
+				</div>
+				
+			</div>
+			<a href="/shoeCream/my/myWithdrawal" class="withdrawal_btn"> 회원 탈퇴 </a>
 		</div>
-		<a href="/shoeCream/my/myWithdrawal" class="withdrawal_btn"> 회원 탈퇴 </a>
+		<input type="hidden" id="chkUsername">
+		<input type="hidden" id="chkEmail">
+		<input type="hidden" id="authEmail">
+		<input type="hidden" id="authPhoneNum">
+		<input type="hidden" id="profileImg">
 	</div>
-	<input type="hidden" id="chkUsername">
-	<input type="hidden" id="chkEmail">
-	<input type="hidden" id="authEmail">
-	<input type="hidden" id="authPhoneNum">
-</div>
+</form>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 $(function(){
 	$('.email').text(maskingEmail('${userDTO.email}'));
 	$('.phoneNum').text(maskingPhoneNum('${userDTO.phoneNum}'));
+	
+	/* 이미지 경로 설정 */
+	const img = '${userDTO.img}';
+	
+	if('${ssAccessToken}'!=''){ // 카카오 로그인했을 때		
+		if(chkUrl(img)){
+			$('.thumb_img').attr('src', img);
+		}else if(img!='default.jpg'){
+			$('.thumb_img').attr('src', '/shoeCream/resources/images/userProfile/${userDTO.img}');
+		}else{
+			$('.thumb_img').attr('src', '/shoeCream/resources/images/userProfile/blank_profile.png');
+		}
+	}else{
+		if(img!='default.jpg'){
+			$('.thumb_img').attr('src', '/shoeCream/resources/images/userProfile/${userDTO.img}');
+		}else{
+			$('.thumb_img').attr('src', '/shoeCream/resources/images/userProfile/blank_profile.png');
+		}
+	}
+	
+	/* 이미지 파일 선택시 발생하는 이벤트 */
+	$('#image').on('change', function(){
+		const formData = new FormData($('#myProfileForm')[0]);
+		
+		$.ajax({
+			type:'post',
+			url:'/shoeCream/my/updateProfileImg',
+			enctype:'multipart/form-data',
+			processData:false,
+			contentType:false,
+			data:formData,
+			success:function(){
+				location.reload();
+			},
+			error:function(){
+				alert('Error: 프로필 이미지 변경')
+			}
+		}); // end ajax
+	});
+	
+	$('#delete_img_btn').click(function(){
+		$.ajax({
+			type:'post',
+			url:'/shoeCream/my/deleteProfileImg',
+			data:'img='+'${userDTO.img}',
+			success:function(){
+				location.reload();
+			},
+			error:function(){
+				alert('Error: 프로필 이미지 삭제')
+			}
+		}); // end ajax
+	});
 	
 	$('.modify_btn').click(function(){
 		<!-- 변경은 unit 하나씩만 -->
@@ -201,7 +274,6 @@ $(function(){
 				url:'/shoeCream/my/updateUsername',
 				data:'username='+$('#input_username').val(),
 				success:function(){
-					alert('성공');
 					location.reload();
 				},
 				error:function(){
@@ -248,7 +320,6 @@ $(function(){
 					url:'/shoeCream/my/updateEmail',
 					data:'email='+$('#input_email').val(),
 					success:function(){
-						alert('성공');
 						location.reload();
 					},
 					error:function(){
@@ -278,15 +349,19 @@ $(function(){
 						'pwd':$('#input_newPwd').val()
 					},
 					success:function(){
-						alert('성공');
-						location.reload();
+						Swal.fire({
+		                	text:'회원정보가 변경되었습니다. 다시 로그인 해주세요.',
+		                	icon:'success'
+		              	}).then((result) => {
+		                	location.href='/shoeCream/user/logout';
+		            	});
 					},
 					error:function(){
 						alert('Error: 비밀번호 변경');
 					}
 				}) // end ajax
 			}else{
-				$('.input_err').text('이전 비밀번호가 일치하지 않습니다.');
+				$('.input_err').text('기존 비밀번호가 일치하지 않습니다.');
 				setErr(false, '#input_oldPwd');
 			}
 		}
@@ -302,7 +377,6 @@ $(function(){
 				url:'/shoeCream/my/updateFullName',
 				data:'fullName='+$('#input_fullName').val(),
 				success:function(){
-					alert('성공');
 					location.reload();
 				},
 				error:function(){
@@ -348,7 +422,6 @@ $(function(){
 					url:'/shoeCream/my/updatePhoneNum',
 					data:'phoneNum='+$('#input_phoneNum').val(),
 					success:function(){
-						alert('성공');
 						location.reload();
 					},
 					error:function(){
@@ -480,7 +553,7 @@ $(function(){
 	<!-- 비밀번호 유효성 검사 -->
 	function isPwd(id){
 		const pwd = $('#'+id).val();
-		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
+		const reg = RegExp(/^(?=.*[a-zA-Z])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])(?=.*[0-9]).{8,25}$/);
 		
 		if(pwd==''){
 			$('.input_err').text('영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)');
@@ -559,6 +632,12 @@ $(function(){
 			maskingPhoneNum = str.replace(/-[0-9]{4}-/g, '-****-');
 		}
 		return maskingPhoneNum;
+	}
+	
+	<!-- url 형식 체크 -->
+	function chkUrl(url){
+	    const reg = /^http[s]?\:\/\//i;
+	    return reg.test(url);
 	}
 });
 	

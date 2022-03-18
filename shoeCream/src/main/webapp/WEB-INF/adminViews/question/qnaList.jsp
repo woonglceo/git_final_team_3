@@ -4,8 +4,7 @@
   
 <head>
   <link href="/shoeCream/admin/assets/css/question/question.css" rel="stylesheet" />
-  <!-- 답글 화살표 -->
-  <script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
+
 </head>
   
  <div class="card">     
@@ -20,32 +19,34 @@
         <input type="hidden" id="pg" name="pg" value="${param.pg}">
          
         <div class="card-body">
-            <div class="table-responsive">
-            
+            <div class="table-responsive">          
                   <table class="table" id="questionListTable">
-                    <tr class=" text-primary" style="border-top:hidden">
-		                  <th><input type="checkbox" id="all" name="all" onclick="checkAll()"></th>
-			              <th>글 번호</th>		                  
-		                  <th>작성자</th>
-		                  <th>제목</th>
-		                  <th>
-			  				  <select name="option" id="option">
-				            		<option value="all" id="all">전체</option>
-								    <option value="standby" id="standby" >답변대기</option>
-								    <option value="end" id="end" >답변완료</option>
-							  </select>		  				  
-		  				  </th>
-		                  <th>등록일</th>
-		                  <th>삭제</th>
-                    </tr>
+                   		  <tr class=" text-primary" style="border-top:hidden">
+			                  <th><input type="checkbox" id="all" name="all" onclick="checkAll()"></th>
+				              <th>글 번호</th>		                  
+			                  <th>작성자</th>
+			                  <th>제목</th>
+			                  <th>
+				  				  <select name="option" id="option">
+					            		<option value="all" id="all">전체</option>
+									    <option value="standby" id="standby" >답변대기</option>
+									    <option value="end" id="end" >답변완료</option>
+								  </select>		  				  
+			  				  </th>
+			                  <th>등록일</th>
+		                  	  <th>삭제</th>
+                   		  </tr>
                   </table>           
-                         
+              
+                       
               <div id="questionPagingDiv"></div>
               
+               <br>
               <div id="deleteBtn">              
               		 <input type="button" id="deleteAll" name="deleteAll" value="전체삭제"> 
               </div>
               
+             
               <div class="input-group no-border" id="searchDiv">
 				    	<select name="searchOption" id="searchOption">
 							<option value="title" >제목</option>

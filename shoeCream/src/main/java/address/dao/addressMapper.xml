@@ -22,6 +22,11 @@
 		SELECT * FROM address_table WHERE defaultAddr='Y' AND userId=#{userId}
 	</select>
 	
+	<!-- 기본 배송지 Y -->
+	<update id="setDefaultAddrY" parameterType="int">
+		UPDATE address_table SET defaultAddr='Y' WHERE addressId=#{addressId}
+	</update>
+	
 	<!-- 기본 배송지 N -->
 	<update id="setDefaultAddrN" parameterType="int">
 		UPDATE address_table SET defaultAddr='N' WHERE userId=#{userId}
@@ -31,6 +36,11 @@
 	<update id="updateAddress" parameterType="address">
 		UPDATE address_table SET recipient=#{recipient}, addr1=#{addr1}, addr2=#{addr2}, zipcode=#{zipcode}, defaultAddr=#{defaultAddr}, regDate=sysdate WHERE addressId=#{addressId} AND userId=#{userId}
 	</update>
+	
+	<!-- 배송지 삭제 -->
+	<delete parameterType="int" id="deleteAddress">
+		DELETE FROM address_table WHERE addressId=#{addressId}
+	</delete>
 </mapper>
 
  

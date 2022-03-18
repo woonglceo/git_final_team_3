@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myAddress.css">
-<script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
+
 <body>
 <div class="myAddress">
 	<div class="content_title">
@@ -30,12 +30,16 @@
 						<span class="zipcode">${item.zipcode}</span>
 						<span class="address">${item.addr1} ${item.addr2}</span>
 					</div>
-					<input type="hidden" id="addressId" value="${item.addressId}">
-					<input type="hidden" id="defaultAddr" value="${item.defaultAddr}">
 				</div>
 				<div class="btn_bind">
 					<button type="button" class="btn modify_btn"> 수정 </button>
 					<button type="button" class="btn delete_btn"> 삭제 </button>
+					<input type="hidden" id="addressId" value="${item.addressId}">
+					<input type="hidden" id="defaultAddr" value="${item.defaultAddr}">
+					<input type="hidden" id="recipient" value="${item.recipient}">
+					<input type="hidden" id="zipcode" value="${item.zipcode}">
+					<input type="hidden" id="addr1" value="${item.addr1}">
+					<input type="hidden" id="addr2" value="${item.addr2}">
 				</div>
 			</div>
 		</div>
@@ -52,13 +56,17 @@
 						<span class="zipcode">${item.zipcode}</span>
 						<span class="address">${item.addr1} ${item.addr2}</span>
 					</div>
-					<input type="hidden" id="addressId" value="${item.addressId}">
-					<input type="hidden" id="defaultAddr" value="${item.defaultAddr}">
 				</div>
 				<div class="btn_bind">
 					<button type="button" class="btn default_btn"> 기본 배송지 </button>
 					<button type="button" class="btn modify_btn"> 수정 </button>
 					<button type="button" class="btn delete_btn"> 삭제 </button>
+					<input type="hidden" id="addressId" value="${item.addressId}">
+					<input type="hidden" id="defaultAddr" value="${item.defaultAddr}">
+					<input type="hidden" id="recipient" value="${item.recipient}">
+					<input type="hidden" id="zipcode" value="${item.zipcode}">
+					<input type="hidden" id="addr1" value="${item.addr1}">
+					<input type="hidden" id="addr2" value="${item.addr2}">
 				</div>
 			</div>
 		</div>
@@ -110,6 +118,7 @@
 			<div class="layer_btn">
 				<a href=javascript:; class="btn cancel_btn"> 취소 </a>
 				<a href=javascript:; class="btn save_btn"> 저장 </a>
+				<input type="hidden" id="target">
 			</div>
 		</div>
 		<div>
@@ -120,6 +129,7 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 $(function(){
 	$('.add_btn').click(function(){
@@ -129,6 +139,17 @@ $(function(){
 	});	
 	
 	$('.modify_btn').click(function(){
+		$('#target').val($(this).siblings('#addressId').val());
+		
+		/* 모달은 정보 입력된 상태로 보여주기 */
+		$('#input_zipcode').val($(this).siblings('#zipcode').val());
+		$('#input_addr1').val($(this).siblings('#addr1').val());
+		$('#input_addr2').val($(this).siblings('#addr2').val());
+		
+		if($(this).siblings('#defaultAddr').val()=='Y'){
+			$('#check1').prop('checked', true);
+		}
+		
 		$('.layer_delivery .title').text('배송지 수정');
 		$('.layer').css('display', 'flex');
 		$('body').css('overflow', 'hidden');
@@ -136,7 +157,7 @@ $(function(){
 	
 	$('.save_btn').click(function(){
 		if($(this).hasClass('save_btn_able')){
-			<!-- 기본 배송지로 설정 확인 -->
+			<!-- 체크박스 확인 -->
 			let defaultAddr = ''
 			const checked = $('#check1').is(':checked');
 			
@@ -146,6 +167,7 @@ $(function(){
 				defaultAddr = 'Y'
 			}
 			
+			<!-- 배송지 추가 -->
 			if($('.title').text()=='새 주소 추가'){
 				$.ajax({
 					type:'get',
@@ -164,7 +186,8 @@ $(function(){
 						alert('Error: 새 주소 추가')
 					}
 				}); // end ajax
-				
+			
+			<!-- 배송지 수정 -->	
 			}else if($('.title').text()=='배송지 수정'){
 				$.ajax({
 					type:'get',
@@ -175,7 +198,7 @@ $(function(){
 						'addr1':$('#input_addr1').val(),
 						'addr2':$('#input_addr2').val(),
 						'defaultAddr':defaultAddr,
-						'addressId':$('#addressId').val()
+						'addressId':$('#target').val()
 					},
 					success:function(){
 						location.href="/shoeCream/my/myAddress";
@@ -188,8 +211,48 @@ $(function(){
 		}
 	});
 	
-	// 다른 주소를 기본배송지로 변경 후, 삭제할 수 있습니다.
-	$('.delete_btn').click(function(){});	
+	<!-- 배송지 삭제 -->
+	$('.delete_btn').click(function(){
+		$('#target').val($(this).siblings('#addressId').val());
+		const defaultAddr = $(this).siblings('#defaultAddr').val();
+		
+		if(defaultAddr=='Y'){
+			Swal.fire({
+            	text:'다른 주소를 기본배송지로 변경 후, 삭제할 수 있습니다.',
+            	icon:'info'
+          	})
+		}else if(defaultAddr=='N'){
+			$.ajax({
+				type:'get',
+				url:'/shoeCream/my/deleteAddress',
+				data:'addressId='+$('#target').val(),
+				success:function(){
+					location.reload();
+				},
+				error:function(){
+					alert('Error: 배송지 삭제');
+				}
+			}); // end ajax
+		}
+		
+	});	
+	
+	<!-- 기본 배송지 -->
+	$('.default_btn').click(function(){
+		const addressId = $(this).siblings('#addressId').val();
+
+		$.ajax({
+			type:'get',
+			url:'/shoeCream/my/setDefaultAddr',
+			data:'addressId='+addressId,
+			success:function(){
+				location.href="/shoeCream/my/myAddress"
+			},
+			error:function(){
+				alert('Error: 기본 배송지 설정')
+			}
+		}); // end ajax
+	});
 
 	$('.zipcode_btn').click(function(){
 		checkPost();
@@ -281,7 +344,6 @@ $(function(){
 		}else{
 			$('#input_addr2').attr('validation', 'true');
 		}
-		
 	}
 	
 	<!-- 버튼 활성화 -->
@@ -313,7 +375,7 @@ $(function(){
 				
 				$('#input_zipcode').val(data.zonecode);
 				$('#input_addr1').val(addr);
-				$('#input_addr2').val('');
+				$('#input_addr2').val(''); // 초기화
 				$('#input_addr2').focus();
 			}
 		}).open();

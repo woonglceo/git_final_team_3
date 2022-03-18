@@ -4,88 +4,90 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myAccount.css">
-<script src="https://kit.fontawesome.com/3df903f254.js" crossorigin="anonymous"></script>
+
 <body>
 <div class="myAccount">
 	<div class="content_title">
 		<h3 id="title_name">정산 계좌 등록</h3>
 	</div>
 	
-	<c:if test="${accountDTO!=''}">
-	<div class="registered_account_box">
-		<h4 class="box_title">등록된 계좌 정보</h4>
-		<p class="box_account_info">
-			<span class="account">${accountDTO.bank}${accountDTO.accountNum}</span>
-			<span class="account_devider">/</span>
-			<span class="name">${accountDTO.accountHolder}</span>
-		</p>
-	</div>
-	</c:if>
-	
-	<div class="account_registeration">
-		<div class="input_companies input_box">
-			<h4 class="input_title">은행명</h4>
-			<input type="text" class="input_txt" id="input_bank" placeholder="선택하세요" readonly="readonly" autocomplete="off">
-			<button type="button" class="dropdown_btn"><i class="fa-solid fa-circle-chevron-down"></i></button>
-			<div class="layer_dropdown layer">
-				<div class="layer_container">
-					<div class="layer_content">
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">국민은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">신한은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">우리은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">하나은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">기업은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">농협은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">우체국</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">부산은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">제주은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">SC은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">한국씨티은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">산업은행</a></li>
-						</ul>
-						<ul class="drop_list">
-							<li class="drop_item"><a href="javascript:;" class="drop_link">카카오뱅크</a></li>
-						</ul>
+	<div class="content_area">
+		<c:if test="${accountDTO!=null}">
+		<div class="registered_account_box">
+			<h4 class="box_title">등록된 계좌 정보</h4>
+			<p class="box_account_info">
+				<span class="account">${accountDTO.bank}${accountDTO.accountNum}</span>
+				<span class="account_devider">/</span>
+				<span class="name">${accountDTO.accountHolder}</span>
+			</p>
+		</div>
+		</c:if>
+		
+		<div class="account_registeration">
+			<div class="input_companies input_box">
+				<h4 class="input_title">은행명</h4>
+				<input type="text" class="input_txt" id="input_bank" placeholder="선택하세요" readonly="readonly" autocomplete="off">
+				<button type="button" class="dropdown_btn"><i class="fa-solid fa-circle-chevron-down"></i></button>
+				<div class="layer_dropdown layer">
+					<div class="layer_container">
+						<div class="layer_content">
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">국민은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">신한은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">우리은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">하나은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">기업은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">농협은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">우체국</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">부산은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">제주은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">SC은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">한국씨티은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">산업은행</a></li>
+							</ul>
+							<ul class="drop_list">
+								<li class="drop_item"><a href="javascript:;" class="drop_link">카카오뱅크</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="input_box">
+				<h4 class="input_title">계좌번호</h4>
+				<input type="text" class="input_txt" id="input_accountNum" placeholder="- 없이 입력하세요" autocomplete="off">
+				<p class="input_err">올바른 계좌번호를 입력해주세요.</p>
+			</div>
+			<div class="input_box">
+				<h4 class="input_title">예금주</h4>
+				<input type="text" class="input_txt" id="input_accountHolder" placeholder="예금주명을 정확히 입력하세요." autocomplete="off">
+				<p class="input_err">올바른 이름을 입력해주세요. (2-50자)</p>
+			</div>
 		</div>
-		<div class="input_box">
-			<h4 class="input_title">계좌번호</h4>
-			<input type="text" class="input_txt" id="input_accountNum" placeholder="- 없이 입력하세요" autocomplete="off">
-			<p class="input_err">올바른 계좌번호를 입력해주세요.</p>
+		<div class="registeration_btn_box">
+			<a href=javascript:; class="btn save_btn"> 저장하기 </a>
 		</div>
-		<div class="input_box">
-			<h4 class="input_title">예금주</h4>
-			<input type="text" class="input_txt" id="input_accountHolder" placeholder="예금주명을 정확히 입력하세요." autocomplete="off">
-			<p class="input_err">올바른 이름을 입력해주세요. (2-50자)</p>
-		</div>
-	</div>
-	<div class="registeration_btn_box">
-		<a href=javascript:; class="btn save_btn"> 저장하기 </a>
 	</div>
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -137,7 +139,6 @@ $(function(){
 					'accountHolder':$('#input_accountHolder').val()
 				},
 				success:function(){
-					alert('성공');
 					location.reload();
 				},
 				error:function(){
@@ -159,7 +160,6 @@ $(function(){
 					'accountHolder':$('#input_accountHolder').val()
 				},
 				success:function(){
-					alert('성공');
 					location.reload();
 				},
 				error:function(){

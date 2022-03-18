@@ -81,6 +81,12 @@ $(function(){
 			}); // end ajax
 		}
 	});
+	
+	$('.input_txt').keydown(function(key){
+	    if (key.keyCode==13) {
+	        $('.find_btn').trigger('click');
+	    }
+	});
 });
 </script>
 </body>

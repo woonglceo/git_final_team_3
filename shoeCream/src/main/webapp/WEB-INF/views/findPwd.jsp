@@ -155,6 +155,12 @@ $(function(){
 		}
 	});
 	
+	$('.input_txt').keydown(function(key){
+	    if (key.keyCode==13) {
+	        $('.find_btn').trigger('click');
+	    }
+	});
+	
 	<!-- 버튼 활성화 -->
 	function setBtn(){
 		if($('#input_phoneNum').attr('validation')=='true'&&$('#input_username').attr('validation')=='true'){

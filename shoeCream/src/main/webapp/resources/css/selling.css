@@ -1,4 +1,15 @@
-/* buying css */
+
+/* 이미지 */
+.btn_filter img{
+	width: 25px; 
+	height: 25px; 
+	margin-right: 10px; 
+}
+
+img{
+	width: 20px; 
+	height: 20px; 
+}
 
 div {
     display: block;
@@ -77,7 +88,7 @@ div {
     letter-spacing: -.1px;
 }
 .purchase_list_tab.detail_tab .tab_on .count {
-    color: #f15746;
+    color: #31b46e;
 }
 .tab_link .title {
     font-size: 13px;
@@ -150,6 +161,10 @@ dd {
 
  .link1{
  	width: 80px;
+ 	
+ }
+ .link2{
+ 	margin-left: 40px;
  }
 
 .month_item+.month_item {
@@ -222,9 +237,9 @@ ul {
 }
 .btn_filter {
     position: relative;
-    padding: 5px 0px 5px 10px;
+    padding: 5px 0px 0px 10px;
     display: inline-block;
-    width: 120px;
+    width: 100px;
     line-height: 24px;
     background-color: #fff;
     border: 1px solid #d3d3d3;
@@ -351,6 +366,7 @@ ul {
 
 /* 선택 모달창 */
 .layer {
+	display: none;
     position: fixed;
     top: 0;
     left: 0;

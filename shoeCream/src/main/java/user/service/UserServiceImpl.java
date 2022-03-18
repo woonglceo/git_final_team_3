@@ -55,11 +55,6 @@ public class UserServiceImpl implements UserService {
 		return list;
 	}
 
-	/*@Override
-	public UserDTO getUserId(int userId) {
-		return userDAO.getUserId(userId);
-	} */
-
 	@Override
 	public String chkUsername(String username) {
 		UserDTO userDTO = userDAO.chkUsername(username);
@@ -130,27 +125,41 @@ public class UserServiceImpl implements UserService {
 
 	/* 비밀번호 찾기 */
 	// 임시 비밀번호 생성
-	public static String tempPassword(int leng) {
-		int index = 0;
-		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
-				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
-				'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-				'w', 'x', 'y', 'z' }; // 배열 안의 문자, 숫자는 원하는 대로
-
-		StringBuffer password = new StringBuffer();
-		Random random = new Random();
-
-		for (int i = 0; i < leng; i++) {
-			double rd = random.nextDouble();
-			index = (int) (charSet.length * rd);
-
-			password.append(charSet[index]);
-
-			System.out.println("index::" + index + "	charSet::" + charSet[index]);
+	public static String tempPassword() {
+        StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+		// 특수문자 아스키 코드 
+		int arr[] = {33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
+					 43, 44, 45, 46, 47, 58, 59, 60, 61, 62,
+					 63, 64, 91, 92, 93, 94, 95, 96, 123, 124,
+					 125, 126};
+		int n = 0;
+		
+		for (int i = 0; i < 10; i++) {
+			int rIndex = rnd.nextInt(4);
+			switch (rIndex) {
+			case 0:
+				// a-z 영어소문자 아스키코드
+				temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+				break;
+			case 1:
+				// A-Z 영어대문자 아스키코드 
+				temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+				break;
+			case 2: 
+				// 0-9 숫자 아스키코드 
+				temp.append((rnd.nextInt(10)));
+				break;
+			case 3:
+                // arr[]에 담긴 특수문자
+				n = rnd.nextInt(32);
+				temp.append((char) arr[n]);
+				break;
+			}
 		}
-
-		return password.toString();
-		// StringBuffer를 String으로 변환해서 return하려면 toString()을 사용하면 된다.
+		
+		String password = temp.toString();
+		return password;
 	}
 
 	// SMS 발송
@@ -160,12 +169,12 @@ public class UserServiceImpl implements UserService {
 		String api_secret = "HMRHSZRIH9DVPPROJ8MKQ4AKXNP03GLN";
 		Message coolsms = new Message(api_key, api_secret);
 
-		String pwd = tempPassword(10);
+		String pwd = tempPassword();
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", phoneNum); // 수신번호
 		params.put("from", "01048611073"); // 발신번호
-		params.put("text", "[SHOE-CREAM] 임시 비밀번호 [" + pwd + "] 입니다."); // 문자내용
+		params.put("text", "[SHOECREAM] 임시 비밀번호 [" + pwd + "] 입니다."); // 문자내용
 		params.put("type", "SMS"); // 문자 타입
 		params.put("app_version", "test app 1.2");
 
@@ -201,7 +210,7 @@ public class UserServiceImpl implements UserService {
 		// 메일 전송
 		MailUtils sendMail = new MailUtils(mailSender);
 
-		sendMail.setSubject("[SHOE-CREAM] 회원가입 이메일 인증");
+		sendMail.setSubject("[SHOECREAM] 회원가입 이메일 인증");
 		sendMail.setText(new StringBuffer().append("<h1>[이메일 인증 코드]</h1>").append("<p>안녕하세요. SHOE-CREAM입니다.</p>")
 				.append("<p>아래의 인증번호를 입력하시면 이메일 인증이 완료됩니다.</p>").append("<a")
 				.append("' target='_blenk'>" + authNum + "</a>").toString());
@@ -309,9 +318,11 @@ public class UserServiceImpl implements UserService {
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+			//String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+			String profile_image = kakao_account.getAsJsonObject("profile").getAsJsonObject().get("profile_image_url").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
+			userInfo.put("nickname", nickname);
 			userInfo.put("profile_image", profile_image);
 			userInfo.put("email", email);
 
@@ -345,19 +356,19 @@ public class UserServiceImpl implements UserService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		session.removeAttribute("ssUserId");
-		session.removeAttribute("ssUsername");
-		session.removeAttribute("ssAccessToken");
+		session.invalidate();
 	}
 
 	@Override
 	public void joinSocialOk(UserDTO userDTO) {
+		userDAO.joinSocialOk(userDTO);
+		
+		userDTO = userDAO.chkEmail(userDTO.getEmail());
+		
 		// 세션에 사용자 정보 저장
 		session.setAttribute("ssUserId", userDTO.getUserId());
-		session.setAttribute("ssUsername", userDTO.getEmail());
+		session.setAttribute("ssUsername", userDTO.getUsername());
 		session.setAttribute("ssAccessToken", userDTO.getAccessToken());
-		
-		userDAO.joinSocialOk(userDTO);
 	}
 
 	@Override
@@ -365,7 +376,7 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDTO = userDAO.chkEmail(email);
 		// 세션에 사용자 정보 저장
 		session.setAttribute("ssUserId", userDTO.getUserId());
-		session.setAttribute("ssUsername", email);
+		session.setAttribute("ssUsername", userDTO.getUsername());
 		session.setAttribute("ssAccessToken", access_Token);
 		
 		userDAO.kakaoLoginOk(email);
@@ -383,7 +394,7 @@ public class UserServiceImpl implements UserService {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", phoneNum); // 수신번호
 		params.put("from", "01048611073"); // 발신번호
-		params.put("text", "[SHOE-CREAM] 인증번호는 [" + randomNumber + "] 입니다."); // 문자내용
+		params.put("text", "[SHOECREAM] 인증번호는 [" + randomNumber + "] 입니다."); // 문자내용
 		params.put("type", "SMS"); // 문자 타입
 		params.put("app_version", "test app 1.2");
 

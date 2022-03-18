@@ -90,6 +90,16 @@
 		UPDATE user_table SET phoneNum=#{phoneNum} WHERE userId=#{userId}
 	</update>
 	
+	<!-- 프로필 이미지 변경 -->
+	<update id="updateImg" parameterType="java.util.Map">
+		UPDATE user_table SET img=#{img} WHERE userId=#{userId}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="withdrawal" parameterType="int">
+		DELETE FROM user_table where userId=#{userId}
+	</delete>
+	
 	<!--관리자 등급 변경-->
 	<update id="ratingChange" parameterType="java.util.Map">
 		UPDATE user_table SET auth = #{ratings} WHERE userId=#{userId}

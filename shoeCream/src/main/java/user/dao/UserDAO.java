@@ -54,4 +54,8 @@ public interface UserDAO {
 
 	public List<UserDTO> searchUser(Map<String, Object> map);
 
+	public void updateImg(Map<String, String> map);
+
+	public void withdrawal(int userId);
+
 }

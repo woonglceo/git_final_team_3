@@ -25,7 +25,7 @@ $(function(){
 	});
    
    $("#AddImgs").click(function(){   	 
-   	  c = $( 'Preview' ).length ;
+   	  c = $( '#Preview' ).length;
 	  console.log(c);
 	  if(c > 3){
       	 alert("파일 업로드는 3개까지 가능합니다.");
