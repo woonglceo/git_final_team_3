@@ -3,13 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" href="/shoeCream/resources/css/styleView.css">
-<script src="https://kit.fontawesome.com/054564de47.js"
-		crossorigin="anonymous"></script>
+<div class="modal-bg modal-hidden"></div>
 
-		<div class="styleViewBox">
+<div class="styleViewBox">
 
-
-
+	
 
 
 
@@ -19,15 +17,74 @@
 
 
 
+</div>
+
+<div class="big-reply-box modal-hidden">
+
+
+  <div class="show-reply">
+
+    <div class="reply-title">
+      <i class="fa-solid fa-x xbutton"></i> <h3 class="reply-title_title">댓글</h3>
+    </div>
+
+    <div class="reply-user_box">
+        <div class="reply-userimg"><img src="img/1.png"class="reply-uresimg_real"></div>
+
+        <div class="reply-content_box">
+
+        <div class="reply-content">
+          <span class="reply-writer_id"></span><span class="reply-writer_content"> </span>
+        </div>
+        <div class="reply-sub"><span class="reply-update_time"></span><span class="dot"> • </span><span class="reply-like_count">공감 <strong class="reply-like_count"></strong>개</span></div>
+     
+      </div><!--reply-content_box-->
+
+      
+      
+    </div>
+    
+
+
+  </div><!--show-reply-->
+
+
+  <div class="add-reply">
+  <div class="add-reply_img_box"><img src="img/3.png" class="add-reply_img"></div> </img> 
+  <div class="add-reply_div"><input placeholder="댓글을 남기세요.." class="add-reply_input">
+  </div>
+
+  </div><!--add-reply-->
 
 
 
 
-			
+  <div class="comment-statebox">
+   
+    <div class="comment-statebox_info">
+      <div class="comment-userimg">
+        <img src="img/1.png" class="comment-userimg-real"/>
+      </div>
+
+      <div class="comment-state_info">
+        <div class="comment-idntext"><span class="comment-user_id">tj</span> <span class="comment-text">댓스트</span></div>
+        <span class="comment-uspanload_time">2월 20일</span><span class="dot"> • </span><span class="comment-like">공감 <strong class="comment-like_count">224</strong>개</span>
+      </div>
+    </div>
+ 
+  <div class="comment-like_button">
+    <i class="fa-solid fa-face-smile" class="comment-like"></i>
+  </div>
+  
+</div><!--comment-statebox-->
 
 
 
-</div><!--스타일뷰박스-->
 
+
+
+</div><!--big-reply-box-->
+  
+<input type="hidden" id="sessionId" value='${ssUserId}'>
 
 <script src="/shoeCream/resources/js/styleView.js"></script>

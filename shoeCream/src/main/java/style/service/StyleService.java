@@ -3,6 +3,8 @@ package style.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import style.bean.StyleBoardDTO;
 import style.bean.StyleBoardPaging;
 import style.bean.StyleCardDTO;
@@ -32,4 +34,12 @@ public interface StyleService {
 	public StyleCardDTO getDeatilsReplyList(int styleId);
 
 	public Map<String, Object> getLikeUserList(int styleId);
+
+	public void styleWrite(StyleBoardDTO styleBoardDTO, MultipartFile croppedImg);
+
+	public void replyWrite(Map<String, Object> map);
+
+	public void replyModify(Map<String, Object> map);
+
+	public void replyDelete(Map<String, Object> map);
 }

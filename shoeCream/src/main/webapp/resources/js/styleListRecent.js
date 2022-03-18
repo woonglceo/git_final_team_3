@@ -11,7 +11,7 @@ window.onload = function () {
 
 function getData() {
   //실행시켜줍니다
-  fetch("/shoeCream/style/getPopularList").then((res) =>
+  fetch("/shoeCream/style/getRecentList").then((res) =>
     res.json().then((data) => {
       const styleData = data;
 
@@ -19,7 +19,6 @@ function getData() {
         return b.like - a.like;
       });
       console.log(styleData);
-
       makeStyleList(styleData);
     })
   );
@@ -50,7 +49,7 @@ function makeStyleList(objArr) {
 
     const styleImgReal = document.createElement("img");
     styleImgReal.setAttribute("class", "style-img_real");
-    styleImgReal.setAttribute("src", "img/1.png");
+    styleImgReal.setAttribute("src", "/shoeCream/resources/images/style_board/"+styleDatas.img1);
 
     styleImg.appendChild(styleImgReal);
     styleFeed.appendChild(styleImg);

@@ -14,7 +14,7 @@ href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bangers&fami
 <link rel="stylesheet" href="/shoeCream/resources/css/top.css">
 <link rel="stylesheet" type="text/css" media="screen" href="/shoeCream/resources/css/main.css" />
 
-<script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/7c3b7ceb48.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- <header> -->

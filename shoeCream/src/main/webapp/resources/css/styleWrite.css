@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+.modal-window-styleWrite {
+    width: 500px;
+    height: 700px;
+}
+
 .styleContents {
 	display: block;
 	text-align: center;
@@ -7,13 +12,16 @@
 }
 
 .contentsTextArea {
-	width: 100%; 
+	width: 98%; 
 	height: 100px;
 	resize: none;
 }
 
 .write-modal-content {
 	margin: 0 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .write-modal-content h4 {
@@ -26,28 +34,88 @@
 	text-align: left;
 }
 
-#thumbnail_zone {
-	width: 100%; 
-	min-height:150px;
-	border:1px solid;
-	border-color: rgb(133, 133, 133);
-	text-align: left;
-	padding-left: 3px;
+.img_upload #uploadBtn {
+    display: none;
 }
 
-#thumbnail_zone:empty:before{
-	content: attr(data-placeholder);
-	color: rgb(133, 133, 133);
-	font-size:.9em;
+.img_upload {
+    background-color: rgba(34,34,34,.8);
+    color: white;
+    padding: 5px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.img_upload:hover {
+    background-color: rgba(34, 34, 34, 0.664);
 }
 
 .imgDiv {
-	display: inline-block;
-	position: relative;
-	width: 150px;
-	height: 120x;
-	margin: 5px;
-	border: 1px solid;
+    width: 279px;
+    height: 279px;
+    background-color: hsl(0, 0%, 90%);
+}
+
+.imageSize_default {
+    width: 279px;
+    height: 279px;
+}
+
+.imgSize_long{
+    width: 279px;
+    height: 376px;
+}
+
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.img-option-div {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;    
+}
+
+.img-option-div i {
+	margin-right: 2px;
+}
+
+.description-delete-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#changeSize, #deleteImg, .description-delete-div p{
+    text-decoration: none;
+    color:rgba(34,34,34,.8);
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 3px;
+}
+
+.description-delete-div p {
+    margin: 0;
+    color:rgba(138, 136, 136, 0.8);
+}
+
+.description-delete-div {
+    display: none;
+}
+
+.result_box {
+	display: none;
+}
+
+.input_empty {
+	box-shadow: 0 0 5px rgba(255, 90, 90, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(255, 90, 90, 1);
 }
 
 
@@ -96,92 +164,7 @@
 }
 
 .modal-content {
-    height: 90%;
+    height: 87%;
     overflow-x: hidden;
     overflow-y: auto;
 }
-
-
-/* 드래그앤 드랍 */
-
-/* 미리보기 이미지+체크박스 div */
-.thumbnailDiv { 
-    display: inline-block;
-    position: relative;
-    width: 150px;
-    height: 120px;
-    margin: 5px;
-    border: 1px solid rgb(133, 133, 133);
-}
-
-/* 미리보기 이미지 */
-.thumbnail {
-    width: 100%;
-    height: 100%;
-    z-index: none;
-}
-
-/* 이미지 안의 체크박스 */
-.chkBtn {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    font-size: 24px;
-    z-index: 100;
-    background-color: rgba(255,255,255,0.1);
-    color: brown;
-}
-
-
-/* 공감 모달 css */
-.modal-window-likeUser {
-	width: 420px;
-    height: 472px;
-}
-
-.likeUser-modal-h2 {
-	font-size: 17px;
-	align-items: center;
-}
-
-.userfeedLink {
-	text-align: center;
-}
-
-.style_user-box {
-	max-width: 350px;
-	margin: 10px auto;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.modal_img-profile {
-	width: 40px;
-    height: 40px;
-    border-radius: 100px;
-    background-color: rgb(83, 83, 83);
-}
-
-.modal_txt-profile {
-	margin-left: 10px;
-	text-align: left;
-	display: flex;
-	flex-direction: column;
-}
-
-.style_username {
-	overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.style_intromsg {
-	margin-top: 2px;
-	font-size: 12px;
-	color: rgba(34,34,34,.5);
-}
-
-

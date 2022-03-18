@@ -79,7 +79,7 @@
 	
 	<!-- 특정 게시물 공감 취소 -->
 	<delete id="minusLike1" parameterType="java.util.Map">
-		delete from style_like where userId=#{userId} and styleId=#{styleId})
+		delete from style_like where userId=#{userId} and styleId=#{styleId}
 	</delete>
 	<update id="minusLike2" parameterType="Integer">
 		update style_board set likecount = likecount-1 where styleId=#{styleId}
@@ -133,6 +133,32 @@
 			on style_like.userId = user_table.userId
 		where styleId=#{styleId}
 	</select>
+	
+	<!-- 게시물 작성 (추가) -->
+	<insert id="styleWrite" parameterType="StyleBoardDTO">
+		INSERT INTO style_board(styleId, userId, productId, contents, reportCount, img1, regDate) values (seq_style_board.nextval, #{userId}, #{productId}, #{contents}, 0, #{img1}, sysdate) 
+	</insert>
+	
+	<!-- 댓글 작성 (추가) -->
+	<insert id="replyWrite" parameterType="java.util.Map">
+		INSERT INTO style_reply(styleReplyId, styleId, userId, contents, reportCount, regDate) values (seq_style_reply.nextval, #{styleId}, #{userId}, #{contents}, 0, sysdate) 
+	</insert>
+	<update id="replyWrite2" parameterType="Integer">
+		update style_board set replyCount = replyCount+1 where styleId=#{styleId}
+	</update>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="java.util.Map">
+		update style_reply set contents = #{contents} where styleReplyId=#{styleReplyId}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="java.util.Map">
+		delete from style_reply where styleReplyId=#{styleReplyId}
+	</delete>
+	<update id="replyDelete2" parameterType="Integer">
+		update style_board set replyCount = replyCount-1 where styleId=#{styleId}
+	</update>
 	
 	<!-- 관리자 페이지 스타일 게시글 리스트 -->
 	<select id="getStyleList" parameterType="java.util.Map" resultType="StyleBoardDTO">

@@ -1,8 +1,7 @@
-console.log("7");
-
 const styleEntireBox = document.querySelector(".style-want-center");
 const stylePerLink = "/shoeCream/style/details";
-const STYLE_IMG_SRC = '/shoeCream/resources/images/style_board/';
+const id = document.getElementById("sessionId").value;
+console.log(id);
 
 const dataArr = [];
 
@@ -32,6 +31,9 @@ window.addEventListener("scroll", (e) => {
 
 function makeStyleList(objArr) {
   objArr.forEach((styleDatas) => {
+    const onOff = styleDatas.likeOnOff;
+    const styleNumber = styleDatas.styleId;
+
     const styleWantDisplay = document.createElement("div");
     styleWantDisplay.setAttribute("class", "style-want-display");
 
@@ -47,7 +49,7 @@ function makeStyleList(objArr) {
 
     const styleImgReal = document.createElement("img");
     styleImgReal.setAttribute("class", "style-img_real");
-    styleImgReal.setAttribute("src", STYLE_IMG_SRC+ styleDatas.img1);
+    styleImgReal.setAttribute("src", "/shoeCream/resources/images/style_board/"+ styleDatas.img1);
 
     styleImg.appendChild(styleImgReal);
     styleFeed.appendChild(styleImg);
@@ -62,7 +64,10 @@ function makeStyleList(objArr) {
 
     const styleFeedHref = document.createElement("a");
 
-    styleFeedHref.setAttribute("href", `${stylePerLink}=?${styleDatas.styleId}`);
+    styleFeedHref.setAttribute(
+      "href",
+      `${stylePerLink}=?${styleDatas.styleId}`
+    );
     const styleFeedPtag = document.createElement("p");
     const styleUserBox = document.createElement("div");
     styleUserBox.setAttribute("class", "style_user-box");
@@ -95,9 +100,10 @@ function makeStyleList(objArr) {
     smileLink.setAttribute("class", "style_smile-link");
 
     const smileI = document.createElement("i");
-    smileI.setAttribute("class", "fa-solid fa-face-smile");
+    if (onOff == "off") smileI.setAttribute("class", "fa-solid fa-face-smile");
+    else smileI.setAttribute("class", "fa-solid fa-heart");
 
-    smileI.addEventListener("click", changeHeart);
+    smileI.addEventListener("click", () => LogIn(styleNumber, onOff));
 
     const styleLikeCount = document.createElement("span");
     styleLikeCount.setAttribute("class", "style_like-count");
@@ -108,6 +114,9 @@ function makeStyleList(objArr) {
 
     const commentI = document.createElement("i");
     commentI.setAttribute("class", "fa-solid fa-message");
+    commentI.addEventListener("click", () => {
+      LogIn2(styleNumber);
+    });
 
     const styleCommentCount = document.createElement("span");
     styleCommentCount.setAttribute("class", "style_comment-count");
@@ -124,7 +133,7 @@ function makeStyleList(objArr) {
 
     const ProductImg = document.createElement("img");
     ProductImg.setAttribute("class", 'style_product-img"');
-    //ProductImg.setAttribute("src", "img/4.png");
+    ProductImg.setAttribute("src", "/shoeCream/resources/images/productImg/"+styleDatas.img1_1);
 
     const productDesc = document.createElement("div");
     productDesc.setAttribute("class", "product_desc");
@@ -197,18 +206,65 @@ function makeStyleList(objArr) {
     styleLikeCount.innerText = styleDatas.like;
     styleCommentCount.innerText = styleDatas.replyCount;
     styleLikeCount.innerText = styleDatas.likeCount;
-	
-	
+
     //데이터 삽입부
 
-    function changeHeart() {
-      console.log("요기까지들어와써");
-      if (smileI.classList.contains("fa-face-smile"))
-        smileI.classList.replace("fa-face-smile", "fa-heart");
-      else smileI.classList.replace("fa-heart", "fa-face-smile");
+    function LogIn(styleNumber, onOff) {
+      if (id == "") {
+        location.href = "/shoeCream/user/login";
+      } else {
+        addCount(styleNumber, onOff);
+      }
+    }
 
-      // smileI.classList.toggle("fa-face-smile");
-      // smileI.classList.toggle("fa-heart");
+    function LogIn2(styleNumber) {
+      if (id == "") {
+        location.href = "/shoeCream/user/login";
+      } else {
+        console.log("세션값없ㄴ");
+        location.href = `${stylePerLink}=?${styleNumber}`;
+      }
+    }
+
+    // function changeIcon() {
+    //   smileI.classList.toggle("fa-face-smile");
+    //   smileI.classList.toggle("fa-heart");
+    // }
+
+    function addCount(styleNumber, onOff) {
+      let likeNum = styleLikeCount.innerText;
+      smileI.classList.toggle("fa-face-smile");
+      smileI.classList.toggle("fa-heart");
+
+      console.log(onOff);
+
+      if (smileI.classList.contains("fa-heart")) {
+        console.log("off");
+        styleLikeCount.innerText = Number(likeNum) + 1;
+        $.ajax({
+          type: "get",
+          url: `/shoeCream/style/switchLike?StyleId=${styleNumber}`, //getMyList?userId=7 //getPopularList //getRecentList
+          success: function (data) {
+            console.log(JSON.stringify(data));
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+      } else {
+        console.log("on");
+        styleLikeCount.innerText = Number(likeNum) - 1;
+        $.ajax({
+          type: "get",
+          url: `/shoeCream/style/switchLike?StyleId=${styleNumber}`, //getMyList?userId=7 //getPopularList //getRecentList
+          success: function (data) {
+            console.log(JSON.stringify(data));
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+      }
     }
   });
 }
@@ -216,3 +272,5 @@ function makeStyleList(objArr) {
 function urlFunction(url, styleId) {
   location.href = url + styleId;
 }
+
+console.log("7");

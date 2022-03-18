@@ -1,16 +1,22 @@
 package style.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import style.bean.StyleBoardDTO;
 import style.bean.StyleBoardPaging;
@@ -73,6 +79,8 @@ public class StyleServiceImpl implements StyleService {
 	@Override
 	public StyleCardDTO getDeatilsReplyList(int styleId) {
 		StyleCardDTO styleCardDTO = styleDAO.getOneStyleCardDTO(styleId);
+		if(styleCardDTO.getReplyCount() != 0) 
+			styleCardDTO.setReplyList(styleDAO.getReplyList(styleId));
 		return styleCardDTO;
 	}
 	
@@ -143,6 +151,46 @@ public class StyleServiceImpl implements StyleService {
 		}
 		
 		return map;
+	}
+
+	@Override
+	public void styleWrite(StyleBoardDTO styleBoardDTO, MultipartFile croppedImg) {
+		String filePath = session.getServletContext().getRealPath("/images/style_board"); //실제폴더 
+		String fileName = croppedImg.getOriginalFilename();
+		UUID uuid = UUID.randomUUID(); //파일명 중복 방지를 위해 UUID 생성
+		
+		String uploadFileName = uuid.toString()+"_"+fileName;
+		
+		File file = new File(filePath, uploadFileName);
+	
+		try {  	
+			croppedImg.transferTo(file); //임시파일을 실제폴더로 이동 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		styleBoardDTO.setImg1(uploadFileName); //필드에 저장될 파일명
+		System.out.println("styleBoardDTO: " + styleBoardDTO.toString());
+		
+		styleDAO.styleWrite(styleBoardDTO);
+	}
+	
+	@Override
+	public void replyWrite(Map<String, Object> map) { //styleId, contents
+		int userId = (int) session.getAttribute("ssUserId");
+		map.put("userId", userId);
+		
+		styleDAO.replyWrite(map);
+	}
+	
+	@Override
+	public void replyModify(Map<String, Object> map) { //styleReplyId, contents
+		styleDAO.replyModify(map);
+	}
+	
+	@Override
+	public void replyDelete(Map<String, Object> map) {
+		styleDAO.replyDelete(map); //styleReplyId, styleId
 	}
 	
 	@Override

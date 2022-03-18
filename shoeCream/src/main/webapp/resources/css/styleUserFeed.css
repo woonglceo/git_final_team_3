@@ -1,8 +1,105 @@
-
-.want_margin{
-    margin-left: 70px;
-    margin-right: 70px;
+.userFeedContainer {
+	margin: 0 auto;
+    max-width: 1280px;
 }
+
+.userFeedContainer p {
+	text-align: center;
+}
+
+.userFeed_header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.userProfile-img {
+	margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    background-color: grey;
+}
+
+.profile-infobox {
+    margin-top: 7px;
+    padding: 0;
+}
+
+.header-username {
+    padding-top: 5px;
+   	font-size: 20px;
+	font-weight: 600;
+}
+
+.profile-sub {
+    margin-top : 5px;
+	text-align: center;
+}
+
+.profile-sub_text{
+	font-size: 14px;
+	letter-spacing: -.21px;
+    color: rgba(34,34,34,.8);
+}
+
+/* 게시물 팔로워 팔로잉  */
+
+.mystyle-tablist_ul{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 16px 0 40px 0;
+}
+
+li.tabitem-list {
+    list-style:none;
+    padding-left:0px;
+}
+
+.tab-item{
+    font-size : 16px;
+    padding : 20px 30px;
+    align-items: center;
+}
+
+.tab-menu{
+
+}
+
+.tab-count{
+    font-weight: 620;
+}
+
+/* card-box 구역 시작 */
+
+.card-box {
+    max-width: 279px;
+    display: flex;
+    flex-direction: column;
+}
+
+.style_user-box {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.profile-img-sm{
+	margin: 0 4px 0 0;
+    width: 28px;
+    height: 28px;
+}
+
+.styleboard-content{
+   padding: 0 40px;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   gird-gap: 1rem;
+   gird-auto-rows: minmax(387px, 552px)
+}
+
+/* ----위쪽이 수정본---- */
 
 .style_mystyle {
   margin: auto;
@@ -11,35 +108,10 @@
   height: 100px;
 }
 
-.style_mystyle-img {
-
+.style_userProfile-img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-}
-
-.mystyle-infobox {
-
-    color:rgb(36, 36, 36);
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
-
-}
-
-.mystyle-username{
-    margin : 4px 0px;
-}
-
-.mystyle-sub_text{
-    margin : 4px 0px;
-    
-}
-
-.mystyle-sub {
-    color:rgb(82, 82, 82);
-  font-size: 12px;
-  text-align: center;
 }
 
 .mystyle-button{
@@ -61,42 +133,9 @@
     font-weight: 600;
 }
 
-/* 게시물 팔로워 팔로잉  */
-
-li{
-    list-style:none;
-    padding-left:0px;
- 
-}
-
-.mystyle_tab-menu{
-    margin-right: 3px;
-}
-
-.mystyle-tablist_ul{
-    display: flex;
-    justify-content: center;
-   
-}
-
-.tab-item{
-    font-size : 14px;
-    padding : 20px 30px;
-}
-
-.mystyle_tab-count{
-    font-weight: 600;
-}
-.mystyle-tablist{
-    margin-right: 30px;
-}
 
 /* 마이스타일 적용 \tests *//* 마이스타일 적용 \tests *//* 마이스타일 적용 \tests *//* 마이스타일 적용 \tests */
 
-.want-margin {
-    margin: 5px 120px;
-  }
-  
   /*스타일 탭 리스트*/
   .style-tab-list {
     display: flex;
@@ -144,11 +183,7 @@ li{
     color: rgb(66, 66, 66);
     font-size: 13px;
   }
-  /*스타일 키워드*/
   
-  .style-feed_box {
-    flex-wrap: wrap;
-  }
   
   /*스타일 대표이미지*/
   
@@ -184,16 +219,7 @@ li{
     border-radius: 50px;
     background-color: rgb(83, 83, 83);
   }
-  .style_user-box {
-    display: flex;
-  }
-  .style_user-box p {
-    font-size: 13px;
-    height: 100%;
-    margin: 5px 5px;
-    text-align: center;
-    color: rgba(34, 34, 34, 0.8);
-  }
+  
   .style_text-box {
     display: block;
     overflow: hidden;

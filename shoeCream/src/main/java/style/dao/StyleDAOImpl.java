@@ -95,7 +95,28 @@ public class StyleDAOImpl implements StyleDAO {
 	public List<StyleReplyDTO> getLikeUserList(int styleId) {
 		return sqlSession.selectList("styleSQL.getLikeUserList", styleId);
 	}
+
+	@Override
+	public void styleWrite(StyleBoardDTO styleBoardDTO) {
+		sqlSession.insert("styleSQL.styleWrite", styleBoardDTO);
+	}
 	
+	@Override
+	public void replyWrite(Map<String, Object> map) {
+		sqlSession.insert("styleSQL.replyWrite", map);
+		sqlSession.update("styleSQL.replyWrite2", map.get("styleId"));
+	}
+	
+	@Override
+	public void replyModify(Map<String, Object> map) {
+		sqlSession.update("styleSQL.replyModify", map);
+	}
+	
+	@Override
+	public void replyDelete(Map<String, Object> map) {
+		sqlSession.delete("styleSQL.replyDelete", map);
+		sqlSession.update("styleSQL.replyDelete2", map.get("styleId"));
+	}
 	
 	// 관리자
 	@Override

@@ -53,4 +53,12 @@ public interface StyleDAO {
 
 	public List<StyleReplyDTO> getLikeUserList(int styleId);
 
+	public void styleWrite(StyleBoardDTO styleBoardDTO);
+
+	public void replyWrite(Map<String, Object> map);
+
+	public void replyModify(Map<String, Object> map);
+
+	public void replyDelete(Map<String, Object> map);
+
 }
