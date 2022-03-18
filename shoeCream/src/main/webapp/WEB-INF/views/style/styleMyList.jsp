@@ -3,11 +3,6 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="/shoeCream/resources/css/styleMyList.css" />
-<script
-  src="https://kit.fontawesome.com/054564de47.js"
-  z
-  crossorigin="anonymous"
-></script>
 
 <div class="mystyle_header">
   <div class="style_mystyle">

@@ -19,7 +19,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
   <!--공지-->
   <!--끊어가기-->
   <div class="banner_item">
-    <jsp:include page="/WEB-INF/views/style/slickBanner.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/slickSlide/slickBanner.jsp"></jsp:include>
   </div>
 
   <!--끊어가기-->
@@ -134,7 +134,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     </div>
 
     <div class="style-slick-div">
-      <jsp:include page="/WEB-INF/views/style/styleSlick.jsp"></jsp:include>
+      <jsp:include page="/WEB-INF/views/slickSlide/styleSlick.jsp"></jsp:include>
     </div>
 
     <!--인스타피드-->

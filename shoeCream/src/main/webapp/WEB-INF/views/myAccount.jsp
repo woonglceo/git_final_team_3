@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myAccount.css">
-<script src="https://kit.fontawesome.com/3df903f254.js" crossorigin="anonymous"></script>
+
 <body>
 <div class="myAccount">
 	<div class="content_title">
