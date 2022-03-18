@@ -2,7 +2,6 @@ package user.bean;
 
 import java.sql.Date;
 
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

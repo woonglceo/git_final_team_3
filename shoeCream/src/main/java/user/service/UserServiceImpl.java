@@ -26,6 +26,7 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import user.bean.UserDTO;
 import user.bean.UserDTO2;
+import user.bean.UserPaging;
 import user.dao.UserDAO;
 
 @Service
@@ -36,11 +37,18 @@ public class UserServiceImpl implements UserService {
 	private JavaMailSender mailSender;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private UserPaging userPaging;
 
 	@Override
 	public List<UserDTO> getUserForm(String pg) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("pg", Integer.parseInt(pg));
+		
+		int endNum = Integer.parseInt(pg) * 10;
+		int startNum = endNum - 9;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
 
 		List<UserDTO> list = userDAO.getUserForm(map);
 		System.out.println("userService list: " + list);
@@ -401,7 +409,7 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getUserId(userId);
 	}
 
-
+// 관리자
 	@Override
 	public List<UserDTO2> getTradeForm(String pg) {
 		Map<String, Integer> map = new HashMap<String, Integer>(); 
@@ -414,14 +422,55 @@ public class UserServiceImpl implements UserService {
 		return list;
 	}
 
+	// 관리자
 
 	@Override
 	public UserDTO getAdminUserId(String userId) {
 		return userDAO.getAdminUserId(userId);
 	}
+	// 관리자
 
 	@Override
 	public void ratingChange( Map<String, Object> map) {
 		userDAO.ratingChange(map);
+	}
+	// 관리자
+
+	@Override
+	public UserPaging userPaging(String pg) {
+		int total = userDAO.getTotalUser();
+
+		userPaging.setCurrentPage(Integer.parseInt(pg));
+		userPaging.setPageBlock(5);
+		userPaging.setPageSize(10);
+		userPaging.setTotalA(total);
+		userPaging.makePagingHTML();
+		
+		return userPaging;
+	}
+	// 관리자
+
+	@Override
+	public UserPaging searchUserPaging(Map<String, Object> map) {
+		int total = userDAO.getSearchTotalUser(map);
+
+		userPaging.setCurrentPage(Integer.parseInt((String) map.get("searchPg")));
+		userPaging.setPageBlock(5);
+		userPaging.setPageSize(10);
+		userPaging.setTotalA(total);
+		userPaging.makePagingHTML();
+		
+		return userPaging;
+	}
+
+	@Override
+	public List<UserDTO> searchUser(Map<String, Object> map) {
+		int endNum = Integer.parseInt((String) map.get("searchPg")) * 10;
+		int startNum = endNum - 9;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		
+		return userDAO.searchUser(map);
 	}
 }

@@ -123,4 +123,22 @@ public class UserDAOMybatis implements UserDAO {
 	public UserDTO getAdminUserId(String userId) {
 		return sqlSession.selectOne("userSQL.getAdminUserId",userId);
 	}
+
+	@Override
+	public int getTotalUser() {
+		return sqlSession.selectOne("userSQL.getTotalUser");
+
+	}
+
+	@Override
+	public int getSearchTotalUser(Map<String, Object> map) {
+		return sqlSession.selectOne("userSQL.getSearchTotalUser", map);
+
+	}
+
+	@Override
+	public List<UserDTO> searchUser(Map<String, Object> map) {
+		return sqlSession.selectList("userSQL.searchUser", map);
+
+	}
 }

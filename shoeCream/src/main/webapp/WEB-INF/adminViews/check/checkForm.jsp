@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<input type="hidden" id="userIdHidden" value="${param.userId}">
+<head>
+	<link href="/shoeCream/admin/assets/css/check/check.css" rel="stylesheet" />
+</head>
+
+ <input type="hidden" id="pg" name="pg" value="${pg}">
 
 <div class="row">
   <div class="col-md-12">
@@ -63,6 +67,10 @@
                     </tr></thead>
                 
                   </table>
+                  
+              <div id="checkPagingDiv"></div>
+
+                  
                 </div>
               </div>
             </div>
@@ -78,15 +86,15 @@ $(function(){
 	$.ajax({
 		type: 'POST',
 		url: '/shoeCream/adminViews/check/getCheckForm',
-		//data: 'pg=' + $('#pg').val(),	
-		//dataType: 'JSON',
+		data: 'pg=' + $('#pg').val(),	
+		dataType: 'JSON',
 		success: function(data){
 			console.log('data', data);
 			
 			//$('#orderListTable tr:gt(0)').remove(); 
 			
 
-			$.each(data, function(index, items){
+			$.each(data.list, function(index, items){
 				
 				var ds = '';
 				var vs = '';
@@ -118,6 +126,9 @@ $(function(){
 					})).appendTo($('#checkListTable'));
 			
 			});//end each
+		
+			$('#checkPagingDiv').html(data.checkPaging.pagingHTML); 
+
 			
 		},
 		error: function(err){
@@ -127,6 +138,7 @@ $(function(){
 	});//end ajax
 });//end onload
 
+
 </script>
 
 
@@ -135,25 +147,25 @@ $(function(){
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-
+// 검색필터
 $('#searchBtn').click(function(){
-			
+
 	$.ajax({
 		type: 'POST',
 		url: '/shoeCream/adminViews/check/searchBtnForm',
-		data: {	'searchOption1' : $('#searchBtn1').val(),
-				'searchOption2' : $('#searchBtn2').val(),
-				'userId': $('#userIdHidden').val()	
-
-		}	
-		,		
-		//dataType: 'JSON',
+		data: 	{ 'searchOption1' : $('#selectBtn1').val(),
+				  'searchOption2' : $('#selectBtn2').val(),
+				   }		
+		,
+		
+		dataType: 'JSON',
 		success: function(data){
+			
 			 $('#checkListTable tr:gt(0)').remove(); 
 
-			console.log(data);
+			console.log('data', data);
 			
-			alert('와아아 성공.');			
+			
 			
 	$.each(data, function(index, items){
 				
@@ -188,6 +200,8 @@ $('#searchBtn').click(function(){
 			
 			});//end each
 			
+		$('#checkPagingDiv').html(data.checkPaging.pagingHTML);
+			
 		},
 		error: function(err){
 			alert('에러났습니다');
@@ -197,7 +211,13 @@ $('#searchBtn').click(function(){
 });
 
 
+//페이지 이동하기
+function boardPaging(pageValue) {	
 
+		location.href = '/shoeCream/adminViews/check/checkForm?pg='+pageValue;
+		$('#searchPg').val(pageValue);
+	
+}	
 
 
 </script>
