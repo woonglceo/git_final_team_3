@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myAddress.css">
-<script src="https://kit.fontawesome.com/c32a0a7a55.js" crossorigin="anonymous"></script>
+script>
 <body>
 <div class="myAddress">
 	<div class="content_title">

@@ -5,7 +5,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="/shoeCream/resources/css/styleList.css" />
 <link rel="stylesheet" href="/shoeCream/resources/css/modal.css">
 <link rel="stylesheet" href="/shoeCream/resources/css/styleWrite.css">
-<script src="https://kit.fontawesome.com/054564de47.js" crossorigin="anonymous"></script>
 
 <div class="style-tab-list">
   <a href="#" class="sylte-tab_item_tab_on">인기</a>

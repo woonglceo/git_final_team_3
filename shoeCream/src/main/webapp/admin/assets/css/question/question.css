@@ -19,11 +19,6 @@
 	curser: pointer;
 }
 
-/* 중앙정렬 */
-.col-md-7{
-	margin: auto;
-}
-
 /* div태그를 양쪽으로 놓기위한 방법  반응형 웹 */
 .list{
 	float: left;

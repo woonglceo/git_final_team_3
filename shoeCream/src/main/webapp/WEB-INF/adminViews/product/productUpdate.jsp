@@ -4,6 +4,7 @@
 
 <head>
 	<link href="/shoeCream/admin/assets/css/product/productWrite.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/shoeCream/resources/css/date.css">
 </head>
 
 <input type="hidden" id="pg" name="pg" value="${pg}">
@@ -90,7 +91,7 @@
 					        <label for="AddImgs" class="addImgBtn">+</label>
 					        <input type="file" name="img[]" id="AddImgs" class="upload-hidden" accept=".jpg, .png, .gif" multiple style="display:none;">					        
 					    </div>
-					    <ul id="Preview"></ul>					  
+					    <ul id="Preview"></ul>					    				  
 				   </div> 
                    
 				 <br><br>

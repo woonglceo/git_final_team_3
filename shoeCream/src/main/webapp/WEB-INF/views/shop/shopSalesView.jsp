@@ -5,8 +5,6 @@
 <link rel='stylesheet' type='text/css' media='screen'
 	href='/shoeCream/resources/css/shopSalesView.css'>
 
-<script src="https://kit.fontawesome.com/7f651fee1e.js"
-	crossorigin="anonymous"></script>
 
 <div class="shopDetail-top" id="shop-detail-top">
 	<div class="shopDetail-top-product">

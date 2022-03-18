@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
 				</a>
 			</div>
 			<div class="tab_item tab_item2">
-				<a href="/shoeCream/my/ingSelling" class="tab_link" id="ingBuying">
+				<a href="/shoeCream/my/ingSelling" class="tab_link">
 					<dl class="tab_box">
 						<dt class="title">거래 중</dt>
 						<dd class="count">
@@ -67,10 +68,10 @@
 				<li class="month_item"><input type="button" class="month_link" value="4개월"></li>
 				<li class="month_item"><input type="button" class="month_link" value="6개월"></li>
 			
-				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1" id="date1"></li>
+				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1 link2" id="date1"></li>
 				<li><span class="swung_dash">~</span></li>
 				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1" id="date2"></li>				
-				<li class="month_item"><div class="period_btn_box"><button class="btn_search is_active">조회</button></div></li>
+				<li class="month_item"><div class="period_btn_box"><button class="btn_search sellingBtn is_active">조회</button></div></li>
 			</ul>
 		</div>
 	</div>
@@ -112,7 +113,6 @@
  		$j351('#date2').datepicker('setDate', 'today');  
  		$j351('#date1').datepicker('setDate', '-6M');
 	});	
- 	</script>
  	</script>
 </body>
 </html>
