@@ -6,12 +6,17 @@
 
 	<!-- 전체 목록 -->
 	<select id="getCheckForm" parameterType="java.util.Map" resultType="check">
-		SELECT * FROM check_table ORDER BY userId DESC
+		SELECT * FROM check_table WHERE userId BETWEEN #{startNum} AND #{endNum}ORDER BY userId DESC
 	</select>
 	
  	<!--검색필터  -->
  	<select id="searchBtnForm" parameterType="java.util.Map" resultType="check">
- 		SELECT * FROM check_table  WHERE checkState = #{searchOption1} AND checkResult = #{searchOption2} 
+ 		SELECT * FROM check_table  WHERE checkState = #{searchOption1} AND checkResult = #{searchOption2}
  	</select>
+ 	
+ 	 <!-- 상품 페이징을 위한 총 글의 수 -->
+    <select id="getTotalCheck" resultType="int">
+      select count(*) from check_table
+    </select>
 
 </mapper>

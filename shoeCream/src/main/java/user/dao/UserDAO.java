@@ -47,6 +47,12 @@ public interface UserDAO {
 	public List<UserDTO2> getTradeForm(Map<String, Integer> map);
 
 	public UserDTO getAdminUserId(String userId);
+	
+	public int getTotalUser();
+
+	public int getSearchTotalUser(Map<String, Object> map);
+
+	public List<UserDTO> searchUser(Map<String, Object> map);
 
 	public void updateImg(Map<String, String> map);
 

@@ -1,0 +1,20 @@
+/* 페이징처리 */
+#checkPagingDiv {
+	text-align: center;
+	font-size: 13pt;
+	margin-top: 10px;
+}
+
+#checkPagingDiv span {
+	margin:0 5px;
+}
+
+#currentPaging {
+	color: red;
+	curser: pointer;
+}
+
+#paging {
+	color: black;	
+	curser: pointer;
+}

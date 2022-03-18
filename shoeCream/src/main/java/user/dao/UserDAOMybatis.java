@@ -124,6 +124,24 @@ public class UserDAOMybatis implements UserDAO {
 	}
 
 	@Override
+
+	public int getTotalUser() {
+		return sqlSession.selectOne("userSQL.getTotalUser");
+
+	}
+
+	@Override
+	public int getSearchTotalUser(Map<String, Object> map) {
+		return sqlSession.selectOne("userSQL.getSearchTotalUser", map);
+
+	}
+
+	@Override
+	public List<UserDTO> searchUser(Map<String, Object> map) {
+		return sqlSession.selectList("userSQL.searchUser", map);
+
+	}
+
 	public void updateImg(Map<String, String> map) {
 		sqlSession.update("userSQL.updateImg", map);
 	}
@@ -132,5 +150,6 @@ public class UserDAOMybatis implements UserDAO {
 	public void withdrawal(int userId) {
 		sqlSession.delete("userSQL.withdrawal", userId);
 	}
+
 
 }

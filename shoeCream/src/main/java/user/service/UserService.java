@@ -6,13 +6,10 @@ import java.util.Map;
 
 import user.bean.UserDTO;
 import user.bean.UserDTO2;
+import user.bean.UserPaging;
 
 public interface UserService {
 
-	public List<UserDTO> getUserForm(String pg);
-
-	public UserDTO getAdminUserId(String userId);
-	
 	public String chkUsername(String username);
 	
 	public String chkEmail(String email);
@@ -45,11 +42,25 @@ public interface UserService {
 
 	public Map<String, String> authPhonNum(String phoneNum);
 
-	public List<UserDTO2> getTradeForm(String pg);
 
+	
+// 관리자 	
+	
 	public UserDTO getUserId(int userId);
-
+	
 	public void ratingChange( Map<String, Object> map);
 	
+	public List<UserDTO2> getTradeForm(String pg);
+
+	public UserPaging userPaging(String pg);
+
+	public UserPaging searchUserPaging(Map<String, Object> map);
+
+	public List<UserDTO> searchUser(Map<String, Object> map);
+	
+	public List<UserDTO> getUserForm(String pg);
+	
+	public UserDTO getAdminUserId(String userId);
 
 }
+

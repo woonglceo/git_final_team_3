@@ -3,9 +3,9 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userSQL">
-	<!-- 전체 목록 -->
+		<!-- 전체 목록 -->
 	<select id="getUserForm" parameterType="java.util.Map" resultType="user">
-		SELECT * FROM user_table ORDER BY userId DESC
+		SELECT * FROM user_table WHERE userId BETWEEN #{startNum} AND #{endNum} ORDER BY userId DESC
 	</select>
 	
 	<!-- 관리자 사용자 조회 -->
@@ -137,5 +137,26 @@
 	      WHERE rn BETWEEN #{startNum} AND #{endNum}
 	</select>
 	
+	
+	 <!-- 상품 페이징을 위한 총 글의 수 -->
+    <select id="getTotalUser" resultType="int">
+      select count(*) from user_table
+    </select>
+    
+    <!-- 상품 검색 페이징을 위한 총 글의 수 --><!-- 대소문자 안가리게 만들기 UPPER('Black') 예시 바꾸기!-->
+    <select id="getSearchTotalUser" parameterType="java.util.Map"  resultType="int">
+    	select count(*) from user_table where ${searchOption} like '%' || #{inputWord} || '%'
+    </select>
+    
+    <!-- 관리자 회원관리 검색 -->
+    <select id="searchUser" parameterType="java.util.Map" resultType="user">
+	  <![CDATA[
+		select * from 
+      (select rownum rn, tt.* from
+      (select * from userId, email, userName
+      where ${searchOption} like '%' || #{inputWord} || '%'order by userId desc)tt)where rn>=#{startNum} and rn<=#{endNum}
+		]]>
+    </select>
+    
 	
 </mapper> 

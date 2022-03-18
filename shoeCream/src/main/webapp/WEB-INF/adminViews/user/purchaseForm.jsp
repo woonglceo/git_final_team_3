@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+ <input type="text" id="pg" name="pg" value="${pg}">
+    
+    
 <div class="card-body">
         <div class="table-responsive">
           <table class="table" id="purchaseListTable"> <h4>즉시 구매내역</h4>
@@ -22,6 +25,10 @@
               </th>
             </thead>
           </table>
+          
+            	  <div id="purchasePagingDiv"></div>
+          
+          
         </div>
       </div>
       
@@ -32,8 +39,8 @@ $(function(){
 	$.ajax({
 		type: 'POST',
 		url: '/shoeCream/adminViews/user/getTradeForm',
-		//data: 'pg=' + $('#pg').val(),	
-		//dataType: 'JSON',
+		data: 'pg=' + $('#pg').val(),	
+		dataType: 'JSON',
 		success: function(data){
 			console.log('data', data);
 			
@@ -53,6 +60,9 @@ $(function(){
 			
 			});//end each
 			
+			$('#purchasePagingDiv').html(data.userPaging.pagingHTML); // 이걸 어디서 받아오는지 
+
+			
 		},
 		error: function(err){
 			alert('에러났습니다');
@@ -60,4 +70,12 @@ $(function(){
 		}
 	});//end ajax
 });//end onload
+//페이지 이동하기
+function boardPaging(pageValue) {	
+
+		location.href = '/shoeCream/adminViews/user/purchaseForm?pg='+pageValue;
+		$('#searchPg').val(pageValue);
+	
+}	
+
 </script>
