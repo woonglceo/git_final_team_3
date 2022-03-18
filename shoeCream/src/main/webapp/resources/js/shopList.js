@@ -1,5 +1,5 @@
+const IMG_SRC = '/shoeCream/resources/images/productImg/';
 $(function(){
-	let IMG_SRC = '/shoeCream/resources/images/productImg/';
 	
 	//getShopList
 	$.ajax({

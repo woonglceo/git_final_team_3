@@ -98,13 +98,14 @@ $('#writeBtn').click(function() {
 	
 	$('#titleDiv').empty();
 	$('#contentsDiv').empty();
+	$('#dueDateDiv').empty();
 
 	if($('#title').val() == ''){
 		$('#titleDiv').text('제목을 입력해주세요.');
-	}else if($('#contents').val() == ''){
-		$('#contentsDiv').text('내용을 입력해주세요.');
 	}else if($('#dueDate').val() == ''){
 		$('#dueDateDiv').text('마감일을 입력해주세요.');
+	}else if($('#contents').val() == ''){
+		$('#contentsDiv').text('내용을 입력해주세요.');
 	}else{
 	
 		var formData = new FormData($('#eventWrite')[0]);

@@ -6,6 +6,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="/shoeCream/resources/css/buying.css">
+	<link rel="stylesheet" href="/shoeCream/resources/css/date.css">
 </head>
 <body>
 
@@ -67,10 +68,10 @@
 				<li class="month_item"><input type="button" class="month_link" value="4개월"></li>
 				<li class="month_item"><input type="button" class="month_link" value="6개월"></li>
 			
-				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1" id="date1"></li>
+				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1 link2" id="date1"></li>
 				<li><span class="swung_dash">~</span></li>
 				<li class="month_item"><input type="text" disabled="disabled" class="month_link link1" id="date2"></li>				
-				<li class="month_item"><div class="period_btn_box"><button class="btn_search is_active">조회</button></div></li>
+				<li class="month_item"><div class="period_btn_box"><button class="btn_search buyingBtn is_active">조회</button></div></li>
 			</ul>
 		</div>
 

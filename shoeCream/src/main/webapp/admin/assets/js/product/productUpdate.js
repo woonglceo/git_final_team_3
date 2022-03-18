@@ -38,7 +38,7 @@ $(function() {
 						if(items != null){
 								var str = '';
 								str += '<li class="ui-state-default">';
-								str += '<img src="/shoeCream/resources/storage/'+items+'" width=80 height=80>';						
+								str += '<img src="/shoeCream/resources/images/productImg/'+items+'" width=80 height=80>';						
 					        	str += '<span class="delBtn" onclick="delImg(this)">x</span>';
 					        	str += '<input type="hidden" id="img2[]" name="img2[]" value="'+items+'" >';
 					            str += '</li>';
@@ -59,7 +59,7 @@ $(function(){
 	var count;
 
 	$("#AddImgs").click(function(){   	 
-   	  count = $( 'Preview' ).length ;
+   	  count = $( '.ui-state-default' ).length;
 	  console.log(count);
 	  if(count > 3){
       	 alert("파일 업로드는 3개까지 가능합니다.");

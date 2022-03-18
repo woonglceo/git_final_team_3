@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myAccount.css">
+
 <body>
 <div class="myAccount">
 	<div class="content_title">

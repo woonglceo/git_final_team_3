@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/shoeCream/resources/css/myAddress.css">
+
 <body>
 <div class="myAddress">
 	<div class="content_title">
