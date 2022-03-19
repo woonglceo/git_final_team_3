@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypageSQL">
+	<!-- 특정 회원의 wish_list 불러오기 -->
+	<select id="getWishList" parameterType="java.util.Map" resultType="WishListDTO">
+		select * 
+			from (select rownum rn, totalData.* 
+				from (select * from wish_list where userId=#{userId} order by wishlistId desc) totalData) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 특정 테이블 전체 데이터 수 -->
+	<select id="getTotalDB" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from ${tableName} where userId=#{userId}
+	</select>
+	
+	<!-- wish 상품 삭제 -->
+	<delete id="deleteWish" parameterType="Integer">
+		delete from wish_list where wishListId=#{wishListId}
+	</delete>
+	
+	<!-- wish 상품 추가 -->
+	<insert id="addWish" parameterType="java.util.Map">
+		insert into wish_list values(SEQ_WISH_LIST.nextval, #{userId}, #{productId})
+	</insert>
+	
+	<!-- 특정 상품 wish 여부 -->
+	<select id="getWishOnOff" parameterType="java.util.Map" resultType="WishListDTO">
+		select * from wish_list where userId=#{userId} and productId=#{productId}
+	</select>
+	
+	<!-- 리스트를 가져오기 전 마감기한 업데이트 -->
+	<update id="updateStaus" parameterType="java.util.Date">
+	<![CDATA[
+		update purchase_table set status=1 where regDate <= #{today}
+	]]>
+	</update>
+	
+	<!-- 특정 회원의 구매내역 불러오기 -->
+	<select id="getBuyList" parameterType="java.util.Map" resultType="PurchaseDTO">
+		select * 
+			from (select rownum rn, totalData.* 
+				from (select * from purchase_table where userId=#{userId} order by purchaseId desc) totalData) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	
+	
+	<!-- 구매가를 위한 판매테이블 불러오기 -->
+	<select id="getPrice" parameterType="Integer" resultType="SalesDTO">
+		select * from sales_table where productId=#{productId}
+	</select>
+	
+	<!-- 특정회원의 총 거래 개수 구하기 -->
+	<select id="getTotalBuying" parameterType="Integer" resultType="Integer">
+		select count(*) from purchase_table where userId=#{userId}
+	</select>
+
+	<!-- 기간 내 거래내역 -->
+	<select id="getMonthBuyingList" parameterType="java.util.Map" resultType="PurchaseDTO" >
+			select *from (select rownum rn, totalData.*
+				  from (select * from purchase_table
+				<choose>
+				  <when test='option.equals("최근 2개월")'>
+					 where userId=#{userId} and sysdate >= regDate and regDate >= sysDate -60					
+				  </when>
+				  <when test='option.equals("4개월")'>
+					where userId=#{userId} and sysdate >= regDate and regDate >= sysDate -120
+				  </when>
+				  <when test='option.equals("6개월")'>
+					where userId=#{userId} and sysdate >= regDate and regDate >= sysDate -180
+				 </when>
+				 <otherwise>
+				 	where userId=#{userId} and regDate >= #{date1} and #{date2} >= regDate 
+				 </otherwise>
+				</choose>
+			 order by purchaseId desc) totalData)
+			where rn between #{startNum} and #{endNum} 
+	</select>
+	
+	<!-- 기간 내 거래내역의 개수 -->
+	<select id="getTotalMonthBuying" parameterType="java.util.Map" resultType="int">	
+		select count(*) from (select rownum rn, totalData.*
+				  from (select * from purchase_table
+				<choose>
+				  <when test='option.equals("최근 2개월")'>
+					 where userId=#{userId} and sysdate >= regDate and regDate >= sysDate -60					
+				  </when>
+				  <when test='option.equals("4개월")'>
+					where userId=#{userId} and sysdate >= regDate and regDate >= sysDate -120
+				  </when>
+				  <when test='option.equals("6개월")'>
+					where userId=#{userId} and sysdate >= regDate and regDate >= sysDate -180
+				 </when>
+				 <otherwise>
+				 	where userId=#{userId} and regDate >= #{date1} and #{date2} >= regDate 
+				 </otherwise>
+				</choose>
+			) totalData)
+	</select>
+	
+	<!-- 특정 회원의 거래중인 내역 불러오기 -->
+	<select id="getIngBuyingList" parameterType="java.util.Map" resultType="PurchaseDTO">
+		select * from(
+			SELECT ROWNUM rn, total.*
+   		 from
+    		(select  p.status AS status, p.productId AS productId from
+                    purchase_table p,
+                    deal_table d
+                    
+             where userId=#{userId}
+             and status=0
+             and d.purchaseId = p.purchaseId) total)
+   		 WHERE rn BETWEEN #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 현재 거래중인 것의 개수 구하기 -->
+	<select id="getTotalIngBuying" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from(
+			SELECT ROWNUM rn, total.*
+   		 from
+    		(select  p.status AS status, p.productId AS productId from
+                    purchase_table p,
+                    deal_table d
+                    
+             where userId=#{userId}
+             and status=0
+             and d.purchaseId = p.purchaseId) total)
+	</select>
+
+	<!-- 특정 회원의 종료된 거래 리스트-->
+	<select id="getEndBuyingList" parameterType="java.util.Map" resultType="PurchaseDTO">
+	SELECT * FROM
+          (SELECT ROWNUM rn, o.* FROM           
+              (select p.productname AS productName, p.img1 AS img1, d.regDate AS tradeDate, p1.status AS status, s.price AS productPrice, s.productsize AS productSize  
+                  from product_table p,                    
+                       purchase_table p1,
+                       deal_table d ,
+                       sales_table s
+                   
+                  where p1.purchaseId = d.purchaseId
+                    and p1.productId = p.productId
+                    and s.productId = p.productId
+                    and p1.userId = ${userId}
+                    and p1.status = 1
+                                
+                 ORDER BY p1.purchaseId desc)o)
+             WHERE rn BETWEEN #{startNum} and #{endNum}
+     </select>
+     
+	<!-- 특정회원의 종료된 거래 개수 구하기 -->
+	<select id="getEndBuying" parameterType="Integer" resultType="Integer">
+		SELECT count(*) FROM
+          (SELECT ROWNUM rn, o.* FROM           
+              (select p.productname AS productName, p.img1 AS img1, d.regDate AS tradeDate, p1.status AS status, s.price AS productPrice, s.productsize AS productSize  
+                  from product_table p,                    
+                       purchase_table p1,
+                       deal_table d ,
+                       sales_table s
+                   
+                  where p1.purchaseId = d.purchaseId
+                    and p1.productId = p.productId
+                    and s.productId = p.productId
+                    and p1.userId = ${userId}
+                    and p1.status = 1
+                                 
+                 ORDER BY p1.purchaseId desc)o)
+	</select>
+	
+	<!-- 특정 회원의 선택된 기간 내 거래내역 -->
+	<select id="getMonthEndBuyingList" parameterType="java.util.Map" resultType="PurchaseDTO">
+	SELECT * FROM
+          (SELECT ROWNUM rn, o.* FROM           
+              (select p.productname AS productName, p.img1 AS img1, d.regDate AS tradeDate, p1.status AS status, s.price AS productPrice, s.productsize AS productSize  
+                  from product_table p,                    
+                       purchase_table p1,
+                       deal_table d ,
+                       sales_table s
+                       
+                  where p1.purchaseId = d.purchaseId
+                    and p1.productId = p.productId
+                    and s.productId = p.productId
+                    and p1.userId = #{userId}
+                    and p1.status = 1
+             <choose>
+             	<when test='option.equals("최근 2개월")'> 
+             		 and sysdate >= d.regDate and d.regDate >= sysDate -60
+             	</when>
+             	<when test='option.equals("4개월")'> 
+             		 and sysdate >= d.regDate and d.regDate >= sysDate -120
+             	</when>
+             	<when test='option.equals("6개월")'> 
+             		and sysdate >= d.regDate and d.regDate >= sysDate -180
+             	</when>
+             	<otherwise>
+             		 and d.regDate >= #{date1} and #{date2} > d.regDate
+             	</otherwise>
+             </choose>              
+             	ORDER BY p1.purchaseId desc)o)
+            WHERE rn BETWEEN #{startNum} and #{endNum}
+     </select>
+     
+     <select id="getTotalEndMonth" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) FROM
+          (SELECT ROWNUM rn, o.* FROM           
+              (select p.productname AS productName, p.img1 AS img1, d.regDate AS tradeDate, p1.status AS status, s.price AS productPrice, s.productsize AS productSize  
+                  from product_table p,                    
+                       purchase_table p1,
+                       deal_table d ,
+                       sales_table s
+                       
+                  where p1.purchaseId = d.purchaseId
+                    and p1.productId = p.productId
+                    and s.productId = p.productId
+                    and p1.userId = #{userId}
+                    and p1.status = 1
+             <choose>
+             	<when test='option.equals("최근 2개월")'> 
+             		 and sysdate >= d.regDate and d.regDate >= sysDate -60
+             	</when>
+             	<when test='option.equals("4개월")'> 
+             		 and sysdate >= d.regDate and d.regDate >= sysDate -120
+             	</when>
+             	<when test='option.equals("6개월")'> 
+             		and sysdate >= d.regDate and d.regDate >= sysDate -180
+             	</when>
+             	<otherwise>
+             		 and d.regDate >= #{date1} and #{date2} > d.regDate
+             	</otherwise>
+             </choose>              
+             )o)
+     </select>
+    
+	<!-- 총 판매내역 userId=#{userId}-->
+	<select id="getSellingList" parameterType="java.util.Map" resultType="SalesDTO">
+		 select *
+            from (select rownum rn, totalData.* 
+             from (select s.price AS price, s.productsize AS productSize, add_months(s.regDate,1) AS dueDate, p.productName AS productName, p.img1 AS img1
+                        from sales_table s
+                        inner join product_table p
+                        <choose>
+	                         <when test='option.equals("입찰 중")'>
+	                         on add_months(s.regDate,1) > sysdate and s.productId = p.productId
+	                         </when>
+	                         <when test='option.equals("기한만료")'>
+	                         on sysdate > add_months(s.regDate,1) and s.productId = p.productId
+	                         </when> 
+	                         <otherwise> on s.productId = p.productId </otherwise> 
+                         </choose>
+              order by s.salesId desc) totalData)  
+            where rn BETWEEN #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 총 판매내역 카운트-->
+	<select id="sellpaging" parameterType="java.util.Map" resultType="int">
+		 select count(*) 
+            from (select rownum rn, totalData.* 
+             from (select s.price AS price, s.productsize AS productSize, add_months(s.regDate,1) AS dueDate, p.productName AS productName, p.img1 AS img1, s.salesId AS salesId, p.productId AS productId 
+                        from sales_table s
+                        inner join product_table p
+                        <choose>
+	                         <when test='option.equals("입찰 중")'>
+	                         on add_months(s.regDate,1) > sysdate and s.productId = p.productId
+	                         </when>
+	                         <when test='option.equals("기한만료")'>
+	                         on sysdate > add_months(s.regDate,1) and s.productId = p.productId
+	                         </when> 
+	                         <otherwise>on s.productId = p.productId </otherwise> 
+                         </choose> 
+              ) totalData) 
+	</select>
+	
+	<!-- 날짜필터 총 판매 userId=#{userId} -->
+	<select id="getMonthSellingList" parameterType="java.util.Map" resultType="SalesDTO">
+		 select *
+            from (select rownum rn, totalData.* 
+             from (select s.price AS price, s.productsize AS productSize, add_months(s.regDate,1) AS dueDate, p.productName AS productName, p.img1 AS img1
+                        from sales_table s
+                        inner join product_table p
+                        <choose>
+	                         <when test='option.equals("최근 2개월")'>
+	                         on s.productId = p.productId and sysdate >= s.regDate and s.regDate >= sysDate -60  
+	                         </when>
+	                         <when test='option.equals("4개월")'>
+	                         on s.productId = p.productId and sysdate >= s.regDate and s.regDate >= sysDate -120
+	                         </when> 
+	                          <when test='option.equals("6개월")'>
+	                         on s.productId = p.productId and sysdate >= s.regDate and s.regDate >= sysDate - 180
+	                         </when> 
+	                         <otherwise> 
+	                          on s.productId = p.productId and s.regDate >= #{date1} and #{date2} >= s.regDate
+	                         </otherwise> 
+                         </choose>
+              order by s.salesId desc) totalData)  
+            where rn BETWEEN #{startNum} and #{endNum}
+	</select>
+	
+	<!-- 날짜필터 총 판매 userId=#{userId} -->
+	<select id="getMonthSellingPaging" parameterType="java.util.Map" resultType="int">
+		 select count(*)
+            from (select rownum rn, totalData.* 
+             from (select s.price AS price, s.productsize AS productSize, add_months(s.regDate,1) AS dueDate, p.productName AS productName, p.img1 AS img1
+                        from sales_table s
+                        inner join product_table p
+                        <choose>
+	                         <when test='option.equals("최근 2개월")'>
+	                         on s.productId = p.productId and sysdate >= s.regDate and s.regDate >= sysDate -60  
+	                         </when>
+	                         <when test='option.equals("4개월")'>
+	                         on s.productId = p.productId and sysdate >= s.regDate and s.regDate >= sysDate -120
+	                         </when> 
+	                          <when test='option.equals("6개월")'>
+	                         on s.productId = p.productId and sysdate >= s.regDate and s.regDate >= sysDate - 180
+	                         </when> 
+	                         <otherwise> 
+	                          on s.productId = p.productId and s.regDate >= #{date1} and #{date2} >= s.regDate
+	                         </otherwise> 
+                         </choose>
+                  ) totalData)  
+	</select>
+	
+	
+	
+	<!-- 진행중인 판매내역 userId=#{userId}-->
+	<select id="ingSellpaging" parameterType="java.util.Map" resultType="int">
+		select count(*) 
+           from (select rownum rn, totalData.* 
+              from (select p.productname AS productName, p.img1 AS img1, c.checkstate AS checkStatus, s.price AS price,
+                        c.checkresult AS checkResult, e.deliverystatus AS deliveryStatus, c.checkstate AS checkState
+                  
+                  from sales_table s,
+                       deal_table d,
+                        product_table p,
+                        check_table c,
+                        delivery_table e
+                        
+                   <choose>
+           			<when test='option.equals("배송")'>                       
+		                  where  s.salesId = d.salesId
+		                  and s.status = 0
+		                  and s.productId = p.productId
+		                  and c.productId = p.productId
+		                  and e.deliveryid = d.deliveryid  and e.deliverystatus != 0 
+	                  </when>
+	                  <when test='option.equals("검수")'>                       
+		                  where  s.salesId = d.salesId
+		                  and s.status = 0
+		                  and s.productId = p.productId
+		                  and c.productId = p.productId
+		                  and e.deliveryid = d.deliveryid  and e.deliverystatus = 0 
+	                  </when>
+	                  <otherwise>
+		                   where  s.salesId = d.salesId
+		                   and s.status = 0
+		                   and s.productId = p.productId
+		                   and c.productId = p.productId
+		                   and e.deliveryid = d.deliveryid  
+                  </otherwise>
+              	 </choose>   
+              ) totalData)
+	</select>
+	
+	<!-- 상태변화 -> 검수전 / 검수 중 /  검수완료(불) 0 /  검수완료(합) / 배송중 / 배송완료 -->
+	<!-- 진행중인 판매내역 userId=#{userId}-->
+	<select id="getIngSellingList" parameterType="java.util.Map" resultType="SalesDTO">
+		select *
+           from (select rownum rn, totalData.* 
+              from (select p.productname AS productName, p.img1 AS img1, c.checkstate AS checkStatus, s.price AS price,
+                        c.checkresult AS checkResult, e.deliverystatus AS deliveryStatus
+                  
+                  from sales_table s,
+                       deal_table d,
+                        product_table p,
+                        check_table c,
+                        delivery_table e
+                        
+                   <choose>
+           			<when test='option.equals("배송")'>                       
+		                  where  s.salesId = d.salesId
+		                  and s.status = 0
+		                  and s.productId = p.productId
+		                  and c.productId = p.productId
+		                  and e.deliveryid = d.deliveryid  and e.deliverystatus != 0 and c.checkstate = 2
+	                  </when>
+	                  <when test='option.equals("검수")'>                       
+		                  where  s.salesId = d.salesId
+		                  and s.status = 0
+		                  and s.productId = p.productId
+		                  and c.productId = p.productId
+		                  and e.deliveryid = d.deliveryid  and e.deliverystatus = 0
+	                  </when>
+	                  <otherwise>
+		                   where  s.salesId = d.salesId
+		                   and s.status = 0
+		                   and s.productId = p.productId
+		                   and c.productId = p.productId
+		                   and e.deliveryid = d.deliveryid  
+                 	 </otherwise>
+              	 </choose>   
+             order by s.salesId desc) totalData)
+            where rn BETWEEN #{startNum} and #{endNum} 
+	</select>
+
+	<!-- 판매종료 -->
+	<select id="getEndSellingList" parameterType="java.util.Map" resultType="SalesDTO">
+		select  *
+	           from (select rownum rn, totalData.* 
+	              from (select p.productname AS productName, p.img1 AS img1, s.price AS price , d.regDate AS tradeDate, s.productsize AS productSize
+	                  from sales_table s,
+	                       deal_table d,
+	                       product_table p
+                           
+                         where  s.salesId = d.salesId
+	                    and s.status = 1
+	                    and s.productId = p.productId
+               order by s.salesId desc) totalData)
+	 		where rn BETWEEN #{startNum} and #{endNum}
+	
+	</select>
+	
+	<select id="endSellpaging" parameterType="java.util.Map" resultType="int">
+		select count(*)
+	           from (select rownum rn, totalData.* 
+	              from (select p.productname AS productName, p.img1 AS img1, s.price AS price , d.regDate AS tradeDate, s.productsize AS productSize
+	                  from sales_table s,
+	                       deal_table d,
+	                       product_table p
+                           
+                         where  s.salesId = d.salesId
+	                    and s.status = 1
+	                    and s.productId = p.productId
+               order by s.salesId desc) totalData)
+	</select>
+	
+	<select id="getMonthEndSellingList" parameterType="java.util.Map" resultType="SalesDTO">
+		select  *
+	           from (select rownum rn, totalData.* 
+	              from (select p.productname AS productName, p.img1 AS img1, s.price AS price , d.regDate AS tradeDate, s.productsize AS productSize
+	                  from sales_table s,
+	                       deal_table d,
+	                       product_table p
+	                       
+	                  where  s.salesId = d.salesId
+	                  and s.status = 1
+	                  and s.productId = p.productId
+	                 <choose>
+	                 	  <when test='option.equals("최근 2개월")'>                        
+		                 	 and sysdate >= s.regDate and s.regDate >= sysDate -60 	                  
+		                  </when>
+		                  <when test='option.equals("4개월")'>                        		              
+		                  	and sysdate >= s.regDate and s.regDate >= sysDate -120
+		                  </when>	                  
+		                  <when test='option.equals("6개월")'>                        
+		                   and sysdate >= s.regDate and s.regDate >= sysDate -180
+		                  </when>
+	                 	  <otherwise>
+	                 	  	and s.regDate >= #{date1} and #{date2} >= s.regDate
+	                 	  </otherwise>  
+	                 </choose>                       
+	              order by s.salesId desc) totalData) 
+	          where rn BETWEEN #{startNum} and #{endNum}
+	</select>
+	
+	<select id="endSellpaging2" parameterType="java.util.Map" resultType="int">
+		select  COUNT(*)
+	           from (select rownum rn, totalData.* 
+	              from (select p.productname AS productName, p.img1 AS img1, s.price AS price , d.regDate AS tradeDate, s.productsize AS productSize
+	                  from sales_table s,
+	                       deal_table d,
+	                       product_table p
+	                       
+	                  where  s.salesId = d.salesId
+	                  and s.status = 1
+	                  and s.productId = p.productId
+	                 <choose>
+	                 	  <when test='option.equals("최근 2개월")'>                        
+		                 	 and sysdate >= s.regDate and s.regDate >= sysDate -60 	                  
+		                  </when>
+		                  <when test='option.equals("4개월")'>                        		              
+		                  	and sysdate >= s.regDate and s.regDate >= sysDate -120
+		                  </when>	                  
+		                  <when test='option.equals("6개월")'>                        
+		                   and sysdate >= s.regDate and s.regDate >= sysDate -180
+		                  </when>
+	                 	  <otherwise>
+	                 	  	and s.regDate >= #{date1} and #{date2} >= s.regDate
+	                 	  </otherwise>  
+	                 </choose>                       
+	              order by s.salesId desc) totalData) 
+	</select>
+	
+	<!-- 구매 상세 페이지 -->
+	<select id="getByingInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		select u.FULLNAME AS userName, u.phonenum AS userNum, a.addr1 AS addr, p.regDate AS regDate, add_months(p.regDate,1) AS dueDate, p1.productName AS productName,
+        p.productSize AS productSize, s.price AS productPrice, o.orderid AS orderId, p1.img1 AS img1, p1.modelId AS modelId
+                      
+                  from address_table a,                    
+                       user_table u,
+                       purchase_table p, 
+                       product_table p1,
+                       sales_table s,
+                       order_table o
+                       
+                  where u.userId = ${userId}
+                  and a.userId =  u.userId
+                  and p.purchaseId = ${purchaseId}
+                  and p1.productId = ${productId}
+                  and p1.productId = s.productId
+                  and o.userid = u.userId
+	</select>
+	
+	<select id="getSellingInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		select s.regDate AS regDate, add_months(s.regDate,1) AS dueDate, p1.productName AS productName, s.salesId,
+        p.productSize AS productSize, s.price AS productPrice, o.orderid AS orderId, p1.img1 AS img1, p1.modelId AS modelId
+                      
+                  from user_table u,
+                       product_table p1,
+                       sales_table s,
+                       order_table o
+                       
+                  where u.userId = 13
+                  and a.userId =  u.userId
+                  and s.salesid = 1
+                  and p1.productId = 1
+                  and o.userid = u.userId
+	</select>
+	
+</mapper>

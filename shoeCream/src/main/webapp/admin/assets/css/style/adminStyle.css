@@ -1,0 +1,65 @@
+/* 페이징처리 */
+#stylePagingDiv {
+	text-align: center;
+	font-size: 13pt;
+	margin-top: 10px;
+}
+
+#stylePagingDiv span {
+	margin:0 5px;
+}
+
+#currentPaging {
+	color: red;
+	curser: pointer;
+}
+
+#paging {
+	color: black;	
+	curser: pointer;
+}
+
+/* 중앙정렬 */
+.card{
+	margin: auto;
+}
+
+/* div태그를 양쪽으로 놓기위한 방법  반응형 웹 */
+.list{
+	float: left;
+}
+
+.write{
+	float: right;
+}
+/* 검색 */
+#searchDiv{
+	width: 400px;
+	margin: auto;
+	
+}
+
+#searchOption{
+	width: 20%;
+	margin-right: 10px;
+	border: 1px;
+	outline: 0;
+	background-color: rgba(222, 222, 222, 0.3);
+}
+
+/* 전체삭제 */
+#deleteAll{
+	float: left;
+	height: 38.8px;
+	background-color: dimgray;
+	border: 0;
+	outline: 0;
+    border-radius: 4px;
+    color: white;
+}
+
+/* 수정, 삭제 */
+.linkA {
+	font-size: 16px;
+	color: black;
+}

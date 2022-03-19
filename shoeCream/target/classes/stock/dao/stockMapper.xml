@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stockSQL">
+
+	<!-- 전체 목록 -->
+	<select id="getStockForm" parameterType="java.util.Map" resultType="stock">
+		SELECT * FROM stock_table ORDER BY stockId DESC
+	</select>
+	
+	<select id="getStock" parameterType="int" resultType="stock">
+		SELECT * FROM stock_table WHERE stockId = #{stockId}
+	</select>
+	
+</mapper>

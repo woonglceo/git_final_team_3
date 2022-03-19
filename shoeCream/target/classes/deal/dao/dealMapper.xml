@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dealSQL">
+	<!-- 전체 목록 -->
+	<select id="getDealList" parameterType="java.util.Map" resultType="deal">
+		SELECT * FROM
+		    (SELECT ROWNUM rn, d.* FROM
+		        (SELECT d.dealId, d.purchaseId, d.salesId, d.checkId, d.deliveryId, d.regDate AS dealRegDate,
+		                pur.userId AS purchaseUserId, pur.productId AS purchaseProductId, pur.status, pur.regDate AS purchaseRegDate, pur.regDate+30 AS purchaseDueDate,
+		                s.userId AS salesUserId, s.productId AS salesProductId, s.price AS salesPrice, s.status AS salesStatus, s.regDate AS salesRegDate, s.regDate+30 AS salesDueDate,
+		                p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productCollection, p.regDate AS productRegDate,
+		                c.productId AS checkProductId, c.userId AS checkUserId, c.checkState, c.checkResult,
+		                d2.deliveryStatus, d2.trackingNum, d2.regDate AS deliveryRegDate,
+		                u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum, u.reportCount, u.img,
+		                u2.email AS pEmail, u2.username AS pUsername, u2.pwd AS pPwd, u2.nickname AS pNickname, u2.auth AS pAuth, u2.phoneNum AS pPhoneNum, u2.reportCount AS pReportCount, u2.img AS pImg
+		        FROM deal_table d,
+		             purchase_table pur,
+		             sales_table s,
+		             product_table p,
+		             check_table c,
+		             delivery_table d2,
+		             user_table u,
+		             user_table u2
+		        WHERE d.purchaseId = pur.purchaseId
+		              and d.salesId = s.salesId
+		              and s.productId = p.productId
+		              and d.checkId = c.checkId
+		              and d.deliveryId = d2.deliveryId
+		              and s.userId = u.userId
+		              and pur.userId = u2.userId
+		        ORDER BY dealId desc)d)
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+	</select>
+	
+	<!-- 한개 가져오기 -->
+	<select id="getDeal" parameterType="int" resultType="deal">
+		SELECT d.* FROM
+		    (SELECT d.dealId, d.purchaseId, d.salesId, d.checkId, d.deliveryId, d.regDate AS dealRegDate,
+		            pur.userId AS purchaseUserId, pur.productId AS purchaseProductId, pur.status, pur.regDate AS purchaseRegDate, pur.regDate+30 AS purchaseDueDate,
+		            s.userId AS salesUserId, s.productId AS salesProductId, s.price AS salesPrice, s.status AS salesStatus, s.regDate AS salesRegDate, s.regDate+30 AS salesDueDate,
+		            p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productSize, p.productCollection, p.regDate AS productRegDate,
+		            c.productId AS checkProductId, c.userId AS checkUserId, c.checkState, c.checkResult,
+		            d2.deliveryStatus, d2.trackingNum, d2.regDate AS deliveryRegDate,
+		            u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum, u.reportCount, u.img,
+		            u2.email AS pEmail, u2.username AS pUsername, u2.pwd AS pPwd, u2.nickname AS pNickname, u2.auth AS pAuth, u2.phoneNum AS pPhoneNum, u2.reportCount AS pReportCount, u2.img AS pImg
+		    FROM deal_table d,
+		         purchase_table pur,
+		         sales_table s,
+		         product_table p,
+		         check_table c,
+		         delivery_table d2,
+		         user_table u,
+		         user_table u2
+		    WHERE d.purchaseId = pur.purchaseId
+		          and d.salesId = s.salesId
+		          and s.productId = p.productId
+		          and d.checkId = c.checkId
+		          and d.deliveryId = d2.deliveryId
+		          and s.userId = u.userId
+		          and pur.userId = u2.userId
+		    ORDER BY dealId desc)d
+		WHERE dealId = #{dealId}
+	</select>
+	
+	<!-- 총글수 -->
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM order_table
+	</select>
+	
+	<!-- 검색 -->
+	<select id="getDealSearchList" parameterType="java.util.Map" resultType="deal">
+		
+		SELECT * FROM
+		    (SELECT ROWNUM rn, d.* FROM
+		        (SELECT d.dealId, d.purchaseId, d.salesId, d.checkId, d.deliveryId, d.regDate AS dealRegDate,
+		                pur.userId AS purchaseUserId, pur.productId AS purchaseProductId, pur.status, pur.regDate AS purchaseRegDate, pur.regDate+30 AS purchaseDueDate,
+		                s.userId AS salesUserId, s.productId AS salesProductId, s.price AS salesPrice, s.status AS salesStatus, s.regDate AS salesRegDate, s.regDate+30 AS salesDueDate,
+		                p.productName, p.modelId, p.releasePrice, p.img1, p.img2, p.img3, p.releaseDate, p.brandName, p.productSize, p.productCollection, p.regDate AS productRegDate,
+		                c.productId AS checkProductId, c.userId AS checkUserId, c.checkState, c.checkResult,
+		                d2.deliveryStatus, d2.trackingNum, d2.regDate AS deliveryRegDate,
+		                u.email, u.username, u.pwd, u.nickname, u.auth, u.phoneNum, u.reportCount, u.img,
+		                u2.email AS pEmail, u2.username AS pUsername, u2.pwd AS pPwd, u2.nickname AS pNickname, u2.auth AS pAuth, u2.phoneNum AS pPhoneNum, u2.reportCount AS pReportCount, u2.img AS pImg
+		        FROM deal_table d,
+		             purchase_table pur,
+		             sales_table s,
+		             product_table p,
+		             check_table c,
+		             delivery_table d2,
+		             user_table u,
+		             user_table u2
+		        WHERE d.purchaseId = pur.purchaseId
+		              and d.salesId = s.salesId
+		              and s.productId = p.productId
+		              and d.checkId = c.checkId
+		              and d.deliveryId = d2.deliveryId
+		              and s.userId = u.userId
+		              and pur.userId = u2.userId
+		        ORDER BY dealId desc)d
+		        
+		    <if test='searchOption == "username"'>    
+				WHERE username LIKE '%' || UPPER(#{keyword}) || '%'
+				  OR pUsername LIKE '%' || UPPER(#{keyword}) || '%')
+			</if>
+			<if test='searchOption == "productName"'>    
+				WHERE ${searchOption} LIKE '%' || UPPER(#{keyword}) || '%')
+			</if>
+			<if test='searchOption == "dealId"'>    
+				WHERE ${searchOption} =  #{keyword} )
+			</if>
+			
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+	</select>
+	
+</mapper>

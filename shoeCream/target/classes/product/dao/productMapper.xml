@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="productSQL">
+       
+    <!-- 상품 목록 뽑기 --> <!-- grop by 로 같은 모델명끼리 묶어버리기 -->
+    <select id="getproductList" parameterType="java.util.Map" resultType="product">
+    <![CDATA[
+		select * from
+		(select rownum rn, tt.* from
+		(select * from(
+					select productId, brandName, productName, img1, modelId, row_number() over (partition by modelId order by productName) as kk from product_table
+					)where kk=1
+   			order by productId desc)tt
+												)where rn>=#{startNum} and rn<=#{endNum}
+		]]>
+    </select>
+    
+    <!-- 상품 페이징을 위한 총 글의 수 -->
+    <select id="getTotalProduct" resultType="int">
+      select count(*) from(
+					select productId, productName, img1, modelId, row_number() over (partition by modelId order by productName) as kk from product_table
+					)where kk=1
+    </select>
+
+	<!-- 상품검색 목록 뽑기 -->
+    <select id="searchProduct" parameterType="java.util.Map" resultType="product">
+	  <![CDATA[
+		select * from
+		(select rownum rn, tt.* from
+		(select * from(
+					select productId, productName, img1, modelId, row_number() over (partition by modelId order by productName) as kk from product_table
+					)where kk=1 and (${searchOption} like '%' || #{inputWord} || '%')
+   			order by productId desc)tt
+												)where rn>=#{startNum} and rn<=#{endNum}
+		]]>
+    </select>
+    
+    <!-- 상품 검색 페이징을 위한 총 글의 수 --><!-- 대소문자 안가리게 만들기 UPPER('Black') 예시 바꾸기!-->
+    <select id="getSearchTotalProduct" parameterType="java.util.Map"  resultType="int">
+    	select count(*) from product_table where ${searchOption} like '%' || #{inputWord} || '%'
+    </select>
+    
+    <!-- 상품등록 -->
+   <insert id="getProductWrite" parameterType="java.util.Map">
+      insert into product_table values (seq_product_table.nextval, #{productName}, #{productNameKor}, #{modelId}, #{releasePrice}, #{img1}, #{img2}, #{img3}, #{brandName}, #{productCollection}, #{releaseDate}, sysdate)
+   </insert>
+    
+    
+    <!-- 모델번호가 일치하는 상품재고 -->
+    <select id="getModelId" resultType="String" parameterType="int"> 
+	   	SELECT dog.* FROM
+       			(select distinct p.modelId from stock_table s inner join product_table p on p.productId= #{productId})dog
+    </select>
+    
+    <!-- 모델번호가 일치하는 상품재고 -->
+    <select id="getProductStock" resultType="stock" parameterType="String"> 
+   			SELECT dog.* FROM
+       		 	(select distinct
+            	s.productSize
+  			from stock_table s
+  			inner join product_table  p
+  			on p.modelId = #{modelId})dog   		
+    </select>
+    
+    <!-- 상품재고수정 -->
+    <update id="updateProductStock" parameterType="java.util.Map">
+    </update>
+    <!-- 상품삭제 -->
+    <delete id="deleteProduct" parameterType="String">
+    	delete from product_table where modelId=#{modelId}
+    </delete>
+    
+    <!-- 싱품수정을 위한 특정 상품의 정보 -->
+    <select id="getProductInfo" parameterType="String" resultType="product">
+    	select * from product_table where modelId=#{modelId}
+    </select>
+    
+    <!-- 상품 수정 -->
+    <update id="productUpdate" parameterType="java.util.Map">
+    	update product_table set productName=#{productName}, releasePrice=#{releasePrice}, img1=#{img1}, img2=#{img2}, img3=#{img3}, brandName=#{brandName}, productCollection=#{productCollection}, releaseDate=#{releaseDate} where modelId = #{modelId}
+    </update>
+    
+    <select id="getProductById" parameterType="int" resultType="product">
+    	select * from product_table where productId=#{productId}
+    </select>
+    
+    <select id="getProductListForIndex" parameterType="java.util.Map" resultType="product">
+		SELECT * FROM
+		    (SELECT ROWNUM AS rn, a.* FROM
+		        (SELECT p.*, 
+		                a.price AS todaysPrice
+		        FROM product_table p,
+		            (SELECT productId, price FROM price_table WHERE TO_CHAR(regDate, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD'))a
+		        WHERE p.productId = a.productId
+		        ORDER BY p.productId DESC)a)
+		WHERE rn BETWEEN #{startNum} AND #{endNum}
+    </select>
+ </mapper>
+
+ 
+ 
